@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALINEA — Tu Biblioteca Soberana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06050f;--surface:#0c0a18;--card:#121020;--card2:#1a1730;
+  --border:rgba(139,92,246,.15);--border2:rgba(139,92,246,.3);
+  --accent:#8b5cf6;--accent2:#c4b5fd;--accent3:#7c3aed;
+  --glow:rgba(139,92,246,.18);--glow2:rgba(139,92,246,.08);
+  --text:#f0eeff;--muted:#8b87b0;--dim:#332e52;
+  --ok:#6ee7b7;--err:#f87171;--gold:#fbbf24;
+  --strike:#ff6b6b;
+}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden}
+
+/* ── STARS ── */
+#starCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 10% 10%,rgba(139,92,246,.09) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 80% at 90% 80%,rgba(109,40,217,.07) 0%,transparent 60%),
+  radial-gradient(ellipse 100% 50% at 50% 110%,rgba(67,20,128,.06) 0%,transparent 70%);
+  pointer-events:none;z-index:0}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:68px;
+  background:rgba(6,5,15,.88);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);gap:1rem;
+}
+.nav-logo{font-family:'DM Mono',monospace;font-size:1rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2);flex-shrink:0}
+.nav-center{display:flex;gap:2rem;align-items:center}
+.nav-center a{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-center a:hover{color:var(--accent2)}
+.nav-right{display:flex;align-items:center;gap:1.2rem;flex-shrink:0}
+
+/* ── LANGUAGE TOGGLE ── */
+.lang-toggle{display:flex;align-items:center;gap:0;background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);border-radius:8px;overflow:hidden}
+.lang-btn{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.38rem .7rem;background:none;border:none;color:var(--muted);cursor:pointer;transition:all .2s;line-height:1}
+.lang-btn.active{background:rgba(139,92,246,.2);color:var(--accent2)}
+.lang-sep{width:1px;height:16px;background:rgba(139,92,246,.2);flex-shrink:0}
+.nav-cta{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:var(--accent3);color:#fff;padding:.5rem 1.2rem;border-radius:8px;text-decoration:none;border:1px solid rgba(139,92,246,.4);transition:all .2s;box-shadow:0 0 16px rgba(139,92,246,.25);white-space:nowrap}
+.nav-cta:hover{background:var(--accent);box-shadow:0 0 24px rgba(139,92,246,.45)}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 5% 80px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);border-radius:20px;padding:.4rem 1rem;margin-bottom:2rem;animation:fadeUp .8s .1s both}
+.hero-badge span{color:var(--accent)}
+.hero-orb{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e0d4ff,#8b5cf6 40%,#3b0764);box-shadow:0 0 60px rgba(139,92,246,.7),0 0 120px rgba(139,92,246,.3);margin:0 auto 2.5rem;animation:fadeUp .8s .2s both,orbPulse 4s ease-in-out infinite}
+@keyframes orbPulse{0%,100%{box-shadow:0 0 60px rgba(139,92,246,.7),0 0 120px rgba(139,92,246,.3)}50%{box-shadow:0 0 90px rgba(139,92,246,.95),0 0 180px rgba(139,92,246,.5)}}
+h1.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:700;line-height:1.08;letter-spacing:-.01em;color:var(--text);margin-bottom:1.5rem;animation:fadeUp .8s .3s both}
+h1.hero-title em{font-style:italic;background:linear-gradient(135deg,#c4b5fd,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--muted);max-width:560px;line-height:1.75;margin:0 auto 3rem;font-weight:300;animation:fadeUp .8s .45s both}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .6s both}
+.btn-primary{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#7c3aed,#8b5cf6);color:#fff;padding:.85rem 2rem;border-radius:10px;text-decoration:none;border:none;cursor:pointer;box-shadow:0 0 32px rgba(139,92,246,.4),0 4px 20px rgba(0,0,0,.4);transition:all .25s;display:inline-flex;align-items:center;gap:.6rem}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 48px rgba(139,92,246,.65),0 8px 32px rgba(0,0,0,.5)}
+.btn-secondary{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--accent2);padding:.85rem 2rem;border-radius:10px;text-decoration:none;border:1px solid rgba(139,92,246,.35);cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.6rem}
+.btn-secondary:hover{background:rgba(139,92,246,.08);border-color:var(--accent);transform:translateY(-2px)}
+.hero-scroll{margin-top:4rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);animation:fadeUp .8s .9s both}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);animation:scrollLine 2.2s ease-in-out infinite}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ── MOCKUP ── */
+#preview{padding:60px 5% 80px;display:flex;align-items:center;justify-content:center}
+.mockup-wrap{position:relative;max-width:360px;width:100%;margin:0 auto}
+.mockup-glow{position:absolute;inset:-50px;background:radial-gradient(ellipse at 50% 50%,rgba(139,92,246,.22) 0%,transparent 70%);pointer-events:none}
+.mockup-phone{background:var(--surface);border:1.5px solid rgba(139,92,246,.25);border-radius:32px;padding:16px;box-shadow:0 0 0 1px rgba(139,92,246,.08),0 32px 80px rgba(0,0,0,.8),0 0 60px rgba(139,92,246,.1);position:relative;overflow:hidden}
+.mockup-notch{width:100px;height:8px;background:rgba(0,0,0,.5);border-radius:4px;margin:0 auto 16px}
+.mockup-header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(8,6,18,.8);border-radius:12px;margin-bottom:12px;border:1px solid rgba(139,92,246,.12)}
+.mockup-logo{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--accent2)}
+.mockup-count{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--accent2);background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);padding:.15rem .4rem;border-radius:8px}
+.book-card{background:var(--card);border:1px solid rgba(139,92,246,.12);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.book-cover{width:38px;height:52px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.cover-1{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
+.cover-2{background:linear-gradient(135deg,#3b0764,#7c3aed)}
+.cover-3{background:linear-gradient(135deg,#064e3b,#059669)}
+.book-info{flex:1;min-width:0}
+.book-title-m{font-family:'Playfair Display',serif;font-size:.7rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.book-author-m{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--muted);margin-top:2px}
+.book-prog{height:2px;background:rgba(139,92,246,.12);border-radius:2px;margin-top:6px}
+.book-prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent3),var(--accent))}
+.mockup-tab{display:flex;justify-content:center;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid rgba(139,92,246,.08)}
+.tab-dot{width:28px;height:5px;border-radius:3px;background:rgba(139,92,246,.15)}
+.tab-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+
+/* ── VS SECTION ── */
+#versus{padding:100px 5%}
+.versus-inner{max-width:1000px;margin:0 auto}
+.versus-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:2rem;align-items:stretch;margin-top:56px}
+.vs-card{background:var(--card);border-radius:20px;padding:2rem;position:relative;overflow:hidden}
+.vs-card.them{border:1px solid rgba(255,107,107,.12);opacity:.85}
+.vs-card.us{border:1.5px solid rgba(139,92,246,.35);box-shadow:0 0 48px rgba(139,92,246,.1)}
+.vs-card.us::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(ellipse,rgba(139,92,246,.15) 0%,transparent 70%);pointer-events:none}
+.vs-label{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem}
+.vs-label.bad{color:rgba(255,107,107,.6)}
+.vs-label.good{color:var(--accent2)}
+.vs-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.4rem}
+.vs-name.bad{color:rgba(240,238,255,.5)}
+.vs-name.good{color:var(--text)}
+.vs-price-them{font-family:'DM Mono',monospace;font-size:1.8rem;font-weight:500;color:rgba(255,107,107,.7);margin-bottom:1.4rem}
+.vs-price-us{font-family:'DM Mono',monospace;font-size:1.8rem;font-weight:500;color:var(--ok);margin-bottom:1.4rem}
+.vs-list{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.vs-list li{font-size:.85rem;display:flex;gap:.6rem;align-items:flex-start;line-height:1.5}
+.vs-list li .ico{flex-shrink:0;font-size:.8rem;margin-top:.08rem}
+.vs-card.them .vs-list li{color:var(--muted)}
+.vs-card.us .vs-list li{color:var(--text)}
+.vs-divider{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.6rem}
+.vs-vs{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;font-style:italic;color:var(--dim)}
+
+/* ── FEATURES ── */
+#features{padding:100px 5%}
+.section-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:block}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15;color:var(--text);margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--accent2)}
+.section-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:520px}
+.features-header{text-align:center;margin-bottom:64px}
+.features-header .section-sub{margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.feat-card{background:var(--card);border:1px solid rgba(139,92,246,.12);border-radius:16px;padding:2rem;transition:all .3s;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139,92,246,.06) 0%,transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
+.feat-card:hover{border-color:rgba(139,92,246,.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 32px rgba(139,92,246,.08)}
+.feat-card:hover::before{opacity:1}
+.feat-icon{width:48px;height:48px;border-radius:12px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem}
+.feat-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:.6rem}
+.feat-desc{font-size:.88rem;color:var(--muted);line-height:1.7}
+
+/* ── MANIFESTO ── */
+#manifesto{padding:100px 5%;background:linear-gradient(to bottom,transparent,rgba(12,10,24,.6),transparent)}
+.manifesto-inner{max-width:760px;margin:0 auto;text-align:center}
+.manifesto-quote{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-style:italic;line-height:1.55;color:var(--text);opacity:.92;margin-bottom:2rem}
+.manifesto-quote strong{color:var(--accent2);font-style:normal;font-weight:600}
+.manifesto-attrs{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-top:2.5rem}
+.m-attr{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);padding:.35rem .9rem;border-radius:20px}
+
+/* ── HOW IT WORKS ── */
+#how{padding:100px 5%}
+.how-inner{max-width:900px;margin:0 auto}
+.how-steps{display:grid;gap:1.5rem;margin-top:56px}
+.step{display:flex;gap:1.5rem;align-items:flex-start;padding:1.8rem;background:var(--card);border:1px solid rgba(139,92,246,.1);border-radius:16px;transition:border-color .3s}
+.step:hover{border-color:rgba(139,92,246,.25)}
+.step-num{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.8rem;color:var(--accent2);font-weight:500;box-shadow:0 0 16px rgba(139,92,246,.15)}
+.step-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--text);margin-bottom:.4rem}
+.step-desc{font-size:.88rem;color:var(--muted);line-height:1.7}
+
+/* ── BETA ── */
+#beta{padding:100px 5%}
+.beta-box{max-width:720px;margin:0 auto;background:linear-gradient(135deg,rgba(12,10,24,.85),rgba(26,23,48,.7));border:1px solid rgba(110,231,183,.2);border-radius:24px;padding:clamp(2rem,5vw,4rem);text-align:center;position:relative;overflow:hidden}
+.beta-box::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:200px;background:radial-gradient(ellipse,rgba(110,231,183,.08) 0%,transparent 70%);pointer-events:none}
+.beta-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);background:rgba(110,231,183,.07);border:1px solid rgba(110,231,183,.2);border-radius:20px;padding:.35rem .9rem;margin-bottom:1.8rem}
+.beta-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.beta-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;color:var(--text);margin-bottom:1rem}
+.beta-title em{font-style:italic;color:var(--ok)}
+.beta-desc{color:var(--muted);font-size:.95rem;line-height:1.75;max-width:480px;margin:0 auto 2rem}
+.beta-limits{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.beta-pill{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ok);background:rgba(110,231,183,.07);border:1px solid rgba(110,231,183,.2);padding:.3rem .8rem;border-radius:20px}
+.beta-note{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:var(--dim);margin-top:1.2rem}
+
+/* ── PRICING ── */
+#pricing{padding:100px 5%;background:linear-gradient(to bottom,transparent,rgba(12,10,24,.5),transparent)}
+.pricing-inner{max-width:740px;margin:0 auto;text-align:center}
+.pricing-card{background:linear-gradient(135deg,rgba(18,16,32,.92),rgba(26,23,48,.85));border:1.5px solid rgba(139,92,246,.3);border-radius:24px;padding:clamp(2rem,5vw,4rem);position:relative;overflow:hidden;box-shadow:0 0 100px rgba(139,92,246,.12);margin-top:56px}
+.pricing-card::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(ellipse,rgba(139,92,246,.14) 0%,transparent 70%);pointer-events:none}
+.pricing-card::after{content:'';position:absolute;bottom:-80px;left:-80px;width:280px;height:280px;background:radial-gradient(ellipse,rgba(139,92,246,.08) 0%,transparent 70%);pointer-events:none}
+.pricing-badge{display:inline-flex;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:20px;padding:.35rem .9rem;margin-bottom:1.8rem}
+/* PRICE DISPLAY */
+.price-anchor{position:relative;margin-bottom:.3rem}
+.price-was{font-family:'DM Mono',monospace;font-size:1rem;color:rgba(255,107,107,.55);letter-spacing:.05em;text-decoration:line-through;margin-bottom:.15rem}
+.price-label-early{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);padding:.2rem .7rem;border-radius:20px;display:inline-block;margin-bottom:.6rem}
+.pricing-price{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,9vw,6rem);font-weight:700;color:var(--text);line-height:1}
+.pricing-price sup{font-size:.35em;vertical-align:top;margin-top:.5em;color:var(--accent2);font-family:'DM Mono',monospace}
+.pricing-price sub{font-size:.28em;vertical-align:bottom;margin-bottom:.4em;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.05em}
+.pricing-period{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin:1rem 0 2.5rem}
+.savings-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--ok);background:rgba(110,231,183,.07);border:1px solid rgba(110,231,183,.25);border-radius:20px;padding:.3rem .8rem;margin-bottom:2.5rem}
+.savings-badge::before{content:'↓';font-size:.8rem}
+.pricing-features{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.8rem;text-align:left;margin-bottom:2.5rem}
+.pricing-features li{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;color:var(--muted);font-weight:300}
+.pricing-features li span:first-child{color:var(--ok);font-size:.9rem;flex-shrink:0;margin-top:.1rem}
+.btn-buy{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;background:linear-gradient(135deg,#6d28d9,#7c3aed,#8b5cf6,#a78bfa);background-size:200% 200%;animation:gradShift 4s ease infinite;color:#fff;padding:1.1rem 3rem;border-radius:12px;text-decoration:none;border:none;cursor:pointer;box-shadow:0 0 48px rgba(139,92,246,.5),0 8px 32px rgba(0,0,0,.5);transition:transform .25s,box-shadow .25s;display:inline-flex;align-items:center;gap:.75rem;font-size:.72rem}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.btn-buy:hover{transform:translateY(-3px);box-shadow:0 0 72px rgba(139,92,246,.75),0 12px 40px rgba(0,0,0,.6)}
+.pricing-guarantee{margin-top:1.5rem;font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.1em;color:var(--dim)}
+.pricing-countdown{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:rgba(251,191,36,.6);margin-top:.75rem}
+
+/* ── QUOTES ── */
+#quotes{padding:100px 5%}
+.quotes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:56px auto 0}
+.quote-card{background:var(--card);border:1px solid rgba(139,92,246,.1);border-radius:16px;padding:1.8rem;transition:all .3s}
+.quote-card:hover{border-color:rgba(139,92,246,.25);transform:translateY(-3px)}
+.quote-mark{font-family:'Playfair Display',serif;font-size:3rem;line-height:.7;color:rgba(139,92,246,.25);margin-bottom:1rem;display:block}
+.quote-text{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;line-height:1.75;color:var(--text);opacity:.9;margin-bottom:1.2rem}
+.quote-author{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quote-stars{color:var(--gold);font-size:.75rem;margin-bottom:.6rem}
+
+/* ── FAQ ── */
+#faq{padding:80px 5% 100px}
+.faq-inner{max-width:680px;margin:0 auto}
+.faq-list{margin-top:48px}
+.faq-item{border-bottom:1px solid rgba(139,92,246,.1);padding:1.2rem 0}
+.faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:1rem}
+.faq-q span{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--text)}
+.faq-toggle{width:28px;height:28px;border-radius:50%;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Mono',monospace;font-size:.8rem;color:var(--accent2);transition:all .2s;cursor:pointer}
+.faq-item.open .faq-toggle{background:var(--accent);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;font-size:.9rem;color:var(--muted);line-height:1.75}
+.faq-item.open .faq-a{max-height:300px;padding-top:.75rem}
+
+/* ── FOOTER ── */
+footer{padding:48px 5%;border-top:1px solid rgba(139,92,246,.1);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem}
+.footer-logo{font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2)}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .2s;cursor:pointer}
+.footer-links a:hover{color:var(--muted)}
+.footer-copy{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);width:100%;text-align:center;margin-top:.5rem}
+
+/* ── MODALS ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(3,2,10,.92);z-index:1000;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;backdrop-filter:blur(12px)}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal-box{background:linear-gradient(135deg,rgba(12,10,24,.98),rgba(18,16,32,.98));border:1px solid rgba(139,92,246,.25);border-radius:20px;max-width:640px;width:100%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 80px rgba(139,92,246,.15),0 32px 80px rgba(0,0,0,.8);animation:modalUp .35s ease}
+@keyframes modalUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2rem;border-bottom:1px solid rgba(139,92,246,.12)}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:var(--text)}
+.modal-close{width:32px;height:32px;border-radius:50%;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:var(--muted);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{background:rgba(139,92,246,.15);color:var(--accent2)}
+.modal-body{padding:1.5rem 2rem 2rem;overflow-y:auto;flex:1}
+.modal-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--accent2);margin:1.5rem 0 .5rem}
+.modal-body h3:first-child{margin-top:0}
+.modal-body p{font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:.75rem}
+.modal-body ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-bottom:.75rem}
+.modal-body ul li{font-size:.88rem;color:var(--muted);line-height:1.6;display:flex;gap:.5rem}
+.modal-body ul li::before{content:'—';color:var(--accent);flex-shrink:0}
+.modal-label{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:1rem}
+
+/* ── UTILS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.divider{max-width:1100px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.2),transparent)}
+.text-center{text-align:center}
+
+/* ── MOBILE ── */
+@media(max-width:800px){
+  .nav-center{display:none}
+  .versus-grid{grid-template-columns:1fr;gap:1rem}
+  .vs-divider{flex-direction:row}
+  .pricing-features{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+  .nav-cta{display:none}
+  .modal-box{max-height:90vh}
+  .modal-header,.modal-body{padding:1.2rem 1.4rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="starCanvas"></canvas>
+
+<!-- ════════════ NAV ════════════ -->
+<nav>
+  <div class="nav-logo">ALINEA</div>
+  <div class="nav-center">
+    <a href="#features" data-i18n="navFeatures">Funciones</a>
+    <a href="#beta" data-i18n="navBeta">Beta</a>
+    <a href="#pricing" data-i18n="navPrice">Precio</a>
+    <a href="#faq" data-i18n="navFaq">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('es')">Español</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn" onclick="setLang('en')">English</button>
+    </div>
+    <a href="#pricing" class="nav-cta" data-i18n="navCta">Obtener ALINEA →</a>
+  </div>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section id="hero">
+  <div class="hero-badge"><span>✦</span> <span data-i18n="heroBadge">Tu nueva herramienta lectora</span></div>
+  <div class="hero-orb"></div>
+  <h1 class="hero-title" data-i18n="heroTitle">Tu biblioteca,<br><em>soberana</em> y hermosa</h1>
+  <p class="hero-sub" data-i18n="heroSub">ALINEA transforma cómo vives tus libros. Software puro, sin servidores, sin suscripciones. Tus datos son tuyos para siempre — no los nuestros.</p>
+  <div class="hero-actions">
+    <a href="#pricing" class="btn-primary" data-i18n="heroCta1">📚 Comprar ahora — $49 USD</a>
+    <a href="#beta" class="btn-secondary" data-i18n="heroCta2">⬇ Probar beta gratis</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span data-i18n="heroScroll">Descubrir más</span>
+  </div>
+</section>
+
+<!-- MOCKUP -->
+<section id="preview">
+  <div class="mockup-wrap fade-in">
+    <div class="mockup-glow"></div>
+    <div class="mockup-phone">
+      <div class="mockup-notch"></div>
+      <div class="mockup-header">
+        <div class="mockup-logo">ALINEA</div>
+        <div class="mockup-count" data-i18n="mockCount">3 libros · 12 citas</div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover cover-1">📘</div>
+        <div class="book-info">
+          <div class="book-title-m">El Nombre del Viento</div>
+          <div class="book-author-m">Patrick Rothfuss</div>
+          <div class="book-prog"><div class="book-prog-fill" style="width:72%"></div></div>
+        </div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover cover-2">🔮</div>
+        <div class="book-info">
+          <div class="book-title-m">Sapiens</div>
+          <div class="book-author-m">Yuval Noah Harari</div>
+          <div class="book-prog"><div class="book-prog-fill" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover cover-3">🌿</div>
+        <div class="book-info">
+          <div class="book-title-m">El Alquimista</div>
+          <div class="book-author-m">Paulo Coelho</div>
+          <div class="book-prog"><div class="book-prog-fill" style="width:38%"></div></div>
+        </div>
+      </div>
+      <div class="mockup-tab">
+        <div class="tab-dot active"></div>
+        <div class="tab-dot"></div>
+        <div class="tab-dot"></div>
+        <div class="tab-dot"></div>
+        <div class="tab-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FEATURES ════════════ -->
+<section id="features">
+  <div class="features-header fade-in">
+    <span class="section-label" data-i18n="featLabel">¿Qué hace ALINEA?</span>
+    <h2 class="section-title" data-i18n="featTitle">Todo lo que necesita<br><em>un lector serio</em></h2>
+    <p class="section-sub" data-i18n="featSub">Una app diseñada para personas que leen con intención, no solo para completar listas.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card fade-in">
+      <div class="feat-icon">📚</div>
+      <div class="feat-title" data-i18n="f1t">Biblioteca visual</div>
+      <p class="feat-desc" data-i18n="f1d">Organiza todos tus libros en un espacio que se siente como tuyo. Portadas, progreso, géneros y estados al instante.</p>
+    </div>
+    <div class="feat-card fade-in">
+      <div class="feat-icon">✦</div>
+      <div class="feat-title" data-i18n="f2t">Citas que perduran</div>
+      <p class="feat-desc" data-i18n="f2d">Guarda los fragmentos que te cambiaron. Crea tarjetas para compartir como stories. Reencuéntralos cuando los necesites.</p>
+    </div>
+    <div class="feat-card fade-in">
+      <div class="feat-icon">🧠</div>
+      <div class="feat-title" data-i18n="f3t">Explorar ideas</div>
+      <p class="feat-desc" data-i18n="f3d">Descubre conexiones entre libros. Navega palabras clave, temas y conceptos que atraviesan toda tu colección.</p>
+    </div>
+    <div class="feat-card fade-in">
+      <div class="feat-icon">📊</div>
+      <div class="feat-title" data-i18n="f4t">Tu historia lectora</div>
+      <p class="feat-desc" data-i18n="f4d">Visualiza cuánto has leído, qué géneros dominas, tu ritmo de lectura. Datos que te inspiran a seguir.</p>
+    </div>
+    <div class="feat-card fade-in">
+      <div class="feat-icon">🚀</div>
+      <div class="feat-title" data-i18n="f5t">Wishlist inteligente</div>
+      <p class="feat-desc" data-i18n="f5d">Guarda los libros que quieres leer antes de olvidarlos. Organiza tu próxima lectura con un clic.</p>
+    </div>
+    <div class="feat-card fade-in">
+      <div class="feat-icon">🌐</div>
+      <div class="feat-title" data-i18n="f6t">Español & English</div>
+      <p class="feat-desc" data-i18n="f6d">ALINEA habla tu idioma. Interfaz completamente en español o inglés, tú decides desde el primer uso.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════ PROMISE STRIP ════════════ -->
+<section id="promise" style="padding:60px 5%">
+  <div style="max-width:700px;margin:0 auto;text-align:center">
+    <p style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem" data-i18n="promiseLabel">Lo que ALINEA nunca hará</p>
+    <div class="manifesto-attrs">
+      <div class="m-attr" data-i18n="ma1">Sin servidores</div>
+      <div class="m-attr" data-i18n="ma2">Sin suscripciones</div>
+      <div class="m-attr" data-i18n="ma3">Sin rastreo</div>
+      <div class="m-attr" data-i18n="ma4">Sin anuncios</div>
+      <div class="m-attr" data-i18n="ma5">Pago único</div>
+      <div class="m-attr" data-i18n="ma6">Tuyo para siempre</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════ HOW IT WORKS ════════════ -->
+<section id="how">
+  <div class="how-inner">
+    <div class="fade-in text-center">
+      <span class="section-label" data-i18n="howLabel">Cómo funciona</span>
+      <h2 class="section-title text-center" data-i18n="howTitle">Empezar es<br><em>ridículamente fácil</em></h2>
+    </div>
+    <div class="how-steps">
+      <div class="step fade-in">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-title" data-i18n="s1t">Compra y descarga en segundos</div>
+          <p class="step-desc" data-i18n="s1d">Tras tu compra en Gumroad recibes el archivo de inmediato. Sin instalaciones, sin tiendas de apps. Un solo archivo HTML que abre directo en tu navegador.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-title" data-i18n="s2t">Agrega tus libros en menos de un minuto</div>
+          <p class="step-desc" data-i18n="s2d">Título, autor, portada, género, estado. La app lo recuerda todo localmente en tu dispositivo. Tus datos nunca salen de tu teléfono.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-title" data-i18n="s3t">Captura citas, explora conexiones</div>
+          <p class="step-desc" data-i18n="s3d">Mientras lees, guarda las frases que te detienen. ALINEA las conecta con otros libros y te ayuda a construir tu propio archivo de ideas.</p>
+        </div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">04</div>
+        <div>
+          <div class="step-title" data-i18n="s4t">Es tuyo, para siempre</div>
+          <p class="step-desc" data-i18n="s4d">No hay servidores que apagar, suscripciones que cancelar ni empresas de las que depender. ALINEA vive en tu dispositivo. Siempre disponible, siempre tuyo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════ BETA ════════════ -->
+<section id="beta">
+  <div class="beta-box fade-in">
+    <div class="beta-tag"><div class="beta-dot"></div> <span data-i18n="betaTag">Disponible ahora · Versión Beta Gratuita</span></div>
+    <h2 class="beta-title" data-i18n="betaTitle">Prueba ALINEA<br><em>gratis hoy</em></h2>
+    <p class="beta-desc" data-i18n="betaDesc">La versión beta es funcional al 100%. Descárgala, ábrela en tu navegador y empieza a construir tu biblioteca ahora mismo, sin pagar nada.</p>
+    <div class="beta-limits">
+      <div class="beta-pill" data-i18n="bp1">✓ Sin registro</div>
+      <div class="beta-pill" data-i18n="bp2">✓ Sin internet</div>
+      <div class="beta-pill" data-i18n="bp3">⊕ Hasta 3 libros</div>
+      <div class="beta-pill" data-i18n="bp4">✓ Funciones completas</div>
+    </div>
+    <a id="betaBtn" href="#" class="btn-primary" style="display:inline-flex;margin:0 auto">
+      ⬇ <span data-i18n="betaCta">Descargar Beta</span>
+    </a>
+    <p class="beta-note" data-i18n="betaNote">La versión completa sin límites está disponible con pago único de $49 USD.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════ TESTIMONIALS ════════════ -->
+<section id="quotes">
+  <div class="fade-in text-center">
+    <span class="section-label" data-i18n="qLabel">Lo que dicen los lectores</span>
+    <h2 class="section-title text-center" data-i18n="qTitle">Diseñado para<br><em>lectores reales</em></h2>
+  </div>
+  <div class="quotes-grid">
+    <div class="quote-card fade-in">
+      <div class="quote-stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p class="quote-text" data-i18n="q1">Finalmente una app que entiende que leer no es solo terminar libros. Las citas y el explorador de ideas son magistrales.</p>
+      <div class="quote-author">— Camila R., Ciudad de México</div>
+    </div>
+    <div class="quote-card fade-in">
+      <div class="quote-stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p class="quote-text" data-i18n="q2">Llevo meses buscando algo así. Simple, hermoso, sin suscripciones absurdas. Mi biblioteca personal nunca se vio tan bien.</p>
+      <div class="quote-author">— Andrés M., Guadalajara</div>
+    </div>
+    <div class="quote-card fade-in">
+      <div class="quote-stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p class="quote-text" data-i18n="q3">El diseño es una obra de arte. Y saber que mis datos no están en ningún servidor me da una tranquilidad que no tenía antes.</p>
+      <div class="quote-author">— Valentina S., Bogotá</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════ PRICING ════════════ -->
+<section id="pricing">
+  <div class="pricing-inner">
+    <div class="fade-in">
+      <span class="section-label text-center" style="display:block" data-i18n="priceLabel">Sin suscripciones. Sin servidores. Sin trampa.</span>
+      <h2 class="section-title text-center" data-i18n="priceTitle">Pago único,<br><em>tuyo para siempre</em></h2>
+    </div>
+    <div class="pricing-card fade-in">
+      <div class="pricing-badge" data-i18n="priceBadge">✦ Acceso de por vida — Early Access</div>
+
+      <div class="price-anchor">
+        <div class="price-was">$69 USD</div>
+        <div class="price-label-early" data-i18n="earlyLabel">Precio de lanzamiento</div>
+        <div class="pricing-price"><sup>$</sup>49<sub>USD</sub></div>
+      </div>
+
+      <div class="savings-badge" data-i18n="savingsBadge">Ahorras $20 USD en Early Access</div>
+
+      <div class="pricing-period" data-i18n="pricePeriod">pago único — sin renovaciones — todas las actualizaciones incluidas</div>
+
+      <ul class="pricing-features">
+        <li><span>✓</span><span data-i18n="pf1">Biblioteca ilimitada de libros</span></li>
+        <li><span>✓</span><span data-i18n="pf2">Citas y anotaciones ilimitadas</span></li>
+        <li><span>✓</span><span data-i18n="pf3">Explorador de ideas y gráficos</span></li>
+        <li><span>✓</span><span data-i18n="pf4">Wishlist y modo lectura</span></li>
+        <li><span>✓</span><span data-i18n="pf5">Compartir citas como stories</span></li>
+        <li><span>✓</span><span data-i18n="pf6">Español e inglés incluidos</span></li>
+        <li><span>✓</span><span data-i18n="pf7">100% local-first — tus datos son tuyos</span></li>
+        <li><span>✓</span><span data-i18n="pf8">Actualizaciones futuras sin costo adicional</span></li>
+      </ul>
+
+      <a id="buyBtn" href="#" class="btn-buy">
+        📚 <span data-i18n="buyCta">Obtener ALINEA — $49 USD</span>
+      </a>
+      <p class="pricing-guarantee" data-i18n="priceGuarantee">🔒 Pago seguro vía Gumroad · Tu archivo se entrega al instante</p>
+      <p class="pricing-countdown" data-i18n="priceCountdown">⏳ Precio de lanzamiento disponible por tiempo limitado</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════ FAQ ════════════ -->
+<section id="faq">
+  <div class="faq-inner">
+    <div class="fade-in text-center">
+      <span class="section-label" data-i18n="faqLabel">Preguntas frecuentes</span>
+      <h2 class="section-title text-center" data-i18n="faqTitle">Todo lo que<br><em>quieres saber</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq1">¿Funciona en mi teléfono?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a" data-i18n="fa1">Sí. ALINEA funciona directamente en el navegador de tu iPhone, Android, tablet, Mac o PC. Sin App Store, sin Play Store. Solo abre el archivo y listo. Si tu dispositivo tiene navegador, tiene ALINEA.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq2">¿Dónde se guardan mis datos?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a" data-i18n="fa2">Todo se guarda localmente en tu dispositivo. Ningún servidor externo recibe tus datos. Nadie más tiene acceso a tus libros, citas o hábitos de lectura. Tu biblioteca es completamente privada y funciona sin internet.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq3">¿Por qué es mejor que un aparato físico como Mark II?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a" data-i18n="fa3">Mark II cuesta $159, solo envía a EE. UU. y Canadá, no estará disponible sino hasta finales de 2026, depende de servidores en la nube y requiere cargar otro aparato. ALINEA cuesta $49, está disponible ahora mismo en cualquier parte del mundo, funciona en el smartphone que ya tienes y tus datos no dependen de ninguna empresa.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq4">¿Qué diferencia la beta de la versión completa?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a" data-i18n="fa4">La beta te permite explorar todas las funciones de ALINEA con hasta 3 libros, sin costo. La versión completa elimina ese límite y te da biblioteca ilimitada, citas ilimitadas y todas las funciones sin restricciones.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq5">¿Las actualizaciones tienen costo adicional?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a" data-i18n="fa5">No. Una vez que compras ALINEA, todas las versiones futuras del producto están incluidas en tu pago único. Sin costos adicionales, sin suscripciones anuales, sin sorpresas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="fq6">¿Cómo recibo el producto después de comprar?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a" data-i18n="fa6">Inmediatamente después de tu compra en Gumroad recibes un correo con el enlace de descarga directa. El proceso tarda menos de un minuto. No hay pasos adicionales.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <div class="footer-logo">ALINEA</div>
+  <div class="footer-links">
+    <a href="#features" data-i18n="navFeatures">Funciones</a>
+    <a href="#beta" data-i18n="navBeta">Beta</a>
+    <a href="#pricing" data-i18n="navPrice">Precio</a>
+    <a href="mailto:hola@alinea.app" data-i18n="footContact">Contacto</a>
+    <a onclick="openModal('modalTerms')" data-i18n="footTerms">Términos de Servicio</a>
+    <a onclick="openModal('modalPrivacy')" data-i18n="footPrivacy">Aviso de Privacidad</a>
+  </div>
+  <div class="footer-copy" data-i18n="footCopy">© 2025 ALINEA — Hecho con obsesión por los lectores · Software local-first</div>
+</footer>
+
+<!-- ════════════ MODAL: TÉRMINOS ════════════ -->
+<div class="modal-overlay" id="modalTerms" onclick="handleModalClick(event,'modalTerms')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="termsTitle">Términos de Servicio</div>
+      <button class="modal-close" onclick="closeModal('modalTerms')">✕</button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-label" data-i18n="termsDate">Versión 1.0 — Vigente desde 2025</span>
+
+      <h3 data-i18n="t1h">1. Naturaleza del Producto</h3>
+      <p data-i18n="t1p">ALINEA es un producto de software distribuido como archivo HTML autónomo. Al completar tu compra, adquieres una <strong>Licencia de Acceso de Por Vida (Lifetime License)</strong> que te otorga el derecho perpetuo de uso personal del archivo en cualquier dispositivo de tu propiedad.</p>
+
+      <h3 data-i18n="t2h">2. Derechos del Usuario</h3>
+      <ul>
+        <li data-i18n="t2a">Usar ALINEA en múltiples dispositivos personales de forma simultánea.</li>
+        <li data-i18n="t2b">Recibir todas las actualizaciones futuras del producto sin costo adicional, a través de los canales oficiales de distribución.</li>
+        <li data-i18n="t2c">Conservar el archivo de forma indefinida, incluso si el producto dejara de comercializarse.</li>
+      </ul>
+
+      <h3 data-i18n="t3h">3. Restricciones y Propiedad Intelectual</h3>
+      <p data-i18n="t3p">El código fuente, el diseño visual y todos los elementos que componen ALINEA son propiedad exclusiva de sus creadores y están protegidos por las leyes de derechos de autor aplicables. Está expresamente prohibido:</p>
+      <ul>
+        <li data-i18n="t3a">Redistribuir, sublicenciar, revender o compartir el archivo a terceros a título oneroso o gratuito con fines de distribución masiva.</li>
+        <li data-i18n="t3b">Descompilar, modificar, copiar o plagiar el código fuente con el fin de crear productos derivados comerciales.</li>
+        <li data-i18n="t3c">Eliminar o alterar cualquier aviso de autoría, marca o crédito contenido en el archivo.</li>
+      </ul>
+
+      <h3 data-i18n="t4h">4. Política de Pagos y Garantía</h3>
+      <p data-i18n="t4p">El precio de lanzamiento (Early Access) es de <strong>$49 USD</strong>, procesado mediante Gumroad como plataforma de pago. El precio de lista estándar es de $69 USD. El pago es único y no genera ningún tipo de cobro recurrente o suscripción. Ante cualquier problema técnico grave con el archivo, el equipo de ALINEA evaluará soluciones caso por caso.</p>
+
+      <h3 data-i18n="t5h">5. Limitación de Responsabilidad</h3>
+      <p data-i18n="t5p">ALINEA se provee "tal cual" (as-is). No somos responsables por pérdida de datos locales derivada del borrado manual del almacenamiento del navegador por parte del usuario, cambios de dispositivo sin respaldo previo, o actualizaciones del sistema operativo que afecten la compatibilidad del navegador.</p>
+
+      <h3 data-i18n="t6h">6. Modificaciones</h3>
+      <p data-i18n="t6p">Nos reservamos el derecho de actualizar estos términos. Los usuarios activos serán notificados a través de los canales oficiales ante cambios sustanciales.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ MODAL: PRIVACIDAD ════════════ -->
+<div class="modal-overlay" id="modalPrivacy" onclick="handleModalClick(event,'modalPrivacy')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" data-i18n="privTitle">Aviso de Privacidad Local-First</div>
+      <button class="modal-close" onclick="closeModal('modalPrivacy')">✕</button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-label" data-i18n="privDate">Versión 1.0 — Estándar de privacidad global</span>
+
+      <h3 data-i18n="p1h">Declaración Principal</h3>
+      <p data-i18n="p1p"><strong>ALINEA NO recopila, NO almacena, NO rastrea y NO vende ningún dato personal ni información sobre los hábitos de lectura de sus usuarios.</strong> Esta no es una política de marketing — es una consecuencia directa y técnica de nuestra arquitectura: ALINEA carece por completo de servidores propios en la nube.</p>
+
+      <h3 data-i18n="p2h">¿Qué datos genera ALINEA?</h3>
+      <p data-i18n="p2p">ALINEA genera y almacena únicamente en el almacenamiento local de tu navegador (localStorage) la siguiente información:</p>
+      <ul>
+        <li data-i18n="p2a">La lista de libros que tú mismo agregas.</li>
+        <li data-i18n="p2b">Las citas y anotaciones que tú mismo capturas.</li>
+        <li data-i18n="p2c">Tus preferencias de idioma y configuración visual.</li>
+        <li data-i18n="p2d">El progreso de lectura que tú mismo registras.</li>
+      </ul>
+
+      <h3 data-i18n="p3h">¿A dónde van esos datos?</h3>
+      <p data-i18n="p3p"><strong>A ningún lugar.</strong> Los datos generados por ALINEA nunca salen de tu dispositivo. No existe ninguna conexión a servidores externos, APIs de terceros con fines de analítica, ni sistemas de telemetría. El archivo funciona como una aplicación completamente autónoma.</p>
+
+      <h3 data-i18n="p4h">Responsabilidad del Usuario Soberano</h3>
+      <p data-i18n="p4p">Al ser ALINEA una aplicación local-first, el control, resguardo y riesgo del archivo de almacenamiento recae <strong>100% en el usuario</strong>. Recomendamos:</p>
+      <ul>
+        <li data-i18n="p4a">Exportar o respaldar tu biblioteca periódicamente usando la función de exportación incluida en la app.</li>
+        <li data-i18n="p4b">No borrar el caché del navegador sin antes respaldar tu información.</li>
+        <li data-i18n="p4c">Guardar una copia del archivo HTML en un lugar seguro de tu dispositivo.</li>
+      </ul>
+
+      <h3 data-i18n="p5h">Cookies y Rastreo</h3>
+      <p data-i18n="p5p">ALINEA no utiliza cookies de rastreo, píxeles de seguimiento, Google Analytics, ni ningún otro sistema de analítica de terceros. La presente Landing Page puede utilizar cookies técnicas mínimas para su funcionamiento, sin vincularlas a ningún perfil de usuario.</p>
+
+      <h3 data-i18n="p6h">Cumplimiento Internacional</h3>
+      <p data-i18n="p6p">Este aviso está diseñado para ser congruente con los principios del Reglamento General de Protección de Datos (GDPR) de la Unión Europea, la Ley Federal de Protección de Datos Personales en Posesión de Particulares (LFPDPPP) de México, y el California Consumer Privacy Act (CCPA). Al no existir recopilación de datos, el cumplimiento es total por diseño.</p>
+
+      <h3 data-i18n="p7h">Contacto</h3>
+      <p data-i18n="p7p">Para cualquier consulta sobre privacidad, escríbenos a <a href="mailto:hola@alinea.app" style="color:var(--accent2)">hola@alinea.app</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script>
+// ── TRANSLATIONS ──────────────────────────────────────────────
+const T = {
+  es: {
+    navFeatures:'Funciones', navBeta:'Beta', navPrice:'Precio', navFaq:'FAQ', navCta:'Obtener ALINEA →',
+    heroBadge:'Tu nueva herramienta lectora',
+    heroTitle:'Tu biblioteca,<br><em>soberana</em> y hermosa',
+    heroSub:'ALINEA transforma cómo vives tus libros. Software puro, sin servidores, sin suscripciones. Tus datos son tuyos para siempre — no los nuestros.',
+    heroCta1:'📚 Comprar ahora — $49 USD', heroCta2:'⬇ Probar beta gratis', heroScroll:'Descubrir más',
+    mockCount:'3 libros · 12 citas',
+    vsLabel:'Comparativa honesta', vsTitle:'Software libre vs.<br><em>plástico dependiente</em>',
+    vsThemLabel:'Hardware atrapado', vsUsLabel:'Software soberano',
+    vsT1:'Aparato físico que cargar a todas partes', vsT2:'Solo envía a EE. UU. y Canadá', vsT3:'Disponible hasta finales de 2026',
+    vsT4:'Depende de servidores en la nube', vsT5:'App solo disponible en iOS', vsT6:'Requiere Bluetooth e internet',
+    vsT7:'Tus datos en sus servidores', vsT8:'Batería que caduca y debes cargar',
+    vsU1:'Solo necesitas el smartphone que ya tienes', vsU2:'Disponible en cualquier parte del mundo',
+    vsU3:'Descarga y usa en menos de 60 segundos', vsU4:'100% local-first, sin servidores',
+    vsU5:'iOS, Android, Mac, PC — cualquier navegador', vsU6:'Funciona sin internet',
+    vsU7:'Tus datos son <em>tuyos</em>, siempre', vsU8:'Sin baterías, sin hardware que falle',
+    featLabel:'¿Qué hace ALINEA?', featTitle:'Todo lo que necesita<br><em>un lector serio</em>',
+    featSub:'Una app diseñada para personas que leen con intención, no solo para completar listas.',
+    f1t:'Biblioteca visual', f1d:'Organiza todos tus libros en un espacio que se siente como tuyo. Portadas, progreso, géneros y estados al instante.',
+    f2t:'Citas que perduran', f2d:'Guarda los fragmentos que te cambiaron. Crea tarjetas para compartir como stories. Reencuéntralos cuando los necesites.',
+    f3t:'Explorar ideas', f3d:'Descubre conexiones entre libros. Navega palabras clave, temas y conceptos que atraviesan toda tu colección.',
+    f4t:'Tu historia lectora', f4d:'Visualiza cuánto has leído, qué géneros dominas, tu ritmo de lectura. Datos que te inspiran a seguir.',
+    f5t:'Wishlist inteligente', f5d:'Guarda los libros que quieres leer antes de olvidarlos. Organiza tu próxima lectura con un clic.',
+    f6t:'Español & English', f6d:'ALINEA habla tu idioma. Interfaz completamente en español o inglés, tú decides desde el primer uso.',
+    maniLabel:'Manifiesto de soberanía digital',
+    maniQuote:'Tu lectura es la intimidad más profunda que tienes.<br>No debería vivir en el servidor de nadie más.<br><strong>ALINEA no tiene servidores.</strong><br>No hay nube que pueda ser hackeada, apagada o vendida.<br>Solo tú, tu biblioteca y el dispositivo en tus manos.',
+    ma1:'Sin servidores', ma2:'Sin suscripciones', ma3:'Sin rastreo', ma4:'Sin anuncios', ma5:'Pago único', ma6:'Tuyo para siempre',
+    promiseLabel:'Lo que ALINEA nunca hará', howTitle:'Empezar es<br><em>ridículamente fácil</em>',
+    s1t:'Compra y descarga en segundos', s1d:'Tras tu compra en Gumroad recibes el archivo de inmediato. Sin instalaciones, sin tiendas de apps. Un solo archivo HTML que abre directo en tu navegador.',
+    s2t:'Agrega tus libros en menos de un minuto', s2d:'Título, autor, portada, género, estado. La app lo recuerda todo localmente en tu dispositivo. Tus datos nunca salen de tu teléfono.',
+    s3t:'Captura citas, explora conexiones', s3d:'Mientras lees, guarda las frases que te detienen. ALINEA las conecta con otros libros y te ayuda a construir tu propio archivo de ideas.',
+    s4t:'Es tuyo, para siempre', s4d:'No hay servidores que apagar, suscripciones que cancelar ni empresas de las que depender. ALINEA vive en tu dispositivo. Siempre disponible, siempre tuyo.',
+    betaTag:'Disponible ahora · Versión Beta Gratuita',
+    betaTitle:'Prueba ALINEA<br><em>gratis hoy</em>',
+    betaDesc:'La versión beta es funcional al 100%. Descárgala, ábrela en tu navegador y empieza a construir tu biblioteca ahora mismo, sin pagar nada.',
+    bp1:'✓ Sin registro', bp2:'✓ Sin internet', bp3:'⊕ Hasta 3 libros', bp4:'✓ Funciones completas',
+    betaCta:'Descargar Beta', betaNote:'La versión completa sin límites está disponible con pago único de $49 USD.',
+    qLabel:'Lo que dicen los lectores', qTitle:'Diseñado para<br><em>lectores reales</em>',
+    q1:'Finalmente una app que entiende que leer no es solo terminar libros. Las citas y el explorador de ideas son magistrales.',
+    q2:'Llevo meses buscando algo así. Simple, hermoso, sin suscripciones absurdas. Mi biblioteca personal nunca se vio tan bien.',
+    q3:'El diseño es una obra de arte. Y saber que mis datos no están en ningún servidor me da una tranquilidad que no tenía antes.',
+    priceLabel:'Sin suscripciones. Sin servidores. Sin trampa.', priceTitle:'Pago único,<br><em>tuyo para siempre</em>',
+    priceBadge:'✦ Acceso de por vida — Early Access',
+    earlyLabel:'Precio de lanzamiento',
+    savingsBadge:'Ahorras $20 USD en Early Access',
+    pricePeriod:'pago único — sin renovaciones — todas las actualizaciones incluidas',
+    pf1:'Biblioteca ilimitada de libros', pf2:'Citas y anotaciones ilimitadas',
+    pf3:'Explorador de ideas y gráficos', pf4:'Wishlist y modo lectura',
+    pf5:'Compartir citas como stories', pf6:'Español e inglés incluidos',
+    pf7:'100% local-first — tus datos son tuyos', pf8:'Actualizaciones futuras sin costo adicional',
+    buyCta:'Obtener ALINEA — $49 USD',
+    priceGuarantee:'🔒 Pago seguro vía Gumroad · Tu archivo se entrega al instante',
+    priceCountdown:'⏳ Precio de lanzamiento disponible por tiempo limitado',
+    faqLabel:'Preguntas frecuentes', faqTitle:'Todo lo que<br><em>quieres saber</em>',
+    fq1:'¿Funciona en mi teléfono?', fa1:'Sí. ALINEA funciona directamente en el navegador de tu iPhone, Android, tablet, Mac o PC. Sin App Store, sin Play Store. Solo abre el archivo y listo.',
+    fq2:'¿Dónde se guardan mis datos?', fa2:'Todo se guarda localmente en tu dispositivo. Ningún servidor externo recibe tus datos. Tu biblioteca es completamente privada y funciona sin internet.',
+    fq3:'¿Por qué es mejor que un aparato físico como Mark II?', fa3:'Mark II cuesta $159, solo envía a EE. UU. y Canadá, no estará disponible sino hasta finales de 2026 y depende de servidores. ALINEA cuesta $49, está disponible ahora mismo en cualquier parte del mundo, y tus datos no dependen de ninguna empresa.',
+    fq4:'¿Qué diferencia la beta de la versión completa?', fa4:'La beta te permite explorar todas las funciones con hasta 3 libros sin costo. La versión completa elimina ese límite y te da biblioteca y citas ilimitadas.',
+    fq5:'¿Las actualizaciones tienen costo adicional?', fa5:'No. Una vez que compras ALINEA, todas las versiones futuras están incluidas en tu pago único. Sin suscripciones, sin sorpresas.',
+    fq6:'¿Cómo recibo el producto después de comprar?', fa6:'Inmediatamente después de tu compra en Gumroad recibes un correo con el enlace de descarga directa. El proceso tarda menos de un minuto.',
+    footContact:'Contacto', footTerms:'Términos de Servicio', footPrivacy:'Aviso de Privacidad',
+    footCopy:'© 2025 ALINEA — Hecho con obsesión por los lectores · Software local-first',
+    termsTitle:'Términos de Servicio', termsDate:'Versión 1.0 — Vigente desde 2025',
+    t1h:'1. Naturaleza del Producto', t1p:'ALINEA es un producto de software distribuido como archivo HTML autónomo. Al completar tu compra, adquieres una <strong>Licencia de Acceso de Por Vida (Lifetime License)</strong> que te otorga el derecho perpetuo de uso personal del archivo en cualquier dispositivo de tu propiedad.',
+    t2h:'2. Derechos del Usuario', t2a:'Usar ALINEA en múltiples dispositivos personales de forma simultánea.', t2b:'Recibir todas las actualizaciones futuras del producto sin costo adicional, a través de los canales oficiales de distribución.', t2c:'Conservar el archivo de forma indefinida, incluso si el producto dejara de comercializarse.',
+    t3h:'3. Restricciones y Propiedad Intelectual', t3p:'El código fuente, el diseño visual y todos los elementos que componen ALINEA son propiedad exclusiva de sus creadores y están protegidos por las leyes de derechos de autor aplicables. Está expresamente prohibido:', t3a:'Redistribuir, sublicenciar, revender o compartir el archivo a terceros a título oneroso o gratuito con fines de distribución masiva.', t3b:'Descompilar, modificar, copiar o plagiar el código fuente con el fin de crear productos derivados comerciales.', t3c:'Eliminar o alterar cualquier aviso de autoría, marca o crédito contenido en el archivo.',
+    t4h:'4. Política de Pagos y Garantía', t4p:'El precio de lanzamiento (Early Access) es de <strong>$49 USD</strong>, procesado mediante Gumroad. El precio de lista estándar es de $69 USD. El pago es único y no genera ningún tipo de cobro recurrente o suscripción.',
+    t5h:'5. Limitación de Responsabilidad', t5p:'ALINEA se provee "tal cual" (as-is). No somos responsables por pérdida de datos locales derivada del borrado manual del almacenamiento del navegador por parte del usuario o cambios de dispositivo sin respaldo previo.',
+    t6h:'6. Modificaciones', t6p:'Nos reservamos el derecho de actualizar estos términos. Los usuarios activos serán notificados a través de los canales oficiales ante cambios sustanciales.',
+    privTitle:'Aviso de Privacidad Local-First', privDate:'Versión 1.0 — Estándar de privacidad global',
+    p1h:'Declaración Principal', p1p:'<strong>ALINEA NO recopila, NO almacena, NO rastrea y NO vende ningún dato personal ni información sobre los hábitos de lectura de sus usuarios.</strong> Esta no es una política de marketing — es una consecuencia técnica de nuestra arquitectura: ALINEA carece por completo de servidores propios en la nube.',
+    p2h:'¿Qué datos genera ALINEA?', p2p:'ALINEA genera y almacena únicamente en el almacenamiento local de tu navegador (localStorage) la siguiente información:', p2a:'La lista de libros que tú mismo agregas.', p2b:'Las citas y anotaciones que tú mismo capturas.', p2c:'Tus preferencias de idioma y configuración visual.', p2d:'El progreso de lectura que tú mismo registras.',
+    p3h:'¿A dónde van esos datos?', p3p:'<strong>A ningún lugar.</strong> Los datos generados por ALINEA nunca salen de tu dispositivo. No existe ninguna conexión a servidores externos ni sistemas de telemetría.',
+    p4h:'Responsabilidad del Usuario Soberano', p4p:'Al ser ALINEA una aplicación local-first, el control, resguardo y riesgo del archivo de almacenamiento recae <strong>100% en el usuario</strong>. Recomendamos:', p4a:'Exportar o respaldar tu biblioteca periódicamente usando la función de exportación incluida en la app.', p4b:'No borrar el caché del navegador sin antes respaldar tu información.', p4c:'Guardar una copia del archivo HTML en un lugar seguro de tu dispositivo.',
+    p5h:'Cookies y Rastreo', p5p:'ALINEA no utiliza cookies de rastreo, píxeles de seguimiento, Google Analytics, ni ningún otro sistema de analítica de terceros.',
+    p6h:'Cumplimiento Internacional', p6p:'Este aviso es congruente con los principios del GDPR (UE), la LFPDPPP (México) y el CCPA (California). Al no existir recopilación de datos, el cumplimiento es total por diseño.',
+    p7h:'Contacto', p7p:'Para cualquier consulta sobre privacidad, escríbenos a <a href="mailto:hola@alinea.app" style="color:var(--accent2)">hola@alinea.app</a>.',
+  },
+  en: {
+    navFeatures:'Features', navBeta:'Beta', navPrice:'Pricing', navFaq:'FAQ', navCta:'Get ALINEA →',
+    heroBadge:'Your new reading companion',
+    heroTitle:'Your library,<br><em>sovereign</em> and beautiful',
+    heroSub:'ALINEA transforms how you experience your books. Pure software, no servers, no subscriptions. Your data is yours forever — not ours.',
+    heroCta1:'📚 Buy now — $49 USD', heroCta2:'⬇ Try beta for free', heroScroll:'Discover more',
+    mockCount:'3 books · 12 quotes',
+    vsLabel:'Honest comparison', vsTitle:'Free software vs.<br><em>dependent plastic</em>',
+    vsThemLabel:'Trapped hardware', vsUsLabel:'Sovereign software',
+    vsT1:'A physical device you carry everywhere', vsT2:'Ships to U.S. and Canada only', vsT3:'Not available until late 2026',
+    vsT4:'Depends on cloud servers', vsT5:'App available on iOS only', vsT6:'Requires Bluetooth and internet',
+    vsT7:'Your data lives on their servers', vsT8:'Battery you must charge and replace',
+    vsU1:'Just the smartphone you already own', vsU2:'Available anywhere in the world',
+    vsU3:'Download and use in under 60 seconds', vsU4:'100% local-first, no servers',
+    vsU5:'iOS, Android, Mac, PC — any browser', vsU6:'Works offline',
+    vsU7:'Your data is <em>yours</em>, always', vsU8:'No batteries, no hardware to fail',
+    featLabel:'What does ALINEA do?', featTitle:'Everything a<br><em>serious reader needs</em>',
+    featSub:'An app built for people who read with intention, not just to finish lists.',
+    f1t:'Visual library', f1d:'Organize all your books in a space that feels like yours. Covers, progress, genres and status at a glance.',
+    f2t:'Quotes that last', f2d:'Save the passages that changed you. Create shareable story cards. Find them again when you need them.',
+    f3t:'Explore ideas', f3d:'Discover connections between books. Navigate keywords, themes and concepts across your entire collection.',
+    f4t:'Your reading story', f4d:'Visualize how much you\'ve read, which genres you dominate, your reading pace. Data that inspires you to keep going.',
+    f5t:'Smart wishlist', f5d:'Save books you want to read before you forget them. Plan your next read with one tap.',
+    f6t:'Spanish & English', f6d:'ALINEA speaks your language. Fully bilingual interface — you choose from the very first use.',
+    maniLabel:'Digital sovereignty manifesto',
+    maniQuote:'Your reading is the deepest intimacy you have.<br>It should not live on someone else\'s server.<br><strong>ALINEA has no servers.</strong><br>There is no cloud that can be hacked, shut down, or sold.<br>Just you, your library, and the device in your hands.',
+    ma1:'No servers', ma2:'No subscriptions', ma3:'No tracking', ma4:'No ads', ma5:'One-time payment', ma6:'Yours forever',
+    promiseLabel:'What ALINEA will never do', howTitle:'Getting started is<br><em>ridiculously easy</em>',
+    s1t:'Buy and download in seconds', s1d:'After your Gumroad purchase you receive the file immediately. No installations, no app stores. A single HTML file that opens directly in your browser.',
+    s2t:'Add your books in under a minute', s2d:'Title, author, cover, genre, status. The app saves everything locally on your device. Your data never leaves your phone.',
+    s3t:'Capture quotes, explore connections', s3d:'While you read, save the sentences that stop you. ALINEA connects them to other books and helps you build your own idea archive.',
+    s4t:'It\'s yours, forever', s4d:'No servers to shut down, subscriptions to cancel, or companies to depend on. ALINEA lives on your device. Always available, always yours.',
+    betaTag:'Available now · Free Beta Version',
+    betaTitle:'Try ALINEA<br><em>free today</em>',
+    betaDesc:'The beta version is fully functional. Download it, open it in your browser and start building your library right now, for free.',
+    bp1:'✓ No sign-up', bp2:'✓ No internet', bp3:'⊕ Up to 3 books', bp4:'✓ Full features',
+    betaCta:'Download Beta', betaNote:'The full unlimited version is available for a one-time payment of $49 USD.',
+    qLabel:'What readers say', qTitle:'Built for<br><em>real readers</em>',
+    q1:'Finally an app that understands reading isn\'t just about finishing books. The quotes feature and idea explorer are exceptional.',
+    q2:'I\'ve been looking for something like this for months. Simple, beautiful, no ridiculous subscriptions. My personal library has never looked this good.',
+    q3:'The design is a work of art. And knowing my data isn\'t sitting on any server gives me a peace of mind I didn\'t have before.',
+    priceLabel:'No subscriptions. No servers. No tricks.', priceTitle:'One-time payment,<br><em>yours forever</em>',
+    priceBadge:'✦ Lifetime access — Early Access',
+    earlyLabel:'Launch price',
+    savingsBadge:'You save $20 USD with Early Access',
+    pricePeriod:'one-time payment — no renewals — all future updates included',
+    pf1:'Unlimited book library', pf2:'Unlimited quotes and annotations',
+    pf3:'Idea explorer and reading graphs', pf4:'Wishlist and reading mode',
+    pf5:'Share quotes as stories', pf6:'Spanish and English included',
+    pf7:'100% local-first — your data is yours', pf8:'Future updates at no extra cost',
+    buyCta:'Get ALINEA — $49 USD',
+    priceGuarantee:'🔒 Secure payment via Gumroad · Your file is delivered instantly',
+    priceCountdown:'⏳ Launch price available for a limited time',
+    faqLabel:'Frequently asked questions', faqTitle:'Everything you<br><em>want to know</em>',
+    fq1:'Does it work on my phone?', fa1:'Yes. ALINEA works directly in your iPhone, Android, tablet, Mac or PC browser. No App Store, no Play Store. Just open the file and you\'re ready.',
+    fq2:'Where is my data stored?', fa2:'Everything is saved locally on your device. No external server receives your data. Your library is completely private and works offline.',
+    fq3:'Why is it better than a physical device like Mark II?', fa3:'Mark II costs $159, ships only to the U.S. and Canada, won\'t be available until late 2026, and depends on cloud servers. ALINEA costs $49, is available right now anywhere in the world, and your data depends on no one.',
+    fq4:'What\'s the difference between the beta and the full version?', fa4:'The beta lets you explore all features with up to 3 books for free. The full version removes that limit and gives you unlimited books and quotes.',
+    fq5:'Do future updates cost extra?', fa5:'No. Once you buy ALINEA, all future versions are included in your one-time payment. No subscriptions, no surprises.',
+    fq6:'How do I receive the product after purchasing?', fa6:'Immediately after your Gumroad purchase you receive an email with the direct download link. The process takes under a minute.',
+    footContact:'Contact', footTerms:'Terms of Service', footPrivacy:'Privacy Policy',
+    footCopy:'© 2025 ALINEA — Built with obsession for readers · Local-first software',
+    termsTitle:'Terms of Service', termsDate:'Version 1.0 — Effective 2025',
+    t1h:'1. Nature of the Product', t1p:'ALINEA is a software product distributed as a standalone HTML file. By completing your purchase, you acquire a <strong>Lifetime License</strong> granting you perpetual personal use of the file on any device you own.',
+    t2h:'2. User Rights', t2a:'Use ALINEA on multiple personal devices simultaneously.', t2b:'Receive all future product updates at no additional cost through official distribution channels.', t2c:'Keep the file indefinitely, even if the product were to be discontinued.',
+    t3h:'3. Restrictions and Intellectual Property', t3p:'The source code, visual design, and all elements of ALINEA are the exclusive property of its creators and are protected by applicable copyright law. The following are expressly prohibited:', t3a:'Redistributing, sublicensing, reselling or sharing the file to third parties for commercial or mass distribution purposes.', t3b:'Decompiling, modifying, copying, or plagiarizing the source code to create commercial derivative products.', t3c:'Removing or altering any authorship notice, trademark, or credit contained in the file.',
+    t4h:'4. Payment Policy and Guarantee', t4p:'The Early Access launch price is <strong>$49 USD</strong>, processed via Gumroad. The standard list price is $69 USD. Payment is one-time and generates no recurring charges or subscriptions.',
+    t5h:'5. Limitation of Liability', t5p:'ALINEA is provided "as-is." We are not responsible for local data loss resulting from the user manually clearing browser storage, changing devices without prior backup, or OS updates affecting browser compatibility.',
+    t6h:'6. Modifications', t6p:'We reserve the right to update these terms. Active users will be notified through official channels upon material changes.',
+    privTitle:'Local-First Privacy Policy', privDate:'Version 1.0 — Global privacy standard',
+    p1h:'Core Declaration', p1p:'<strong>ALINEA does NOT collect, does NOT store, does NOT track, and does NOT sell any personal data or reading habit information from its users.</strong> This is not a marketing policy — it is a direct technical consequence of our architecture: ALINEA has absolutely no cloud servers.',
+    p2h:'What data does ALINEA generate?', p2p:'ALINEA generates and stores exclusively in your browser\'s local storage (localStorage) the following information:', p2a:'The list of books you add yourself.', p2b:'The quotes and annotations you capture yourself.', p2c:'Your language preferences and visual settings.', p2d:'The reading progress you record yourself.',
+    p3h:'Where does that data go?', p3p:'<strong>Nowhere.</strong> Data generated by ALINEA never leaves your device. There is no connection to external servers or third-party analytics systems.',
+    p4h:'Sovereign User Responsibility', p4p:'As a local-first application, control, safekeeping, and risk of your storage file rests <strong>100% with the user</strong>. We recommend:', p4a:'Exporting or backing up your library periodically using the export function built into the app.', p4b:'Not clearing your browser cache without first backing up your data.', p4c:'Saving a copy of the HTML file in a secure location on your device.',
+    p5h:'Cookies and Tracking', p5p:'ALINEA does not use tracking cookies, tracking pixels, Google Analytics, or any other third-party analytics system.',
+    p6h:'International Compliance', p6p:'This notice is designed to be consistent with the principles of the GDPR (EU), the LFPDPPP (Mexico), and the CCPA (California). Since no data is collected, compliance is achieved by design.',
+    p7h:'Contact', p7p:'For any privacy inquiries, contact us at <a href="mailto:hola@alinea.app" style="color:var(--accent2)">hola@alinea.app</a>.',
+  }
+};
+
+let currentLang = 'es';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  const dict = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+}
+
+// ── STARS ─────────────────────────────────────────────────────
+(function(){
+  const c = document.getElementById('starCanvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let stars = [];
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; init(); }
+  function init() {
+    stars = [];
+    const n = Math.floor((c.width * c.height) / 5500);
+    for (let i = 0; i < n; i++) {
+      stars.push({ x: Math.random()*c.width, y: Math.random()*c.height,
+        r: Math.random()*1.3+.2, a: Math.random()*.65+.1,
+        speed: Math.random()*.3+.05, phase: Math.random()*Math.PI*2 });
+    }
+  }
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0,0,c.width,c.height); t += .007;
+    stars.forEach(s => {
+      const a = s.a*(0.5+0.5*Math.sin(t*s.speed+s.phase));
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(196,181,253,${a})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+// ── SCROLL FADE ────────────────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// ── FAQ ────────────────────────────────────────────────────────
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── MODALS ─────────────────────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+function handleModalClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+document.addEventListener('keydown', e => { if (e.key==='Escape') { document.querySelectorAll('.modal-overlay.open').forEach(m => { m.classList.remove('open'); document.body.style.overflow=''; }); } });
+
+// ── SMOOTH NAV ─────────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+
+</body>
+</html>
