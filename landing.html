@@ -1,1059 +1,1113 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ALINEA — Tu Biblioteca Personal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<title>ALINEA — Make Visible the Invisible</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#06050f;--surface:#0c0a18;--card:#121020;--card2:#1a1730;
-  --border:rgba(139,92,246,.15);--border2:rgba(139,92,246,.3);
-  --accent:#8b5cf6;--accent2:#c4b5fd;--accent3:#7c3aed;
-  --glow:rgba(139,92,246,.18);--glow2:rgba(139,92,246,.08);
-  --text:#f0eeff;--muted:#8b87b0;--dim:#332e52;
-  --ok:#6ee7b7;--gold:#fbbf24;
+  --ink:#03020a;
+  --deep:#07051a;
+  --card:#0c0920;
+  --card2:#110e2a;
+  --surface:#161230;
+  --v:#7c3aed;--v2:#9d5cf5;--v3:#c4b5fd;
+  --vglow:rgba(124,58,237,.22);
+  --border:rgba(139,92,246,.16);
+  --bordersoft:rgba(139,92,246,.07);
+  --text:#f4f0ff;--muted:#8b87b0;--dim:#2e2754;
+  --green:#5eead4;--gold:#f59e0b;--red:#f87171;
 }
-html{scroll-behavior:smooth;background:var(--bg)}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:'Lato',sans-serif;font-weight:300;
-  overflow-x:hidden;
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;cursor:default}
+
+/* ── CANVAS ── */
+#cv{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── NOISE TEXTURE ── */
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
 }
 
-/* ── STAR CANVAS ── */
-#starCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.6}
-
-/* ── AMBIENT GRADIENTS ── */
+/* ── AMBIENT ── */
 body::before{
-  content:'';position:fixed;inset:0;
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 10% 10%,rgba(139,92,246,.09) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 80% at 90% 80%,rgba(109,40,217,.07) 0%,transparent 60%),
-    radial-gradient(ellipse 100% 50% at 50% 110%,rgba(67,20,128,.06) 0%,transparent 70%);
-  pointer-events:none;z-index:0
+    radial-gradient(ellipse 65% 50% at 50% -8%,rgba(124,58,237,.14) 0%,transparent 65%),
+    radial-gradient(ellipse 45% 55% at 92% 50%,rgba(109,40,217,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 55% 40% at 8% 90%,rgba(76,29,149,.06) 0%,transparent 60%);
 }
 
-/* ── NAV ── */
+/* ══════════ NAV ══════════ */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:0;left:0;right:0;z-index:300;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 5%;height:68px;
-  background:rgba(6,5,15,.85);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
+  padding:0 6%;height:64px;
+  background:rgba(3,2,10,.75);
+  backdrop-filter:blur(28px);
+  border-bottom:1px solid var(--bordersoft);
 }
-.nav-logo{
-  font-family:'DM Mono',monospace;font-size:1rem;
-  font-weight:500;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--accent2);
-}
-.nav-links{display:flex;gap:2rem;align-items:center}
-.nav-links a{
-  font-family:'DM Mono',monospace;font-size:.62rem;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;
-  transition:color .2s;
-}
-.nav-links a:hover{color:var(--accent2)}
-.nav-cta{
-  font-family:'DM Mono',monospace;font-size:.6rem;
-  letter-spacing:.12em;text-transform:uppercase;
-  background:var(--accent3);color:#fff;
-  padding:.5rem 1.2rem;border-radius:8px;
-  text-decoration:none;
-  border:1px solid rgba(139,92,246,.4);
-  transition:all .2s;
-  box-shadow:0 0 16px rgba(139,92,246,.25);
-}
-.nav-cta:hover{background:var(--accent);box-shadow:0 0 24px rgba(139,92,246,.45)}
+.nlogo{font-family:'DM Mono',monospace;font-size:.84rem;letter-spacing:.36em;text-transform:uppercase;color:var(--v3)}
+.nlinks{display:flex;gap:2.4rem}
+.nlinks a{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nlinks a:hover{color:var(--v3)}
+.nright{display:flex;align-items:center;gap:.9rem}
+.lsw{display:flex;border:1px solid var(--border);border-radius:7px;overflow:hidden}
+.lsw button{font-family:'DM Mono',monospace;font-size:.53rem;letter-spacing:.1em;text-transform:uppercase;padding:.32rem .66rem;background:none;border:none;color:var(--muted);cursor:pointer;transition:all .2s}
+.lsw button.on{background:rgba(139,92,246,.16);color:var(--v3)}
+.lsw .lsp{width:1px;background:var(--border)}
+.ncta{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:var(--v);color:#fff;padding:.42rem 1.1rem;border-radius:7px;text-decoration:none;border:1px solid rgba(139,92,246,.4);transition:all .2s;box-shadow:0 0 18px rgba(124,58,237,.3)}
+.ncta:hover{background:var(--v2);box-shadow:0 0 30px rgba(124,58,237,.55);transform:translateY(-1px)}
 
-/* ── SECTIONS WRAPPER ── */
 section{position:relative;z-index:1}
 
-/* ── HERO ── */
+/* ══════════ HERO ══════════ */
 #hero{
   min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:120px 5% 80px;
-  text-align:center;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:4rem;
+  padding:120px 6% 80px;
+  max-width:1200px;margin:0 auto;
 }
-.hero-badge{
+
+/* LEFT */
+.hero-left{}
+.heyebrow{
   display:inline-flex;align-items:center;gap:.5rem;
-  font-family:'DM Mono',monospace;font-size:.6rem;
-  letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent2);
-  background:rgba(139,92,246,.08);
-  border:1px solid rgba(139,92,246,.25);
-  border-radius:20px;padding:.4rem 1rem;
+  font-family:'DM Mono',monospace;font-size:.56rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--v3);background:rgba(139,92,246,.07);
+  border:1px solid rgba(139,92,246,.22);
+  border-radius:20px;padding:.32rem .85rem;
   margin-bottom:2rem;
   animation:fadeUp .8s .1s both;
 }
-.hero-badge span{color:var(--accent);font-size:.7rem}
-.hero-orb{
-  width:88px;height:88px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#e0d4ff,#8b5cf6 40%,#3b0764);
-  box-shadow:0 0 60px rgba(139,92,246,.7),0 0 120px rgba(139,92,246,.3);
-  margin:0 auto 2.5rem;
-  animation:fadeUp .8s .2s both, orbPulse 4s ease-in-out infinite;
-}
-@keyframes orbPulse{
-  0%,100%{box-shadow:0 0 60px rgba(139,92,246,.7),0 0 120px rgba(139,92,246,.3)}
-  50%{box-shadow:0 0 80px rgba(139,92,246,.9),0 0 160px rgba(139,92,246,.5)}
-}
-h1.hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.8rem,7vw,5.5rem);
-  font-weight:700;
-  line-height:1.08;
+.heyebrow::before{content:'✦';color:var(--v)}
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,5.5vw,5rem);
+  font-weight:300;line-height:1.05;
   letter-spacing:-.01em;
   color:var(--text);
-  margin-bottom:1.5rem;
-  animation:fadeUp .8s .3s both;
+  margin-bottom:1.6rem;
+  animation:fadeUp .8s .25s both;
 }
-h1.hero-title em{
-  font-style:italic;
-  background:linear-gradient(135deg,#c4b5fd,#8b5cf6);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+h1 em{font-style:italic;color:var(--v3)}
+h1 strong{font-weight:600;display:block}
+.hsub{
+  font-size:1rem;color:var(--muted);
+  line-height:1.82;max-width:420px;
+  margin-bottom:2.5rem;font-weight:300;
+  animation:fadeUp .8s .4s both;
 }
-.hero-sub{
-  font-size:clamp(1rem,2.5vw,1.2rem);
-  color:var(--muted);
-  max-width:560px;
-  line-height:1.75;
-  margin:0 auto 3rem;
-  font-weight:300;
-  animation:fadeUp .8s .45s both;
-}
-.hero-actions{
-  display:flex;gap:1rem;flex-wrap:wrap;
-  justify-content:center;
-  animation:fadeUp .8s .6s both;
-}
-.btn-primary{
-  font-family:'DM Mono',monospace;font-size:.7rem;
+.hsub b{color:var(--text);font-weight:400}
+.hbtns{display:flex;gap:.85rem;flex-wrap:wrap;animation:fadeUp .8s .55s both}
+.btnmain{
+  font-family:'DM Mono',monospace;font-size:.64rem;
   letter-spacing:.12em;text-transform:uppercase;
-  background:linear-gradient(135deg,#7c3aed,#8b5cf6);
-  color:#fff;
-  padding:.85rem 2rem;border-radius:10px;
-  text-decoration:none;border:none;cursor:pointer;
-  box-shadow:0 0 32px rgba(139,92,246,.4),0 4px 20px rgba(0,0,0,.4);
-  transition:all .25s;
-  display:inline-flex;align-items:center;gap:.6rem;
+  background:linear-gradient(135deg,#5b21b6,#7c3aed,#8b5cf6);
+  color:#fff;padding:.88rem 2rem;border-radius:10px;
+  border:none;cursor:pointer;text-decoration:none;
+  box-shadow:0 0 40px rgba(124,58,237,.5),0 4px 24px rgba(0,0,0,.45);
+  transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;
 }
-.btn-primary:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 48px rgba(139,92,246,.6),0 8px 32px rgba(0,0,0,.5);
-}
-.btn-secondary{
-  font-family:'DM Mono',monospace;font-size:.7rem;
+.btnmain:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(124,58,237,.7),0 8px 32px rgba(0,0,0,.55)}
+.btnout{
+  font-family:'DM Mono',monospace;font-size:.64rem;
   letter-spacing:.12em;text-transform:uppercase;
-  background:transparent;
-  color:var(--accent2);
-  padding:.85rem 2rem;border-radius:10px;
-  text-decoration:none;
-  border:1px solid rgba(139,92,246,.35);
-  cursor:pointer;
-  transition:all .25s;
-  display:inline-flex;align-items:center;gap:.6rem;
+  background:transparent;color:var(--v3);
+  padding:.88rem 2rem;border-radius:10px;
+  border:1px solid rgba(139,92,246,.3);cursor:pointer;
+  text-decoration:none;transition:all .25s;
+  display:inline-flex;align-items:center;gap:.5rem;
 }
-.btn-secondary:hover{
-  background:rgba(139,92,246,.08);
-  border-color:var(--accent);
-  transform:translateY(-2px);
-}
-.hero-scroll{
-  margin-top:4rem;
-  display:flex;flex-direction:column;align-items:center;
-  gap:.5rem;
-  font-family:'DM Mono',monospace;font-size:.55rem;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--dim);
-  animation:fadeUp .8s .9s both;
-}
-.scroll-line{
-  width:1px;height:48px;
-  background:linear-gradient(to bottom,transparent,var(--accent),transparent);
-  animation:scrollLine 2s ease-in-out infinite;
-}
-@keyframes scrollLine{
-  0%{transform:scaleY(0);transform-origin:top}
-  50%{transform:scaleY(1);transform-origin:top}
-  51%{transform:scaleY(1);transform-origin:bottom}
-  100%{transform:scaleY(0);transform-origin:bottom}
-}
+.btnout:hover{background:rgba(124,58,237,.08);border-color:var(--v3);transform:translateY(-2px)}
 
-/* ── MOCKUP / PREVIEW ── */
-#preview{
-  padding:80px 5%;
-  display:flex;align-items:center;justify-content:center;
-}
-.mockup-wrap{
+/* RIGHT — ORB + PHONE */
+.hero-right{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   position:relative;
-  max-width:380px;width:100%;
-  margin:0 auto;
+  animation:fadeUp .8s .35s both;
 }
-.mockup-glow{
-  position:absolute;inset:-40px;
-  background:radial-gradient(ellipse at 50% 50%,rgba(139,92,246,.25) 0%,transparent 70%);
-  pointer-events:none;
+.orb-wrap{
+  position:relative;
+  width:180px;height:180px;
+  margin:0 auto 2.5rem;
+  flex-shrink:0;
 }
-.mockup-phone{
-  background:var(--surface);
-  border:1.5px solid rgba(139,92,246,.25);
-  border-radius:32px;
-  padding:16px;
+.orb-r3{position:absolute;inset:-52px;border-radius:50%;border:1px solid rgba(196,181,253,.04);animation:rspin 22s linear infinite}
+.orb-r2{position:absolute;inset:-30px;border-radius:50%;border:1px solid rgba(196,181,253,.08);animation:rspin 15s linear infinite reverse}
+.orb-r1{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(196,181,253,.14);animation:rspin 9s linear infinite}
+.orb{
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle at 32% 27%,#f0e8ff,#8b5cf6 40%,#3b0764 76%,#12003a);
   box-shadow:
-    0 0 0 1px rgba(139,92,246,.1),
-    0 32px 80px rgba(0,0,0,.8),
-    0 0 60px rgba(139,92,246,.12);
-  position:relative;overflow:hidden;
+    0 0 0 1px rgba(196,181,253,.1),
+    0 0 55px rgba(139,92,246,.75),
+    0 0 130px rgba(139,92,246,.4),
+    0 0 280px rgba(124,58,237,.18);
+  animation:orbfloat 7s ease-in-out infinite;
+  position:relative;z-index:2;
 }
-.mockup-notch{
-  width:100px;height:8px;
-  background:rgba(0,0,0,.5);
-  border-radius:4px;
-  margin:0 auto 16px;
+@keyframes orbfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes rspin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* PHONE */
+.phone{
+  background:var(--deep);
+  border:1.5px solid rgba(139,92,246,.24);
+  border-radius:28px;padding:14px;width:230px;
+  box-shadow:0 0 0 1px rgba(139,92,246,.06),0 28px 70px rgba(0,0,0,.88),0 0 50px rgba(139,92,246,.1);
+  position:relative;z-index:2;
 }
-.mockup-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:8px 12px;
-  background:rgba(8,6,18,.8);
+.pnotch{width:80px;height:6px;background:rgba(0,0,0,.6);border-radius:3px;margin:0 auto 12px}
+.pbar{display:flex;justify-content:space-between;align-items:center;padding:6px 9px;background:rgba(3,2,10,.9);border-radius:9px;margin-bottom:9px;border:1px solid rgba(139,92,246,.1)}
+.plogo{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.24em;color:var(--v3)}
+.pct{font-family:'DM Mono',monospace;font-size:.44rem;color:var(--v3);background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);padding:.1rem .35rem;border-radius:6px}
+.bk{display:flex;gap:8px;align-items:flex-start;padding:9px;border:1px solid rgba(139,92,246,.09);border-radius:10px;margin-bottom:6px;background:var(--card)}
+.bkcov{width:32px;height:45px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.cv1{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
+.cv2{background:linear-gradient(135deg,#3b0764,#7c3aed)}
+.cv3{background:linear-gradient(135deg,#064e3b,#059669)}
+.bkttl{font-family:'Cormorant Garamond',serif;font-size:.72rem;color:var(--text)}
+.bkauth{font-family:'DM Mono',monospace;font-size:.44rem;color:var(--muted);margin-top:2px}
+.bkpb{height:2px;background:rgba(139,92,246,.1);border-radius:1px;margin-top:5px}
+.bkpbf{height:100%;border-radius:1px;background:linear-gradient(90deg,#5b21b6,#8b5cf6)}
+.ptabs{display:flex;justify-content:center;gap:5px;margin-top:9px;padding-top:8px;border-top:1px solid rgba(139,92,246,.07)}
+.ptab{width:22px;height:3px;border-radius:2px;background:rgba(139,92,246,.12)}
+.ptab.on{background:var(--v);box-shadow:0 0 6px var(--v)}
+
+.phone-glow{position:absolute;inset:-60px;background:radial-gradient(ellipse at 50% 50%,rgba(139,92,246,.2) 0%,transparent 70%);pointer-events:none;z-index:1}
+
+/* ══════════ COUNTDOWN ══════════ */
+#countdown{
+  position:relative;z-index:1;
+  background:linear-gradient(90deg,rgba(91,33,182,.12),rgba(124,58,237,.18),rgba(91,33,182,.12));
+  border-top:1px solid rgba(139,92,246,.2);
+  border-bottom:1px solid rgba(139,92,246,.2);
+  padding:1.4rem 6%;
+  display:flex;align-items:center;justify-content:center;gap:2.5rem;
+  flex-wrap:wrap;
+}
+.cd-msg{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cd-msg strong{color:var(--v3)}
+.cd-clock{display:flex;align-items:center;gap:.6rem}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:.2rem}
+.cd-num{
+  font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;
+  color:var(--text);line-height:1;
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:10px;padding:.2rem .7rem;
+  min-width:60px;text-align:center;
+  box-shadow:0 0 18px rgba(139,92,246,.12);
+}
+.cd-lbl{font-family:'DM Mono',monospace;font-size:.45rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+.cd-sep{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--dim);margin-bottom:.8rem}
+.cd-cta{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:var(--v);color:#fff;padding:.5rem 1.3rem;border-radius:8px;text-decoration:none;border:1px solid rgba(139,92,246,.4);transition:all .2s;box-shadow:0 0 16px rgba(124,58,237,.3);white-space:nowrap}
+.cd-cta:hover{background:var(--v2);box-shadow:0 0 28px rgba(124,58,237,.55)}
+
+/* ══════════ WOW DEMOS ══════════ */
+#wow{padding:100px 6%}
+.seclbl{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--v);display:block;margin-bottom:.7rem}
+.sectitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:300;line-height:1.15;color:var(--text)}
+.sectitle em{font-style:italic;color:var(--v3)}
+.secsub{font-size:.92rem;color:var(--muted);line-height:1.8;max-width:460px;margin-top:.65rem}
+.wow-hdr{text-align:center;margin-bottom:72px}
+.wow-hdr .secsub{margin:0 auto}
+
+.wow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:1100px;margin:0 auto}
+.wow-card{
+  border-radius:20px;overflow:hidden;
+  border:1px solid var(--bordersoft);
+  background:var(--card);
+  transition:all .35s;
+  position:relative;
+}
+.wow-card:hover{border-color:var(--border);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 40px rgba(139,92,246,.08)}
+.wow-anim{height:200px;position:relative;overflow:hidden;background:var(--deep)}
+
+/* GALAXY ANIMATION */
+.galaxy-canvas{width:100%;height:100%;position:relative}
+.planet{
+  position:absolute;border-radius:50%;
+  box-shadow:0 0 12px currentColor;
+  animation:planetOrbit var(--dur,8s) linear infinite;
+}
+@keyframes planetOrbit{
+  from{transform:rotate(var(--start,0deg)) translateX(var(--r,60px)) rotate(calc(-1*var(--start,0deg)))}
+  to{transform:rotate(calc(var(--start,0deg)+360deg)) translateX(var(--r,60px)) rotate(calc(-1*(var(--start,0deg)+360deg)))}
+}
+.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.orbit-ring{
+  position:absolute;top:50%;left:50%;
+  border-radius:50%;border:1px solid rgba(139,92,246,.15);
+  transform:translate(-50%,-50%);
+}
+.neon-line{
+  position:absolute;top:50%;left:50%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.6),transparent);
+  transform-origin:left center;
+  animation:linePulse 3s ease-in-out infinite;
+}
+@keyframes linePulse{0%,100%{opacity:.3}50%{opacity:.9}}
+
+/* GRAVITY ANIMATION */
+.gravity-word{
+  position:absolute;
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;
+  color:var(--v3);background:rgba(139,92,246,.1);
+  border:1px solid rgba(139,92,246,.2);
+  padding:.2rem .55rem;border-radius:20px;
+  animation:gravFall var(--gd,3s) var(--gde,0s) ease-in infinite;
+}
+@keyframes gravFall{
+  0%{transform:translateY(-20px) rotate(var(--rot,0deg));opacity:0}
+  15%{opacity:1}
+  85%{opacity:1}
+  100%{transform:translateY(180px) rotate(var(--rot2,5deg));opacity:0}
+}
+
+/* STORY CARD ANIMATION */
+.story-card{
+  position:absolute;
+  background:linear-gradient(135deg,var(--card2),var(--surface));
+  border:1px solid var(--border);
   border-radius:12px;
-  margin-bottom:12px;
-  border:1px solid rgba(139,92,246,.12);
+  padding:1rem;
+  width:140px;
+  animation:cardFloat 4s ease-in-out infinite;
 }
-.mockup-logo{
-  font-family:'DM Mono',monospace;font-size:.65rem;
-  letter-spacing:.25em;color:var(--accent2);
-}
-.mockup-count{
-  font-family:'DM Mono',monospace;font-size:.5rem;
-  color:var(--accent2);
-  background:rgba(139,92,246,.1);
+@keyframes cardFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
+.sc-orb-mini{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ede9fe,#8b5cf6 50%,#2e1065);margin-bottom:.4rem}
+.sc-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.65rem;color:var(--text);line-height:1.5;margin-bottom:.5rem}
+.sc-author{font-family:'DM Mono',monospace;font-size:.42rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.sc-tag{font-family:'DM Mono',monospace;font-size:.38rem;letter-spacing:.08em;color:var(--v);margin-top:.3rem}
+.second-card{
+  position:absolute;
+  background:linear-gradient(135deg,#1a0a3d,#2d1b69);
   border:1px solid rgba(139,92,246,.3);
-  padding:.15rem .4rem;border-radius:8px;
+  border-radius:12px;padding:.8rem;width:130px;
+  animation:cardFloat2 4s 1.5s ease-in-out infinite;
+  opacity:.7;
 }
-.book-card{
-  background:var(--card);
-  border:1px solid rgba(139,92,246,.12);
-  border-radius:12px;padding:12px;
-  margin-bottom:8px;
-  display:flex;gap:10px;align-items:flex-start;
-  transition:border-color .2s;
-}
-.book-cover{
-  width:38px;height:52px;
-  border-radius:5px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;
-}
-.cover-1{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
-.cover-2{background:linear-gradient(135deg,#3b0764,#7c3aed)}
-.cover-3{background:linear-gradient(135deg,#064e3b,#059669)}
-.book-info{flex:1;min-width:0}
-.book-title-m{
-  font-family:'Playfair Display',serif;
-  font-size:.7rem;color:var(--text);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.book-author-m{
-  font-family:'DM Mono',monospace;font-size:.5rem;
-  color:var(--muted);margin-top:2px;
-}
-.book-prog{
-  height:2px;background:rgba(139,92,246,.12);
-  border-radius:2px;margin-top:6px;
-}
-.book-prog-fill{
-  height:100%;border-radius:2px;
-  background:linear-gradient(90deg,var(--accent3),var(--accent));
-}
-.mockup-tab{
-  display:flex;justify-content:center;gap:6px;
-  margin-top:12px;padding-top:10px;
-  border-top:1px solid rgba(139,92,246,.08);
-}
-.tab-dot{
-  width:28px;height:5px;border-radius:3px;
-  background:rgba(139,92,246,.15);
-}
-.tab-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+@keyframes cardFloat2{0%,100%{transform:translateY(0) rotate(3deg)}50%{transform:translateY(-6px) rotate(1deg)}}
 
-/* ── FEATURES ── */
-#features{padding:100px 5%}
-.section-label{
-  font-family:'DM Mono',monospace;font-size:.6rem;
-  letter-spacing:.25em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:1rem;
-  display:block;
-}
-.section-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,5vw,3.2rem);
-  font-weight:700;line-height:1.15;
-  color:var(--text);
-  margin-bottom:1rem;
-}
-.section-title em{font-style:italic;color:var(--accent2)}
-.section-sub{
-  color:var(--muted);font-size:1rem;
-  line-height:1.7;max-width:520px;
-}
-.features-header{
-  text-align:center;margin-bottom:64px;
-}
-.features-header .section-sub{margin:0 auto}
-.features-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:1.5rem;
-  max-width:1100px;margin:0 auto;
-}
-.feat-card{
-  background:var(--card);
-  border:1px solid rgba(139,92,246,.12);
-  border-radius:16px;
-  padding:2rem;
-  transition:all .3s;
-  position:relative;overflow:hidden;
-}
-.feat-card::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139,92,246,.06) 0%,transparent 70%);
-  opacity:0;transition:opacity .3s;pointer-events:none;
-}
-.feat-card:hover{
-  border-color:rgba(139,92,246,.3);
-  transform:translateY(-4px);
-  box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 32px rgba(139,92,246,.08);
-}
-.feat-card:hover::before{opacity:1}
-.feat-icon{
-  width:48px;height:48px;border-radius:12px;
-  background:rgba(139,92,246,.1);
-  border:1px solid rgba(139,92,246,.2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;margin-bottom:1.2rem;
-}
-.feat-title{
-  font-family:'Playfair Display',serif;
-  font-size:1.1rem;font-weight:600;
-  color:var(--text);margin-bottom:.6rem;
-}
-.feat-desc{
-  font-size:.88rem;color:var(--muted);
-  line-height:1.7;
-}
+.wow-body{padding:1.5rem}
+.wow-num{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.2em;color:var(--dim);display:block;margin-bottom:.7rem}
+.wow-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--text);margin-bottom:.5rem}
+.wow-desc{font-size:.84rem;color:var(--muted);line-height:1.75}
 
-/* ── HOW IT WORKS ── */
-#how{
-  padding:100px 5%;
-  background:linear-gradient(to bottom,transparent,rgba(12,10,24,.5),transparent);
+/* ══════════ MANIFESTO ══════════ */
+#manifesto{
+  padding:120px 6%;
+  background:linear-gradient(to bottom,transparent,rgba(11,8,30,.7),transparent);
 }
-.how-inner{
-  max-width:900px;margin:0 auto;
-}
-.how-steps{
-  display:grid;gap:2rem;margin-top:56px;
-}
-.step{
-  display:flex;gap:1.5rem;align-items:flex-start;
-  padding:1.8rem;
-  background:var(--card);
-  border:1px solid rgba(139,92,246,.1);
-  border-radius:16px;
-  transition:border-color .3s;
-}
-.step:hover{border-color:rgba(139,92,246,.25)}
-.step-num{
-  width:44px;height:44px;border-radius:50%;flex-shrink:0;
-  background:rgba(139,92,246,.1);
-  border:1px solid rgba(139,92,246,.3);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'DM Mono',monospace;font-size:.8rem;
-  color:var(--accent2);font-weight:500;
-  box-shadow:0 0 16px rgba(139,92,246,.15);
-}
-.step-content{}
-.step-title{
-  font-family:'Playfair Display',serif;
-  font-size:1.05rem;font-weight:600;
-  color:var(--text);margin-bottom:.4rem;
-}
-.step-desc{font-size:.88rem;color:var(--muted);line-height:1.7}
-
-/* ── BETA ── */
-#beta{
-  padding:100px 5%;
-}
-.beta-box{
-  max-width:720px;margin:0 auto;
-  background:linear-gradient(135deg,rgba(12,10,24,.8),rgba(26,23,48,.6));
-  border:1px solid rgba(139,92,246,.2);
-  border-radius:24px;
-  padding:clamp(2rem,5vw,4rem);
-  text-align:center;
-  position:relative;overflow:hidden;
-}
-.beta-box::before{
-  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
-  width:300px;height:200px;
-  background:radial-gradient(ellipse,rgba(139,92,246,.15) 0%,transparent 70%);
-  pointer-events:none;
-}
-.beta-tag{
-  display:inline-flex;align-items:center;gap:.4rem;
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ok);
-  background:rgba(110,231,183,.07);
-  border:1px solid rgba(110,231,183,.2);
-  border-radius:20px;padding:.35rem .9rem;
-  margin-bottom:1.8rem;
-}
-.beta-tag span{width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.beta-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.8rem,4vw,2.8rem);
-  font-weight:700;line-height:1.2;
-  color:var(--text);margin-bottom:1rem;
-}
-.beta-title em{font-style:italic;color:var(--accent2)}
-.beta-desc{
-  color:var(--muted);font-size:.95rem;
-  line-height:1.75;max-width:480px;margin:0 auto 2rem;
-}
-.beta-limits{
-  display:flex;justify-content:center;gap:1rem;
-  flex-wrap:wrap;margin-bottom:2rem;
-}
-.beta-pill{
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent2);
-  background:rgba(139,92,246,.08);
-  border:1px solid rgba(139,92,246,.2);
-  padding:.3rem .8rem;border-radius:20px;
-}
-.beta-email-wrap{
-  display:flex;gap:.75rem;max-width:440px;margin:0 auto;
-  flex-wrap:wrap;justify-content:center;
-}
-.beta-input{
-  flex:1;min-width:220px;
-  background:rgba(6,5,15,.8);
-  border:1px solid rgba(139,92,246,.25);
-  border-radius:10px;
-  color:var(--text);
-  font-family:'Lato',sans-serif;font-size:.9rem;
-  padding:.8rem 1.2rem;outline:none;
-  transition:border-color .2s;
-}
-.beta-input::placeholder{color:var(--dim)}
-.beta-input:focus{border-color:var(--accent)}
-.beta-note{
-  font-family:'DM Mono',monospace;font-size:.55rem;
-  letter-spacing:.08em;color:var(--dim);
-  margin-top:1rem;
-}
-
-/* ── TESTIMONIALS / QUOTES ── */
-#quotes{padding:100px 5%}
-.quotes-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:1.5rem;
-  max-width:1000px;margin:56px auto 0;
-}
-.quote-card{
-  background:var(--card);
-  border:1px solid rgba(139,92,246,.1);
-  border-radius:16px;
-  padding:1.8rem;
-  transition:all .3s;
-}
-.quote-card:hover{
-  border-color:rgba(139,92,246,.25);
-  transform:translateY(-3px);
-}
-.quote-mark{
-  font-family:'Playfair Display',serif;
-  font-size:3rem;line-height:.7;
-  color:rgba(139,92,246,.25);
-  margin-bottom:1rem;
-  display:block;
-}
-.quote-text{
-  font-family:'Playfair Display',serif;
-  font-style:italic;
-  font-size:.95rem;line-height:1.75;
-  color:var(--text);opacity:.9;
-  margin-bottom:1.2rem;
-}
-.quote-author{
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);
-}
-.quote-stars{color:var(--gold);font-size:.75rem;margin-bottom:.6rem}
-
-/* ── PRICING / BUY ── */
-#pricing{
-  padding:100px 5%;
-  background:linear-gradient(to bottom,transparent,rgba(12,10,24,.5),transparent);
-}
-.pricing-inner{
-  max-width:780px;margin:0 auto;text-align:center;
-}
-.pricing-card{
-  background:linear-gradient(135deg,rgba(18,16,32,.9),rgba(26,23,48,.8));
-  border:1.5px solid rgba(139,92,246,.3);
-  border-radius:24px;
-  padding:clamp(2rem,5vw,4rem);
-  position:relative;overflow:hidden;
-  box-shadow:0 0 80px rgba(139,92,246,.1);
-  margin-top:56px;
-}
-.pricing-card::before{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:320px;height:320px;
-  background:radial-gradient(ellipse,rgba(139,92,246,.12) 0%,transparent 70%);
-  pointer-events:none;
-}
-.pricing-badge{
-  display:inline-flex;
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);
-  background:rgba(251,191,36,.07);
-  border:1px solid rgba(251,191,36,.2);
-  border-radius:20px;padding:.35rem .9rem;
-  margin-bottom:2rem;
-}
-.pricing-price{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,8vw,5.5rem);
-  font-weight:700;
-  color:var(--text);
-  line-height:1;
-  margin-bottom:.5rem;
-}
-.pricing-price sup{
-  font-size:.4em;vertical-align:top;margin-top:.4em;
-  color:var(--accent2);
-  font-family:'DM Mono',monospace;
-}
-.pricing-period{
-  font-family:'DM Mono',monospace;font-size:.6rem;
-  letter-spacing:.15em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:2.5rem;
-}
-.pricing-features{
-  list-style:none;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:.75rem;
-  text-align:left;
+.mani-wrap{max-width:760px;margin:0 auto}
+.mani-pre{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:2rem;display:block}
+.mani-body{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3vw,2.1rem);
+  font-style:italic;font-weight:300;
+  line-height:1.7;color:rgba(244,240,255,.78);
   margin-bottom:2.5rem;
 }
-.pricing-features li{
-  display:flex;gap:.6rem;align-items:flex-start;
-  font-size:.88rem;color:var(--muted);
-  font-weight:300;
+.mani-body strong{font-style:normal;font-weight:600;color:var(--text)}
+.mani-body em{color:var(--v3)}
+.mani-statement{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4.5vw,3.4rem);
+  font-weight:300;line-height:1.2;
+  color:var(--text);
+  padding-left:1.8rem;
+  border-left:2px solid rgba(139,92,246,.45);
+  margin-bottom:2.5rem;
 }
-.pricing-features li span:first-child{
-  color:var(--ok);font-size:.9rem;flex-shrink:0;margin-top:.1rem;
-}
-.btn-buy{
-  font-family:'DM Mono',monospace;font-size:.72rem;
-  letter-spacing:.15em;text-transform:uppercase;
-  background:linear-gradient(135deg,#7c3aed,#8b5cf6,#a78bfa);
-  color:#fff;
-  padding:1rem 3rem;border-radius:12px;
-  text-decoration:none;
-  border:none;cursor:pointer;
-  box-shadow:0 0 48px rgba(139,92,246,.5),0 8px 32px rgba(0,0,0,.5);
-  transition:all .25s;
-  display:inline-flex;align-items:center;gap:.75rem;
-  font-size:.72rem;
-}
-.btn-buy:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 64px rgba(139,92,246,.7),0 12px 40px rgba(0,0,0,.6);
-}
-.pricing-guarantee{
-  margin-top:1.5rem;
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.1em;color:var(--dim);
-}
+.mani-statement em{font-style:italic;color:var(--v3)}
+.mani-sig{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.mani-sig span{color:var(--v3)}
 
-/* ── FAQ ── */
-#faq{padding:80px 5% 100px}
-.faq-inner{max-width:680px;margin:0 auto}
-.faq-list{margin-top:48px}
-.faq-item{
-  border-bottom:1px solid rgba(139,92,246,.1);
-  padding:1.2rem 0;
+/* ══════════ FEATURES ══════════ */
+#features{padding:100px 6%}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:1080px;margin:60px auto 0}
+.feat-card{
+  background:var(--card);border:1px solid var(--bordersoft);
+  border-radius:18px;padding:2rem;
+  transition:all .32s;position:relative;overflow:hidden;
 }
+.feat-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(196,181,253,.2),transparent);
+  opacity:0;transition:.32s;
+}
+.feat-card:hover{border-color:var(--border);transform:translateY(-5px);box-shadow:0 20px 52px rgba(0,0,0,.5)}
+.feat-card:hover::after{opacity:1}
+.ficon{
+  width:48px;height:48px;border-radius:13px;
+  background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.18);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1.3rem;
+  box-shadow:0 0 16px rgba(124,58,237,.12);
+}
+.ftitle{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text);margin-bottom:.6rem}
+.fdesc{font-size:.85rem;color:var(--muted);line-height:1.78}
+
+/* ══════════ SOCIAL PROOF ══════════ */
+#social{padding:100px 6%}
+.rev-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.2rem;max-width:900px;margin:60px auto 0;
+}
+.rev-card{
+  background:var(--card);border:1px solid var(--bordersoft);
+  border-radius:16px;padding:1.7rem;transition:all .3s;
+}
+.rev-card:hover{border-color:var(--border);transform:translateY(-3px)}
+.rev-flag{font-size:1rem;margin-bottom:.6rem;display:block}
+.rev-stars{color:var(--gold);font-size:.7rem;letter-spacing:.04em;margin-bottom:.65rem;display:block}
+.rev-q{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;color:rgba(244,240,255,.82);
+  line-height:1.72;margin-bottom:.9rem;
+}
+.rev-au{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.rev-au span{color:var(--v3)}
+/* 5th card centered */
+.rev-grid .rev-card:nth-child(5){grid-column:1/3;max-width:440px;justify-self:center}
+
+/* ══════════ PRICING ══════════ */
+#pricing{padding:100px 6%;background:linear-gradient(to bottom,transparent,rgba(11,8,30,.5),transparent)}
+.price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:820px;margin:60px auto 0}
+.pcard{border-radius:22px;padding:2.5rem 2rem;position:relative;overflow:hidden}
+.pcard.free{background:var(--card);border:1px solid var(--bordersoft)}
+.pcard.pro{
+  background:linear-gradient(145deg,rgba(15,11,35,.96),rgba(24,17,52,.92));
+  border:1.5px solid rgba(139,92,246,.35);
+  box-shadow:0 0 90px rgba(124,58,237,.12);
+}
+.pcard.pro::before{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:220px;height:220px;
+  background:radial-gradient(ellipse,rgba(124,58,237,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.pbadge{display:inline-flex;font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.17em;text-transform:uppercase;border-radius:20px;padding:.25rem .7rem;margin-bottom:1.4rem}
+.pb-free{color:var(--muted);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
+.pb-pro{color:var(--gold);background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2)}
+.pname{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--text);margin-bottom:.4rem}
+.pamount{font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:600;color:var(--text);line-height:1;margin-bottom:.2rem}
+.pamount sup{font-size:.38em;vertical-align:top;margin-top:.55em;color:var(--v3);font-family:'DM Mono',monospace}
+.pamount sub{font-size:.28em;color:var(--muted);font-family:'DM Mono',monospace}
+.pwas{font-family:'DM Mono',monospace;font-size:.7rem;color:rgba(248,113,113,.45);text-decoration:line-through;display:block;margin-bottom:.2rem}
+.pperiod{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.8rem}
+.pfeats{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.8rem}
+.pfeats li{font-size:.83rem;color:var(--muted);display:flex;gap:.45rem;line-height:1.5}
+.ck{color:var(--green);flex-shrink:0}
+.ckd{color:var(--dim);flex-shrink:0}
+.bfree{display:block;width:100%;text-align:center;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--muted);padding:.8rem;border-radius:9px;border:1px solid rgba(255,255,255,.09);cursor:pointer;text-decoration:none;transition:all .2s}
+.bfree:hover{border-color:var(--border);color:var(--text)}
+.bpro{
+  display:block;width:100%;text-align:center;
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+  background:linear-gradient(135deg,#5b21b6,#7c3aed,#8b5cf6);
+  color:#fff;padding:.85rem;border-radius:9px;border:none;cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 0 32px rgba(124,58,237,.42);transition:all .25s;
+}
+.bpro:hover{box-shadow:0 0 52px rgba(124,58,237,.65);transform:translateY(-2px)}
+.pguar{font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.08em;color:var(--dim);text-align:center;margin-top:.85rem}
+
+/* ══════════ FAQ ══════════ */
+#faq{padding:100px 6%}
+.faq-inner{max-width:680px;margin:0 auto}
+.faq-list{margin-top:56px}
+.faq-item{border-bottom:1px solid var(--bordersoft);overflow:hidden}
 .faq-q{
   display:flex;justify-content:space-between;align-items:center;
-  cursor:pointer;gap:1rem;
-}
-.faq-q span{
-  font-family:'Playfair Display',serif;
-  font-size:1rem;font-weight:600;color:var(--text);
-}
-.faq-toggle{
-  width:28px;height:28px;border-radius:50%;
-  background:rgba(139,92,246,.1);
-  border:1px solid rgba(139,92,246,.2);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-  font-family:'DM Mono',monospace;font-size:.8rem;
-  color:var(--accent2);
-  transition:all .2s;cursor:pointer;
-}
-.faq-item.open .faq-toggle{
-  background:var(--accent);color:#fff;
-  transform:rotate(45deg);
-}
-.faq-a{
-  max-height:0;overflow:hidden;
-  transition:max-height .35s ease,padding .35s;
-  font-size:.9rem;color:var(--muted);line-height:1.75;
-}
-.faq-item.open .faq-a{
-  max-height:300px;
-  padding-top:.75rem;
-}
-
-/* ── FOOTER ── */
-footer{
-  padding:48px 5%;
-  border-top:1px solid rgba(139,92,246,.1);
-  display:flex;flex-wrap:wrap;
-  justify-content:space-between;align-items:center;
-  gap:1rem;
-}
-.footer-logo{
-  font-family:'DM Mono',monospace;font-size:.85rem;
-  letter-spacing:.3em;text-transform:uppercase;
-  color:var(--accent2);
-}
-.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
-.footer-links a{
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--dim);text-decoration:none;
+  padding:1.2rem 0;cursor:pointer;gap:1rem;
   transition:color .2s;
 }
-.footer-links a:hover{color:var(--muted)}
-.footer-copy{
-  font-family:'DM Mono',monospace;font-size:.55rem;
-  letter-spacing:.08em;text-transform:uppercase;
-  color:var(--dim);width:100%;text-align:center;
-  margin-top:.5rem;
+.faq-q:hover .faq-qt{color:var(--v3)}
+.faq-qt{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--text);transition:color .2s}
+.faq-icon{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.18);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:.75rem;color:var(--v3);
+  transition:all .25s;
 }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-
-/* ── DIVIDER ── */
-.divider{
-  max-width:1100px;margin:0 auto;
-  height:1px;
-  background:linear-gradient(90deg,transparent,rgba(139,92,246,.2),transparent);
+.faq-item.open .faq-icon{background:var(--v);color:#fff;transform:rotate(45deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .38s ease,padding .38s;
+  font-size:.88rem;color:var(--muted);line-height:1.8;
 }
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.2rem}
 
-/* ── MOBILE ── */
-@media(max-width:640px){
-  .nav-links{display:none}
-  .features-grid{grid-template-columns:1fr}
-  .beta-email-wrap{flex-direction:column}
-  .pricing-features{grid-template-columns:1fr}
-  footer{flex-direction:column;text-align:center}
+/* ══════════ FOOTER ══════════ */
+footer{
+  padding:70px 6% 50px;
+  border-top:1px solid var(--bordersoft);
+  display:flex;flex-direction:column;align-items:center;
+  gap:1.3rem;text-align:center;
+}
+.forb{
+  width:44px;height:44px;border-radius:50%;
+  background:radial-gradient(circle at 32% 27%,#f0e8ff,#8b5cf6 50%,#2e1065);
+  box-shadow:0 0 22px rgba(139,92,246,.52);
+}
+.flogo{font-family:'DM Mono',monospace;font-size:.95rem;letter-spacing:.35em;text-transform:uppercase;color:var(--v3)}
+.fhandle{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:var(--muted)}
+.ftag2{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.flinks{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center}
+.flinks a{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;cursor:pointer;transition:color .2s}
+.flinks a:hover{color:var(--muted)}
+.fcopy{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.08em;color:var(--dim)}
+
+/* ══════════ MODALS ══════════ */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(2,1,8,.93);
+  z-index:600;display:flex;align-items:center;justify-content:center;
+  padding:2rem;opacity:0;visibility:hidden;
+  transition:opacity .3s,visibility .3s;
+  backdrop-filter:blur(18px);
+}
+.modal-bg.open{opacity:1;visibility:visible}
+.modal-box{
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:20px;max-width:580px;width:100%;
+  max-height:80vh;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 0 70px rgba(124,58,237,.14),0 32px 80px rgba(0,0,0,.85);
+  animation:mup .3s ease;
+}
+@keyframes mup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.8rem;border-bottom:1px solid var(--bordersoft)}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--text)}
+.modal-x{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid var(--bordersoft);color:var(--muted);font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-x:hover{background:rgba(124,58,237,.14);color:var(--v3)}
+.modal-body{padding:1.4rem 1.8rem 1.8rem;overflow-y:auto;flex:1}
+.modal-body h3{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.17em;text-transform:uppercase;color:var(--v);margin:1.2rem 0 .36rem}
+.modal-body h3:first-child{margin-top:0}
+.modal-body p,.modal-body li{font-size:.84rem;color:var(--muted);line-height:1.82}
+.modal-body ul{list-style:none;padding-left:.5rem}
+.modal-body ul li::before{content:'— ';color:var(--v)}
+
+/* ══════════ DIVIDER + PROMISE ══════════ */
+.dv{max-width:960px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.18),transparent)}
+#promise{padding:48px 6%}
+.prom-inner{max-width:660px;margin:0 auto;text-align:center}
+.prom-lbl{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.15rem;display:block}
+.prom-pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.ppill{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--v3);background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.16);padding:.25rem .7rem;border-radius:20px}
+
+/* ══════════ ANIMATIONS ══════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.fi{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.fi.v{opacity:1;transform:translateY(0)}
+.fid{opacity:0;transform:translateY(28px);transition:opacity .75s .15s ease,transform .75s .15s ease}
+.fid.v{opacity:1;transform:translateY(0)}
+.fid2{opacity:0;transform:translateY(28px);transition:opacity .75s .3s ease,transform .75s .3s ease}
+.fid2.v{opacity:1;transform:translateY(0)}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;text-align:center;padding:100px 5% 60px}
+  .hero-left{display:flex;flex-direction:column;align-items:center}
+  .hsub{margin-left:auto;margin-right:auto}
+  .nlinks{display:none}
+  .ncta{display:none}
+  .wow-grid,.feat-grid{grid-template-columns:1fr}
+  .price-wrap{grid-template-columns:1fr}
+  .rev-grid{grid-template-columns:1fr}
+  .rev-grid .rev-card:nth-child(5){grid-column:auto;max-width:none;justify-self:auto}
+}
+@media(max-width:600px){
+  #hero{gap:2.5rem}
+  .orb-wrap{width:130px;height:130px}
+  .orb{width:130px;height:130px}
 }
 </style>
 </head>
 <body>
 
-<canvas id="starCanvas"></canvas>
+<canvas id="cv"></canvas>
 
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav>
-  <div class="nav-logo">ALINEA</div>
-  <div class="nav-links">
-    <a href="#features">Funciones</a>
-    <a href="#beta">Beta</a>
-    <a href="#pricing">Precio</a>
-    <a href="#faq">FAQ</a>
+  <div class="nlogo">ALINEA</div>
+  <div class="nlinks">
+    <a href="#wow" data-k="nfeat">Features</a>
+    <a href="#social" data-k="nrev">Reviews</a>
+    <a href="#pricing" data-k="nprice">Pricing</a>
+    <a href="#faq" data-k="nfaq">FAQ</a>
   </div>
-  <a href="#pricing" class="nav-cta">Obtener ALINEA →</a>
+  <div class="nright">
+    <div class="lsw">
+      <button class="on" onclick="setLang('en',this)">English</button>
+      <div class="lsp"></div>
+      <button onclick="setLang('es',this)">Español</button>
+    </div>
+    <a href="#pricing" class="ncta" data-k="ncta">Get ALINEA →</a>
+  </div>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <section id="hero">
-  <div class="hero-badge"><span>✦</span> Tu nueva herramienta lectora</div>
-  <div class="hero-orb"></div>
-  <h1 class="hero-title">
-    Tu biblioteca,<br>
-    <em>inteligente</em> y<br>
-    hermosa
-  </h1>
-  <p class="hero-sub">
-    ALINEA transforma cómo vives tus libros. Organiza tu lectura, guarda citas que te mueven, explora conexiones entre ideas y construye una biblioteca que te refleje.
-  </p>
-  <div class="hero-actions">
-    <a href="#pricing" class="btn-primary">📚 Comprar ahora</a>
-    <a href="#beta" class="btn-secondary">⬇ Probar beta gratis</a>
+  <div class="hero-left">
+    <div class="heyebrow" data-k="eyebrow">#MakingVisibleTheInvisible</div>
+    <h1>
+      <span data-k="h1a">Your library</span><br>
+      <span data-k="h1b">is not a list.</span><br>
+      <em data-k="h1c">It is a living galaxy.</em>
+    </h1>
+    <p class="hsub" data-k="hsub">ALINEA turns your forgotten highlights into an <b>interconnected universe of knowledge</b> — 100% private, stored only on your device.</p>
+    <div class="hbtns">
+      <a href="#" id="betaBtn" class="btnmain" data-k="hbeta">✦ Try Beta Free</a>
+      <a href="#pricing" class="btnout" data-k="hpro">Upgrade to Pro — $49</a>
+    </div>
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Descubrir más</span>
-  </div>
-</section>
-
-<!-- MOCKUP -->
-<section id="preview">
-  <div class="mockup-wrap fade-in">
-    <div class="mockup-glow"></div>
-    <div class="mockup-phone">
-      <div class="mockup-notch"></div>
-      <div class="mockup-header">
-        <div class="mockup-logo">ALINEA</div>
-        <div class="mockup-count">3 libros · 12 citas</div>
-      </div>
-      <div class="book-card">
-        <div class="book-cover cover-1">📘</div>
-        <div class="book-info">
-          <div class="book-title-m">El Nombre del Viento</div>
-          <div class="book-author-m">Patrick Rothfuss</div>
-          <div class="book-prog"><div class="book-prog-fill" style="width:72%"></div></div>
+  <div class="hero-right">
+    <div class="orb-wrap">
+      <div class="orb-r3"></div><div class="orb-r2"></div><div class="orb-r1"></div>
+      <div class="orb"></div>
+    </div>
+    <div style="position:relative">
+      <div class="phone-glow"></div>
+      <div class="phone">
+        <div class="pnotch"></div>
+        <div class="pbar">
+          <div class="plogo">ALINEA</div>
+          <div class="pct" data-k="pct">∞ books · 12 quotes</div>
         </div>
-      </div>
-      <div class="book-card">
-        <div class="book-cover cover-2">🔮</div>
-        <div class="book-info">
-          <div class="book-title-m">Sapiens</div>
-          <div class="book-author-m">Yuval Noah Harari</div>
-          <div class="book-prog"><div class="book-prog-fill" style="width:100%"></div></div>
-        </div>
-      </div>
-      <div class="book-card">
-        <div class="book-cover cover-3">🌿</div>
-        <div class="book-info">
-          <div class="book-title-m">El Alquimista</div>
-          <div class="book-author-m">Paulo Coelho</div>
-          <div class="book-prog"><div class="book-prog-fill" style="width:38%"></div></div>
-        </div>
-      </div>
-      <div class="mockup-tab">
-        <div class="tab-dot active"></div>
-        <div class="tab-dot"></div>
-        <div class="tab-dot"></div>
-        <div class="tab-dot"></div>
-        <div class="tab-dot"></div>
+        <div class="bk"><div class="bkcov cv1">📘</div><div><div class="bkttl">The Name of the Wind</div><div class="bkauth">Patrick Rothfuss</div><div class="bkpb"><div class="bkpbf" style="width:72%"></div></div></div></div>
+        <div class="bk"><div class="bkcov cv2">🔮</div><div><div class="bkttl">Sapiens</div><div class="bkauth">Yuval Noah Harari</div><div class="bkpb"><div class="bkpbf" style="width:100%"></div></div></div></div>
+        <div class="bk"><div class="bkcov cv3">🌿</div><div><div class="bkttl">The Alchemist</div><div class="bkauth">Paulo Coelho</div><div class="bkpb"><div class="bkpbf" style="width:38%"></div></div></div></div>
+        <div class="ptabs"><div class="ptab on"></div><div class="ptab"></div><div class="ptab"></div><div class="ptab"></div><div class="ptab"></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- ══ COUNTDOWN ══ -->
+<div id="countdown" style="position:relative;z-index:1">
+  <div class="cd-msg" data-k="cdmsg">Early Access discount ends in — <strong data-k="cdsave">Save $20 USD before the price rises</strong></div>
+  <div class="cd-clock">
+    <div class="cd-unit"><div class="cd-num" id="cd-d">07</div><div class="cd-lbl" data-k="cddays">Days</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-h">23</div><div class="cd-lbl" data-k="cdhours">Hours</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-m">59</div><div class="cd-lbl" data-k="cdmins">Min</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-s">59</div><div class="cd-lbl" data-k="cdsecs">Sec</div></div>
+  </div>
+  <a href="#pricing" class="cd-cta" data-k="cdcta">Lock in $49 →</a>
+</div>
 
-<!-- FEATURES -->
+<!-- ══ WOW DEMOS ══ -->
+<section id="wow">
+  <div class="wow-hdr fi">
+    <span class="seclbl" data-k="wowlbl">Interactive features</span>
+    <h2 class="sectitle" data-k="wowtitle">Three things you've <em>never seen</em> in a reading app</h2>
+    <p class="secsub" data-k="wowsub">ALINEA is not just a library. It's the interface your mind always wanted.</p>
+  </div>
+  <div class="wow-grid">
+
+    <!-- CARD 1: GALAXY -->
+    <div class="wow-card fi">
+      <div class="wow-anim" id="galaxyAnim">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <!-- orbit rings -->
+          <div class="orbit-ring" style="width:80px;height:80px"></div>
+          <div class="orbit-ring" style="width:130px;height:130px"></div>
+          <div class="orbit-ring" style="width:180px;height:180px"></div>
+          <!-- center orb -->
+          <div class="orbit-center">
+            <div style="width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ede9fe,#8b5cf6 50%,#2e1065);box-shadow:0 0 18px rgba(139,92,246,.8)"></div>
+          </div>
+          <!-- planets -->
+          <div class="orbit-center"><div class="planet" style="width:8px;height:8px;background:#60a5fa;color:#60a5fa;--r:40px;--start:0deg;--dur:6s"></div></div>
+          <div class="orbit-center"><div class="planet" style="width:10px;height:10px;background:#a78bfa;color:#a78bfa;--r:65px;--start:120deg;--dur:9s"></div></div>
+          <div class="orbit-center"><div class="planet" style="width:7px;height:7px;background:#5eead4;color:#5eead4;--r:65px;--start:240deg;--dur:9s"></div></div>
+          <div class="orbit-center"><div class="planet" style="width:9px;height:9px;background:#f472b6;color:#f472b6;--r:90px;--start:60deg;--dur:13s"></div></div>
+          <div class="orbit-center"><div class="planet" style="width:6px;height:6px;background:#fbbf24;color:#fbbf24;--r:90px;--start:200deg;--dur:13s"></div></div>
+          <!-- neon lines -->
+          <div class="neon-line" style="width:90px;transform-origin:left center;transform:rotate(45deg);top:calc(50% - .5px);left:50%"></div>
+          <div class="neon-line" style="width:70px;transform-origin:left center;transform:rotate(-30deg);top:calc(50% - .5px);left:50%;animation-delay:.8s;opacity:.5"></div>
+        </div>
+      </div>
+      <div class="wow-body">
+        <span class="wow-num">01</span>
+        <div class="wow-title" data-k="w1t">The Cosmic Canvas</div>
+        <p class="wow-desc" data-k="w1d">Your highlights become planets orbiting in a real-time galaxy. Draw neon lines connecting ideas — watch the map of your mind come alive.</p>
+      </div>
+    </div>
+
+    <!-- CARD 2: GRAVITY -->
+    <div class="wow-card fid">
+      <div class="wow-anim" style="overflow:hidden">
+        <div class="gravity-word" style="left:18%;--gd:2.8s;--gde:0s;--rot:-3deg;--rot2:4deg">knowledge</div>
+        <div class="gravity-word" style="left:52%;--gd:3.2s;--gde:.4s;--rot:2deg;--rot2:-3deg">cosmos</div>
+        <div class="gravity-word" style="left:28%;--gd:2.5s;--gde:.9s;--rot:-1deg;--rot2:3deg">memory</div>
+        <div class="gravity-word" style="left:62%;--gd:3.5s;--gde:1.3s;--rot:3deg;--rot2:-1deg">orbit</div>
+        <div class="gravity-word" style="left:10%;--gd:2.9s;--gde:1.8s;--rot:-2deg;--rot2:2deg">ideas</div>
+        <div class="gravity-word" style="left:70%;--gd:2.6s;--gde:.6s;--rot:1deg;--rot2:-4deg">galaxy</div>
+        <div class="gravity-word" style="left:38%;--gd:3s;--gde:2.1s;--rot:-1deg;--rot2:1deg">wisdom</div>
+        <!-- gravity icon -->
+        <div style="position:absolute;bottom:12px;right:12px;font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.1em;color:rgba(196,181,253,.3)">↓ gravity mode</div>
+      </div>
+      <div class="wow-body">
+        <span class="wow-num">02</span>
+        <div class="wow-title" data-k="w2t">Gravity & Magnet Mode</div>
+        <p class="wow-desc" data-k="w2d">On mobile, your ideas float, fall, and respond to your touch. Drag them, orbit them, let them collide. Reading becomes something you physically feel.</p>
+      </div>
+    </div>
+
+    <!-- CARD 3: STORY ENGINE -->
+    <div class="wow-card fid2">
+      <div class="wow-anim" style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:1rem">
+        <div class="story-card">
+          <div class="sc-orb-mini"></div>
+          <p class="sc-quote">"The universe is not made of atoms; it's made of tiny stories."</p>
+          <div class="sc-author">— Muriel Rukeyser</div>
+          <div class="sc-tag">ALINEA · #MakingVisibleTheInvisible</div>
+        </div>
+        <div class="second-card">
+          <div style="width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ede9fe,#8b5cf6 50%,#2e1065);margin-bottom:.35rem"></div>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.6rem;color:rgba(244,240,255,.7);line-height:1.5">"Not all those who wander are lost."</p>
+        </div>
+      </div>
+      <div class="wow-body">
+        <span class="wow-num">03</span>
+        <div class="wow-title" data-k="w3t">The Social Media Engine</div>
+        <p class="wow-desc" data-k="w3d">One tap generates a beautifully designed story card from any quote — ready for Instagram, WhatsApp, or anywhere. Editorial quality, zero effort.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- ══ MANIFESTO ══ -->
+<section id="manifesto">
+  <div class="mani-wrap fi">
+    <span class="mani-pre" data-k="manlbl">Why ALINEA exists</span>
+    <p class="mani-body" data-k="manbody">We read, we highlight, we take notes — and over time, that wisdom fades into silence. <strong>What if none of it had to be lost?</strong> What if your books could <em>talk to each other?</em></p>
+    <p class="mani-statement" data-k="manstat">Your library is not<br>a list of books.<br><em>It is a living galaxy<br>of connections.</em></p>
+    <p class="mani-sig">— <span data-k="mansig">Miguel Valdez, Creator of ALINEA</span></p>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- ══ FEATURES ══ -->
 <section id="features">
-  <div class="features-header fade-in">
-    <span class="section-label">¿Qué hace ALINEA?</span>
-    <h2 class="section-title">Todo lo que necesita<br><em>un lector serio</em></h2>
-    <p class="section-sub">Una app diseñada para personas que leen con intención, no solo para completar listas.</p>
+  <div class="fi" style="text-align:center;margin-bottom:0">
+    <span class="seclbl" data-k="featlbl">Key features</span>
+    <h2 class="sectitle" data-k="feattitle">Built for readers who <em>take it seriously</em></h2>
   </div>
-  <div class="features-grid">
-    <div class="feat-card fade-in">
-      <div class="feat-icon">📚</div>
-      <div class="feat-title">Biblioteca visual</div>
-      <p class="feat-desc">Organiza todos tus libros en un espacio que se siente como tuyo. Portadas, progreso, géneros y estados al instante.</p>
+  <div class="feat-grid">
+    <div class="feat-card fi">
+      <div class="ficon">📋</div>
+      <div class="ftitle" data-k="f1t">Flight Log (Bitácora)</div>
+      <p class="fdesc" data-k="f1d">Missions, reading streaks, Top 5 books, goals reached. Your library turned into a personal spaceship dashboard that rewards you for reading.</p>
     </div>
-    <div class="feat-card fade-in">
-      <div class="feat-icon">✦</div>
-      <div class="feat-title">Citas que perduran</div>
-      <p class="feat-desc">Guarda los fragmentos que te cambiaron. Crea tarjetas para compartir como stories. Reencuéntralos cuando los necesites.</p>
+    <div class="feat-card fid">
+      <div class="ficon">⚡</div>
+      <div class="ftitle" data-k="f2t">Velocity Capture</div>
+      <p class="fdesc" data-k="f2d">Log any highlight in seconds — page number, keyword, emotion. Never lose a thought again. Your best ideas, always one tap away.</p>
     </div>
-    <div class="feat-card fade-in">
-      <div class="feat-icon">🧠</div>
-      <div class="feat-title">Explorar ideas</div>
-      <p class="feat-desc">Descubre conexiones entre libros. Navega palabras clave, temas y conceptos que atraviesan toda tu colección.</p>
-    </div>
-    <div class="feat-card fade-in">
-      <div class="feat-icon">📊</div>
-      <div class="feat-title">Tu historia lectora</div>
-      <p class="feat-desc">Visualiza cuánto has leído, qué géneros dominas, tu ritmo de lectura. Datos que te inspiran a seguir.</p>
-    </div>
-    <div class="feat-card fade-in">
-      <div class="feat-icon">🚀</div>
-      <div class="feat-title">Wishlist inteligente</div>
-      <p class="feat-desc">Guarda los libros que quieres leer antes de olvidarlos. Organiza tu próxima lectura con un clic.</p>
-    </div>
-    <div class="feat-card fade-in">
-      <div class="feat-icon">🌐</div>
-      <div class="feat-title">Español & English</div>
-      <p class="feat-desc">ALINEA habla tu idioma. Interfaz completamente en español o inglés, tú decides desde el primer uso.</p>
+    <div class="feat-card fid2">
+      <div class="ficon">✦</div>
+      <div class="ftitle" data-k="f3t">Share Your Cosmos</div>
+      <p class="fdesc" data-k="f3d">Generate stunning visual cards from your quotes. Your galaxy, beautifully exported. Make the invisible visible to the world.</p>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="dv"></div>
 
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="how-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:0">
-      <span class="section-label">Cómo funciona</span>
-      <h2 class="section-title" style="text-align:center">Empezar es<br><em>ridículamente fácil</em></h2>
+<!-- ══ SOCIAL PROOF ══ -->
+<section id="social">
+  <div class="fi" style="text-align:center">
+    <span class="seclbl" data-k="revlbl">Global readers</span>
+    <h2 class="sectitle" data-k="revtitle">Real words from <em>real readers</em></h2>
+  </div>
+  <div class="rev-grid">
+    <div class="rev-card fi">
+      <span class="rev-flag">🇨🇱</span>
+      <span class="rev-stars">★★★★★</span>
+      <p class="rev-q" data-k="r1">"OMG, I just explored it and it's absolutely epic. It feels so mystical — I've been changing the galaxy themes, playing with the canvas. I'm having so much fun. I love it!"</p>
+      <p class="rev-au"><span>Jesu Tagle</span> — Chile</p>
     </div>
-    <div class="how-steps">
-      <div class="step fade-in">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-title">Descarga o accede desde tu navegador</div>
-          <p class="step-desc">ALINEA funciona directamente en tu navegador, sin instalaciones. Un solo archivo HTML que guarda todo en tu dispositivo. Privado, tuyo, siempre disponible.</p>
-        </div>
-      </div>
-      <div class="step fade-in">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-title">Agrega tus libros en segundos</div>
-          <p class="step-desc">Título, autor, portada, género, estado. En menos de un minuto tienes tu primer libro en la colección. La app lo recuerda todo.</p>
-        </div>
-      </div>
-      <div class="step fade-in">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <div class="step-title">Guarda citas, explora ideas</div>
-          <p class="step-desc">Mientras lees, captura las frases que te detienen. ALINEA te ayuda a encontrarlas después y conectarlas con otros libros. Tu mente expandida.</p>
-        </div>
-      </div>
-      <div class="step fade-in">
-        <div class="step-num">04</div>
-        <div class="step-content">
-          <div class="step-title">Comparte lo que te mueve</div>
-          <p class="step-desc">Convierte cualquier cita en una tarjeta visual lista para compartir en redes. Haz que tus lecturas inspiren a otros.</p>
-        </div>
-      </div>
+    <div class="rev-card fid">
+      <span class="rev-flag">🇲🇽</span>
+      <span class="rev-stars">★★★★★</span>
+      <p class="rev-q" data-k="r2">"It's not just a place to list your books — it's a complete map of connections. The Bitácora is pure gold. From one reader to another: thank you for this experience."</p>
+      <p class="rev-au"><span>Mariana Chávez</span> — México</p>
+    </div>
+    <div class="rev-card fi">
+      <span class="rev-flag">🇨🇭</span>
+      <span class="rev-stars">★★★★★</span>
+      <p class="rev-q" data-k="r3">"The privacy level is what sold me. My thoughts and galaxy stay 100% local on my device while having a premium visual experience. Exactly what I was looking for."</p>
+      <p class="rev-au"><span>Manon Edde</span> — Switzerland</p>
+    </div>
+    <div class="rev-card fid">
+      <span class="rev-flag">🇮🇳</span>
+      <span class="rev-stars">★★★★★</span>
+      <p class="rev-q" data-k="r4">"As a researcher, mapping my library visually solved my retention problems. It makes the invisible threads between concepts completely visible. A masterpiece."</p>
+      <p class="rev-au"><span>Shreya Mishra</span> — India</p>
+    </div>
+    <div class="rev-card fi">
+      <span class="rev-flag">🇲🇽</span>
+      <span class="rev-stars">★★★★★</span>
+      <p class="rev-q" data-k="r5">"The onboarding gives you exactly what you need. The interface colors, the bilingual support — it truly gives the user the freedom to explode their mind."</p>
+      <p class="rev-au"><span>Alexia Ramírez</span> — México</p>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="dv"></div>
 
-<!-- BETA -->
-<section id="beta">
-  <div class="beta-box fade-in">
-    <div class="beta-tag"><span></span> Disponible ahora · Versión Beta</div>
-    <h2 class="beta-title">Prueba ALINEA<br><em>gratis hoy</em></h2>
-    <p class="beta-desc">
-      La versión beta está lista para que la explores sin costo. Descárgala, ábrela en tu navegador y empieza a construir tu biblioteca.
-    </p>
-    <div class="beta-limits">
-      <div class="beta-pill">✓ Acceso completo</div>
-      <div class="beta-pill">⊕ Hasta 3 libros</div>
-      <div class="beta-pill">✓ Sin registro</div>
-      <div class="beta-pill">✓ Corre en tu navegador</div>
-    </div>
-    <a id="betaDownloadBtn" href="#" class="btn-primary" style="margin:0 auto;display:inline-flex">
-      ⬇ Descargar Beta
-    </a>
-    <p class="beta-note" style="margin-top:1.5rem">
-      La versión completa sin límites está disponible en la sección de compra.
-    </p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- TESTIMONIALS -->
-<section id="quotes">
-  <div class="fade-in" style="text-align:center">
-    <span class="section-label">Lo que dicen los lectores</span>
-    <h2 class="section-title" style="text-align:center">Diseñado para<br><em>lectores reales</em></h2>
-  </div>
-  <div class="quotes-grid">
-    <div class="quote-card fade-in">
-      <div class="quote-stars">★★★★★</div>
-      <span class="quote-mark">"</span>
-      <p class="quote-text">Finalmente una app que entiende que leer no es solo terminar libros. Las citas y el explorador de ideas son magistrales.</p>
-      <div class="quote-author">— Camila R., Ciudad de México</div>
-    </div>
-    <div class="quote-card fade-in">
-      <div class="quote-stars">★★★★★</div>
-      <span class="quote-mark">"</span>
-      <p class="quote-text">Llevo meses buscando algo así. Simple, hermoso, sin suscripciones absurdas. Mi biblioteca personal nunca se vio tan bien.</p>
-      <div class="quote-author">— Andrés M., Guadalajara</div>
-    </div>
-    <div class="quote-card fade-in">
-      <div class="quote-stars">★★★★★</div>
-      <span class="quote-mark">"</span>
-      <p class="quote-text">El diseño es una obra de arte. Cada vez que abro ALINEA tengo ganas de leer más. Eso no tiene precio.</p>
-      <div class="quote-author">— Valentina S., Bogotá</div>
+<!-- ══ PROMISE ══ -->
+<section id="promise">
+  <div class="prom-inner fi">
+    <span class="prom-lbl" data-k="promlbl">What ALINEA will never do</span>
+    <div class="prom-pills">
+      <div class="ppill" data-k="pp1">No servers</div>
+      <div class="ppill" data-k="pp2">No subscriptions</div>
+      <div class="ppill" data-k="pp3">No tracking</div>
+      <div class="ppill" data-k="pp4">No ads</div>
+      <div class="ppill" data-k="pp5">One-time payment</div>
+      <div class="ppill" data-k="pp6">Yours forever</div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="dv"></div>
 
-<!-- PRICING -->
+<!-- ══ PRICING ══ -->
 <section id="pricing">
-  <div class="pricing-inner">
-    <div class="fade-in">
-      <span class="section-label" style="display:block;text-align:center">Sin suscripciones. Sin trampa.</span>
-      <h2 class="section-title" style="text-align:center">Pago único,<br><em>tuyo para siempre</em></h2>
-    </div>
-    <div class="pricing-card fade-in">
-      <div class="pricing-badge">✦ Acceso completo de por vida</div>
-      <div class="pricing-price"><sup>$</sup><!-- PRICE PLACEHOLDER -->XX</div>
-      <div class="pricing-period">pago único — todas las actualizaciones incluidas</div>
-      <ul class="pricing-features">
-        <li><span>✓</span><span>Biblioteca ilimitada de libros</span></li>
-        <li><span>✓</span><span>Citas y anotaciones ilimitadas</span></li>
-        <li><span>✓</span><span>Explorador de ideas y gráficos</span></li>
-        <li><span>✓</span><span>Wishlist y modo lectura</span></li>
-        <li><span>✓</span><span>Compartir citas como stories</span></li>
-        <li><span>✓</span><span>Español e inglés</span></li>
-        <li><span>✓</span><span>Sin suscripción, sin servidor</span></li>
-        <li><span>✓</span><span>Actualizaciones futuras incluidas</span></li>
+  <div class="fi" style="text-align:center">
+    <span class="seclbl" data-k="prlbl">Simple & honest</span>
+    <h2 class="sectitle" data-k="prtitle">One payment. <em>Lifetime access.</em></h2>
+  </div>
+  <div class="price-wrap fi">
+    <div class="pcard free">
+      <div class="pbadge pb-free" data-k="fbadge">Beta Access</div>
+      <div class="pname" data-k="fname">ALINEA Beta</div>
+      <div class="pamount"><sup>$</sup>0</div>
+      <div class="pperiod" data-k="fperiod">Free forever</div>
+      <ul class="pfeats">
+        <li><span class="ck">✓</span><span data-k="ff1">Up to 3 books</span></li>
+        <li><span class="ck">✓</span><span data-k="ff2">3 base color themes</span></li>
+        <li><span class="ck">✓</span><span data-k="ff3">Cosmic Canvas</span></li>
+        <li><span class="ck">✓</span><span data-k="ff4">Quote card generator</span></li>
+        <li><span class="ck">✓</span><span data-k="ff5">Basic analytics</span></li>
+        <li><span class="ckd">—</span><span style="opacity:.35" data-k="ff6">Unlimited books</span></li>
+        <li><span class="ckd">—</span><span style="opacity:.35" data-k="ff7">Advanced Bitácora</span></li>
+        <li><span class="ckd">—</span><span style="opacity:.35" data-k="ff8">PDF Export & AI features</span></li>
       </ul>
-      <a id="buyBtn" href="#" class="btn-buy">
-        📚 Comprar en Gumroad →
-      </a>
-      <p class="pricing-guarantee">🔒 Pago seguro a través de Gumroad · Garantía de satisfacción</p>
+      <a href="#" id="betaBtn2" class="bfree" data-k="fcta">Launch Free Beta</a>
+    </div>
+    <div class="pcard pro">
+      <div class="pbadge pb-pro" data-k="probadge">✦ Early Bird</div>
+      <div class="pname" data-k="proname">ALINEA Pro</div>
+      <span class="pwas">$69 USD</span>
+      <div class="pamount"><sup>$</sup>49<sub> USD</sub></div>
+      <div class="pperiod" data-k="properiod">one-time · lifetime · all updates included</div>
+      <ul class="pfeats">
+        <li><span class="ck">✓</span><span data-k="pf1">Unlimited books</span></li>
+        <li><span class="ck">✓</span><span data-k="pf2">Full palette + custom hex colors</span></li>
+        <li><span class="ck">✓</span><span data-k="pf3">Advanced Bitácora (Top 5, missions)</span></li>
+        <li><span class="ck">✓</span><span data-k="pf4">PDF Export</span></li>
+        <li><span class="ck">✓</span><span data-k="pf5">All future AI features</span></li>
+        <li><span class="ck">✓</span><span data-k="pf6">Gravity & Magnet Mode</span></li>
+        <li><span class="ck">✓</span><span data-k="pf7">Priority updates</span></li>
+        <li><span class="ck">✓</span><span data-k="pf8">100% local-first forever</span></li>
+      </ul>
+      <a href="#" id="buyBtn" class="bpro" data-k="procta">Get Lifetime Access →</a>
+      <p class="pguar" data-k="proguar">🔒 Secure via Lemon Squeezy · Instant delivery</p>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="dv"></div>
 
-<!-- FAQ -->
+<!-- ══ FAQ ══ -->
 <section id="faq">
   <div class="faq-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:0">
-      <span class="section-label">Preguntas frecuentes</span>
-      <h2 class="section-title" style="text-align:center">Todo lo que<br><em>quieres saber</em></h2>
+    <div class="fi" style="text-align:center">
+      <span class="seclbl" data-k="faqlbl">FAQ</span>
+      <h2 class="sectitle" data-k="faqtitle">Before you decide — <em>good answers</em></h2>
     </div>
     <div class="faq-list">
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>¿Funciona en mi teléfono?</span>
-          <div class="faq-toggle">+</div>
+          <span class="faq-qt" data-k="fq1">Is this really a one-time payment?</span>
+          <div class="faq-icon">+</div>
         </div>
-        <div class="faq-a">Sí. ALINEA está optimizada para móvil. Funciona directamente en el navegador de tu iPhone o Android, sin necesidad de instalar nada desde la App Store o Play Store. Solo abre el archivo y listo.</div>
+        <div class="faq-a" data-k="fa1">Yes. You pay once and own ALINEA Pro forever. No subscriptions, no renewals. Every future update is included in your purchase. The price will rise to $69 USD after the Early Bird period ends.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>¿Dónde se guardan mis datos?</span>
-          <div class="faq-toggle">+</div>
+          <span class="faq-qt" data-k="fq2">How do I install it? Is it an app?</span>
+          <div class="faq-icon">+</div>
         </div>
-        <div class="faq-a">Todo se guarda localmente en tu dispositivo, en el almacenamiento del navegador. Nadie más tiene acceso a tus libros ni citas. Tu biblioteca es 100% privada y siempre disponible sin internet.</div>
+        <div class="faq-a" data-k="fa2">ALINEA is a single HTML file — no App Store, no Play Store, no installation required. Open it in any browser on your phone, tablet, Mac or PC. You can also add it to your home screen as a PWA in under 3 seconds.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>¿Qué diferencia la versión completa de la beta?</span>
-          <div class="faq-toggle">+</div>
+          <span class="faq-qt" data-k="fq3">Is my data safe? Where is it stored?</span>
+          <div class="faq-icon">+</div>
         </div>
-        <div class="faq-a">La beta te permite explorar ALINEA con hasta 3 libros, sin costo. La versión completa elimina ese límite y te da biblioteca ilimitada, citas ilimitadas y todas las funciones sin restricciones.</div>
+        <div class="faq-a" data-k="fa3">Completely safe — because it never leaves your device. ALINEA has no servers, no cloud, no accounts. Everything lives in your browser's localStorage. No one can access, track, or sell your reading data. Not even us.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>¿Hay actualizaciones futuras incluidas?</span>
-          <div class="faq-toggle">+</div>
+          <span class="faq-qt" data-k="fq4">What's the difference between Beta and Pro?</span>
+          <div class="faq-icon">+</div>
         </div>
-        <div class="faq-a">Sí. Una vez que compras ALINEA, todas las versiones futuras del producto están incluidas en tu pago. Sin costos adicionales ni suscripciones.</div>
+        <div class="faq-a" data-k="fa4">Beta lets you experience ALINEA fully with up to 3 books, at no cost. Pro removes all limits: unlimited books, full color palette with custom hex codes, Advanced Bitácora with missions and Top 5, PDF export, and all future AI features.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>¿Puedo usarla en varios dispositivos?</span>
-          <div class="faq-toggle">+</div>
+          <span class="faq-qt" data-k="fq5">What happens if I lose the file?</span>
+          <div class="faq-icon">+</div>
         </div>
-        <div class="faq-a">Sí. Como recibes el archivo directamente, puedes usarlo en tantos dispositivos como quieras. Los datos se guardan por dispositivo, así que cada uno tendrá su propia biblioteca.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>¿Cómo recibo el producto después de comprar?</span>
-          <div class="faq-toggle">+</div>
-        </div>
-        <div class="faq-a">Inmediatamente después de tu compra en Gumroad, recibes un correo con el enlace de descarga. El proceso toma menos de un minuto.</div>
+        <div class="faq-a" data-k="fa5">Your purchase gives you permanent access to download ALINEA again from Lemon Squeezy anytime. We recommend keeping a copy of the file in a safe place on your device or cloud storage of your choice.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<div class="dv"></div>
+
+<!-- ══ FOOTER ══ -->
 <footer>
-  <div class="footer-logo">ALINEA</div>
-  <div class="footer-links">
-    <a href="#features">Funciones</a>
-    <a href="#beta">Beta</a>
-    <a href="#pricing">Precio</a>
-    <a href="mailto:contacto@alinea.app">Contacto</a>
+  <div class="forb"></div>
+  <div class="flogo">ALINEA</div>
+  <div class="fhandle">hello.alinea.io@gmail.com</div>
+  <div class="ftag2">#MakingVisibleTheInvisible</div>
+  <div class="flinks">
+    <a onclick="openModal('mT')" data-k="fterms">Terms of Service</a>
+    <a onclick="openModal('mP')" data-k="fprivacy">Privacy Policy</a>
+    <a href="mailto:hello.alinea.io@gmail.com" data-k="fcontact">Contact</a>
   </div>
-  <div class="footer-copy">© 2025 ALINEA — Hecho con obsesión por los lectores</div>
+  <div class="fcopy" data-k="fcopy">Crafted with obsession for detail in outer space. © 2026 ALINEA</div>
 </footer>
 
+<!-- ══ MODAL TERMS ══ -->
+<div class="modal-bg" id="mT" onclick="closeMdBg(event,'mT')">
+  <div class="modal-box">
+    <div class="modal-head"><div class="modal-title" data-k="ttitle">Terms of Service</div><button class="modal-x" onclick="closeModal('mT')">✕</button></div>
+    <div class="modal-body">
+      <h3 data-k="t1h">1. License</h3><p data-k="t1p">By purchasing ALINEA Pro you acquire a Lifetime License granting perpetual personal use on any device you own. ALINEA Beta is free and perpetually available.</p>
+      <h3 data-k="t2h">2. Your Rights</h3><ul><li data-k="t2a">Use ALINEA on any number of personal devices.</li><li data-k="t2b">Receive all future updates at no additional cost.</li><li data-k="t2c">Keep the file indefinitely.</li></ul>
+      <h3 data-k="t3h">3. Restrictions</h3><ul><li data-k="t3a">You may not redistribute, resell, or share the file for commercial distribution.</li><li data-k="t3b">You may not decompile or plagiarize the source code to create commercial derivatives.</li></ul>
+      <h3 data-k="t4h">4. Pricing</h3><p data-k="t4p">Early Bird: $49 USD. Standard list price: $69 USD. One-time payment, no recurring charges, via Lemon Squeezy.</p>
+      <h3 data-k="t5h">5. Limitation of Liability</h3><p data-k="t5p">ALINEA is provided as-is. We are not responsible for data loss from clearing browser storage without a prior backup.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL PRIVACY ══ -->
+<div class="modal-bg" id="mP" onclick="closeMdBg(event,'mP')">
+  <div class="modal-box">
+    <div class="modal-head"><div class="modal-title" data-k="ptitle">Privacy Policy</div><button class="modal-x" onclick="closeModal('mP')">✕</button></div>
+    <div class="modal-body">
+      <h3 data-k="p1h">Core Declaration</h3><p data-k="p1p">ALINEA does NOT collect, store, track, or sell any personal data. ALINEA has absolutely no cloud servers.</p>
+      <h3 data-k="p2h">Where Your Data Goes</h3><p data-k="p2p">Nowhere. Everything lives in your browser's localStorage. No external servers, no analytics, no telemetry of any kind.</p>
+      <h3 data-k="p3h">Your Responsibility</h3><ul><li data-k="p3a">Export your library periodically using the built-in export.</li><li data-k="p3b">Do not clear browser storage without backing up first.</li><li data-k="p3c">Keep a copy of the HTML file in a safe location.</li></ul>
+      <h3 data-k="p4h">International Compliance</h3><p data-k="p4p">Aligned with GDPR (EU), LFPDPPP (Mexico), and CCPA (California). No data collected: compliance by design.</p>
+      <h3>Contact</h3><p>hello.alinea.io@gmail.com</p>
+    </div>
+  </div>
+</div>
+
 <script>
-// ── STARS ──
+// ══ STARS ══
 (function(){
-  const c=document.getElementById('starCanvas');
-  if(!c)return;
-  const ctx=c.getContext('2d');
-  let stars=[];
-  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;initStars()}
-  function initStars(){
-    stars=[];
-    const n=Math.floor((c.width*c.height)/6000);
-    for(let i=0;i<n;i++){
-      stars.push({
-        x:Math.random()*c.width,y:Math.random()*c.height,
-        r:Math.random()*1.2+.2,
-        a:Math.random()*.6+.1,
-        speed:Math.random()*.3+.05,
-        phase:Math.random()*Math.PI*2
-      });
-    }
+  const c=document.getElementById('cv'),x=c.getContext('2d');
+  let s=[];
+  function rs(){
+    c.width=innerWidth;c.height=innerHeight;s=[];
+    const n=Math.floor(c.width*c.height/4500);
+    for(let i=0;i<n;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.25+.15,a:Math.random()*.5+.08,sp:Math.random()*.2+.04,ph:Math.random()*Math.PI*2});
   }
   let t=0;
   function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    t+=.008;
-    stars.forEach(s=>{
-      const a=s.a*(0.5+0.5*Math.sin(t*s.speed+s.phase));
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(196,181,253,${a})`;ctx.fill();
+    x.clearRect(0,0,c.width,c.height);t+=.005;
+    s.forEach(p=>{
+      const a=p.a*(.5+.5*Math.sin(t*p.sp+p.ph));
+      x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
+      x.fillStyle=`rgba(196,181,253,${a})`;x.fill();
     });
     requestAnimationFrame(draw);
   }
-  window.addEventListener('resize',resize);
-  resize();draw();
+  window.addEventListener('resize',rs);rs();draw();
 })();
 
-// ── SCROLL FADE ──
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
-},{threshold:.12});
-document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+// ══ COUNTDOWN ══
+(function(){
+  // Set deadline: 7 days from first visit, stored in localStorage
+  const KEY='alinea_deadline';
+  let dl=localStorage.getItem(KEY);
+  if(!dl){
+    const d=new Date();
+    d.setDate(d.getDate()+7);
+    dl=d.getTime();
+    localStorage.setItem(KEY,dl);
+  }
+  function pad(n){return String(n).padStart(2,'0')}
+  function tick(){
+    const now=Date.now();
+    const diff=Math.max(0,Number(dl)-now);
+    const days=Math.floor(diff/86400000);
+    const hours=Math.floor((diff%86400000)/3600000);
+    const mins=Math.floor((diff%3600000)/60000);
+    const secs=Math.floor((diff%60000)/1000);
+    document.getElementById('cd-d').textContent=pad(days);
+    document.getElementById('cd-h').textContent=pad(hours);
+    document.getElementById('cd-m').textContent=pad(mins);
+    document.getElementById('cd-s').textContent=pad(secs);
+    if(diff>0)requestAnimationFrame(tick);
+  }
+  tick();
+})();
 
-// ── FAQ ──
+// ══ SCROLL FADE ══
+const ob=new IntersectionObserver(e=>{
+  e.forEach(i=>{if(i.isIntersecting){i.target.classList.add('v');ob.unobserve(i.target)}});
+},{threshold:.1});
+document.querySelectorAll('.fi,.fid,.fid2').forEach(el=>ob.observe(el));
+
+// ══ FAQ ══
 function toggleFaq(el){
-  const item=el.closest('.faq-item');
-  const isOpen=item.classList.contains('open');
+  const it=el.closest('.faq-item'),op=it.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
-  if(!isOpen)item.classList.add('open');
+  if(!op)it.classList.add('open');
 }
 
-// ── SMOOTH NAV ──
+// ══ MODALS ══
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
+function closeMdBg(e,id){if(e.target===document.getElementById(id))closeModal(id)}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')document.querySelectorAll('.modal-bg.open').forEach(m=>{m.classList.remove('open');document.body.style.overflow=''});
+});
+
+// ══ LANGUAGE ══
+const T={
+en:{
+  nfeat:'Features',nrev:'Reviews',nprice:'Pricing',nfaq:'FAQ',ncta:'Get ALINEA →',
+  eyebrow:'#MakingVisibleTheInvisible',
+  h1a:'Your library',h1b:'is not a list.',h1c:'It is a living galaxy.',
+  hsub:'ALINEA turns your forgotten highlights into an <b>interconnected universe of knowledge</b> — 100% private, stored only on your device.',
+  hbeta:'✦ Try Beta Free',hpro:'Upgrade to Pro — $49',
+  pct:'∞ books · 12 quotes',
+  cdmsg:'Early Access discount ends in —',cdsave:'Save $20 USD before the price rises',
+  cddays:'Days',cdhours:'Hours',cdmins:'Min',cdsecs:'Sec',cdcta:'Lock in $49 →',
+  wowlbl:'Interactive features',wowtitle:'Three things you\'ve <em>never seen</em> in a reading app',wowsub:'ALINEA is not just a library. It\'s the interface your mind always wanted.',
+  w1t:'The Cosmic Canvas',w1d:'Your highlights become planets orbiting in a real-time galaxy. Draw neon lines connecting ideas — watch the map of your mind come alive.',
+  w2t:'Gravity & Magnet Mode',w2d:'On mobile, your ideas float, fall, and respond to your touch. Drag them, orbit them, let them collide. Reading becomes something you physically feel.',
+  w3t:'The Social Media Engine',w3d:'One tap generates a beautifully designed story card from any quote — ready for Instagram, WhatsApp, or anywhere. Editorial quality, zero effort.',
+  manlbl:'Why ALINEA exists',
+  manbody:'We read, we highlight, we take notes — and over time, that wisdom fades into silence. <strong>What if none of it had to be lost?</strong> What if your books could <em>talk to each other?</em>',
+  manstat:'Your library is not<br>a list of books.<br><em>It is a living galaxy<br>of connections.</em>',
+  mansig:'Miguel Valdez, Creator of ALINEA',
+  featlbl:'Key features',feattitle:'Built for readers who <em>take it seriously</em>',
+  f1t:'Flight Log (Bitácora)',f1d:'Missions, reading streaks, Top 5 books, goals reached. Your library turned into a personal spaceship dashboard that rewards you for reading.',
+  f2t:'Velocity Capture',f2d:'Log any highlight in seconds — page number, keyword, emotion. Never lose a thought again. Your best ideas, always one tap away.',
+  f3t:'Share Your Cosmos',f3d:'Generate stunning visual cards from your quotes. Your galaxy, beautifully exported. Make the invisible visible to the world.',
+  revlbl:'Global readers',revtitle:'Real words from <em>real readers</em>',
+  r1:'"OMG, I just explored it and it\'s absolutely epic. It feels so mystical — I\'ve been changing the galaxy themes, playing with the canvas. I\'m having so much fun. I love it!"',
+  r2:'"It\'s not just a place to list your books — it\'s a complete map of connections. The Bitácora is pure gold. From one reader to another: thank you for this experience."',
+  r3:'"The privacy level is what sold me. My thoughts and galaxy stay 100% local on my device while having a premium visual experience. Exactly what I was looking for."',
+  r4:'"As a researcher, mapping my library visually solved my retention problems. It makes the invisible threads between concepts completely visible. A masterpiece."',
+  r5:'"The onboarding gives you exactly what you need. The interface colors, the bilingual support — it truly gives the user the freedom to explode their mind."',
+  promlbl:'What ALINEA will never do',pp1:'No servers',pp2:'No subscriptions',pp3:'No tracking',pp4:'No ads',pp5:'One-time payment',pp6:'Yours forever',
+  prlbl:'Simple & honest',prtitle:'One payment. <em>Lifetime access.</em>',
+  fbadge:'Beta Access',fname:'ALINEA Beta',fperiod:'Free forever',
+  ff1:'Up to 3 books',ff2:'3 base color themes',ff3:'Cosmic Canvas',ff4:'Quote card generator',ff5:'Basic analytics',ff6:'Unlimited books',ff7:'Advanced Bitácora',ff8:'PDF Export & AI features',
+  fcta:'Launch Free Beta',
+  probadge:'✦ Early Bird',proname:'ALINEA Pro',properiod:'one-time · lifetime · all updates included',
+  pf1:'Unlimited books',pf2:'Full palette + custom hex colors',pf3:'Advanced Bitácora (Top 5, missions)',pf4:'PDF Export',pf5:'All future AI features',pf6:'Gravity & Magnet Mode',pf7:'Priority updates',pf8:'100% local-first forever',
+  procta:'Get Lifetime Access →',proguar:'🔒 Secure via Lemon Squeezy · Instant delivery',
+  faqlbl:'FAQ',faqtitle:'Before you decide — <em>good answers</em>',
+  fq1:'Is this really a one-time payment?',fa1:'Yes. You pay once and own ALINEA Pro forever. No subscriptions, no renewals. Every future update is included. The price will rise to $69 USD after Early Bird ends.',
+  fq2:'How do I install it? Is it an app?',fa2:'ALINEA is a single HTML file — no App Store, no Play Store, no installation required. Open it in any browser on your phone, tablet, Mac or PC. Add it to your home screen as a PWA in under 3 seconds.',
+  fq3:'Is my data safe? Where is it stored?',fa3:'Completely safe — because it never leaves your device. ALINEA has no servers, no cloud, no accounts. Everything lives in your browser\'s localStorage. No one can access or track your reading data. Not even us.',
+  fq4:'What\'s the difference between Beta and Pro?',fa4:'Beta lets you experience ALINEA fully with up to 3 books, at no cost. Pro removes all limits: unlimited books, full color palette, Advanced Bitácora, PDF export, and all future AI features.',
+  fq5:'What happens if I lose the file?',fa5:'Your purchase gives you permanent access to download ALINEA again from Lemon Squeezy anytime. We recommend keeping a backup copy on your device or cloud storage.',
+  fterms:'Terms of Service',fprivacy:'Privacy Policy',fcontact:'Contact',
+  fcopy:'Crafted with obsession for detail in outer space. © 2026 ALINEA',
+  ttitle:'Terms of Service',t1h:'1. License',t1p:'By purchasing ALINEA Pro you acquire a Lifetime License granting perpetual personal use on any device you own.',t2h:'2. Your Rights',t2a:'Use ALINEA on any number of personal devices.',t2b:'Receive all future updates at no additional cost.',t2c:'Keep the file indefinitely.',t3h:'3. Restrictions',t3a:'You may not redistribute, resell, or share the file for commercial distribution.',t3b:'You may not decompile or plagiarize the source code to create commercial derivatives.',t4h:'4. Pricing',t4p:'Early Bird: $49 USD. Standard: $69 USD. One-time payment via Lemon Squeezy.',t5h:'5. Liability',t5p:'ALINEA is provided as-is. We are not responsible for data loss from clearing browser storage without a prior backup.',
+  ptitle:'Privacy Policy',p1h:'Core Declaration',p1p:'ALINEA does NOT collect, store, track, or sell any personal data. ALINEA has no cloud servers.',p2h:'Where Your Data Goes',p2p:'Nowhere. Everything lives in your browser\'s localStorage. No external servers, no analytics.',p3h:'Your Responsibility',p3a:'Export your library periodically.',p3b:'Do not clear browser storage without backing up.',p3c:'Keep a copy of the HTML file.',p4h:'Compliance',p4p:'Aligned with GDPR, LFPDPPP, and CCPA. No data collected: compliance by design.',
+},
+es:{
+  nfeat:'Funciones',nrev:'Reseñas',nprice:'Precio',nfaq:'FAQ',ncta:'Obtener ALINEA →',
+  eyebrow:'#HaciendoVisibleLoInvisible',
+  h1a:'Tu biblioteca',h1b:'no es una lista.',h1c:'Es una galaxia viva.',
+  hsub:'ALINEA transforma tus subrayados olvidados en un <b>universo interconectado de conocimiento</b> — 100% privado, guardado solo en tu dispositivo.',
+  hbeta:'✦ Probar Beta Gratis',hpro:'Actualizar a Pro — $49',
+  pct:'∞ libros · 12 citas',
+  cdmsg:'El descuento Early Access termina en —',cdsave:'Ahorra $20 USD antes de que suba el precio',
+  cddays:'Días',cdhours:'Horas',cdmins:'Min',cdsecs:'Seg',cdcta:'Asegurar $49 →',
+  wowlbl:'Funciones interactivas',wowtitle:'Tres cosas que <em>nunca has visto</em> en una app de lectura',wowsub:'ALINEA no es solo una biblioteca. Es la interfaz que tu mente siempre quiso.',
+  w1t:'El Canvas Cósmico',w1d:'Tus subrayados se convierten en planetas orbitando en una galaxia en tiempo real. Traza líneas neón conectando ideas — ve el mapa de tu mente cobrar vida.',
+  w2t:'Modo Gravedad y Magneto',w2d:'En móvil, tus ideas flotan, caen y responden a tu toque. Arrástralas, hazlas orbitar, déjalas chocar. Leer se convierte en algo que físicamente sientes.',
+  w3t:'El Motor de Redes Sociales',w3d:'Un toque genera una tarjeta visual perfectamente diseñada desde cualquier cita — lista para Instagram, WhatsApp o donde sea. Calidad editorial, cero esfuerzo.',
+  manlbl:'Por qué existe ALINEA',
+  manbody:'Leemos, subrayamos, tomamos notas — y con el tiempo, esa sabiduría desaparece en el silencio. <strong>¿Y si nada de eso tuviera que perderse?</strong> ¿Y si tus libros pudieran <em>hablar entre sí?</em>',
+  manstat:'Tu biblioteca no es<br>una lista de libros.<br><em>Es una galaxia viva<br>de conexiones.</em>',
+  mansig:'Miguel Valdez, Creador de ALINEA',
+  featlbl:'Funciones clave',feattitle:'Construido para lectores que <em>van en serio</em>',
+  f1t:'Bitácora de Vuelo',f1d:'Misiones, rachas de lectura, Top 5 libros, metas alcanzadas. Tu biblioteca convertida en el panel de control de tu nave personal.',
+  f2t:'Captura Veloz',f2d:'Registra cualquier subrayado en segundos — página, palabra clave, emoción. Nunca más pierdas un pensamiento. Tus mejores ideas, siempre a un toque.',
+  f3t:'Comparte Tu Cosmos',f3d:'Genera tarjetas visuales impresionantes desde tus citas. Tu galaxia, exportada con belleza. Haz visible lo invisible al mundo.',
+  revlbl:'Lectores globales',revtitle:'Palabras reales de <em>lectores reales</em>',
+  r1:'"¡OMG, lo acabo de explorar y está absolutamente épico! Se siente muy místico — he estado cambiando los temas de la galaxia, jugando con el canvas. ¡Me estoy divirtiendo muchísimo. Lo amo!"',
+  r2:'"No es solo poner tus libros y ya — es un mapa completo de conexiones. La Bitácora es una joya. De lector a lector: gracias por esta experiencia."',
+  r3:'"El nivel de privacidad fue lo que me convenció. Mis pensamientos y mi galaxia se quedan 100% locales en mi dispositivo con una interfaz premium. Justo lo que buscaba."',
+  r4:'"Como investigadora, mapear mi biblioteca visualmente resolvió mis problemas de retención. Hace los hilos invisibles entre conceptos completamente visibles. Una obra maestra."',
+  r5:'"El onboarding te da justo lo que necesitas. Los colores de interfaz, el soporte bilingüe — realmente le da al usuario la libertad de explotar su mente."',
+  promlbl:'Lo que ALINEA nunca hará',pp1:'Sin servidores',pp2:'Sin suscripciones',pp3:'Sin rastreo',pp4:'Sin anuncios',pp5:'Pago único',pp6:'Tuyo para siempre',
+  prlbl:'Simple y honesto',prtitle:'Un pago. <em>Acceso de por vida.</em>',
+  fbadge:'Acceso Beta',fname:'ALINEA Beta',fperiod:'Gratis para siempre',
+  ff1:'Hasta 3 libros',ff2:'3 temas de color base',ff3:'Canvas Cósmico',ff4:'Generador de tarjetas',ff5:'Analíticas básicas',ff6:'Libros ilimitados',ff7:'Bitácora avanzada',ff8:'Export PDF y funciones IA',
+  fcta:'Lanzar Beta Gratis',
+  probadge:'✦ Early Bird',proname:'ALINEA Pro',properiod:'pago único · de por vida · todas las actualizaciones',
+  pf1:'Libros ilimitados',pf2:'Paleta completa + hex personalizado',pf3:'Bitácora avanzada (Top 5, misiones)',pf4:'Exportación PDF',pf5:'Todas las funciones IA futuras',pf6:'Modo Gravedad y Magneto',pf7:'Actualizaciones prioritarias',pf8:'100% local-first para siempre',
+  procta:'Obtener Acceso de Por Vida →',proguar:'🔒 Pago seguro vía Lemon Squeezy · Entrega instantánea',
+  faqlbl:'Preguntas frecuentes',faqtitle:'Antes de decidir — <em>buenas respuestas</em>',
+  fq1:'¿Es realmente un pago único?',fa1:'Sí. Pagas una vez y posees ALINEA Pro para siempre. Sin suscripciones, sin renovaciones. Cada actualización futura está incluida. El precio subirá a $69 USD al terminar el Early Bird.',
+  fq2:'¿Cómo se instala? ¿Es una app?',fa2:'ALINEA es un solo archivo HTML — sin App Store, sin Play Store, sin instalación. Ábrelo en cualquier navegador en tu celular, tablet, Mac o PC. Agrégalo a tu pantalla de inicio como PWA en menos de 3 segundos.',
+  fq3:'¿Están seguros mis datos? ¿Dónde se guardan?',fa3:'Completamente seguros — porque nunca salen de tu dispositivo. ALINEA no tiene servidores, ni nube, ni cuentas. Todo vive en el localStorage de tu navegador. Nadie puede acceder ni rastrear tus datos de lectura. Ni nosotros.',
+  fq4:'¿Cuál es la diferencia entre Beta y Pro?',fa4:'Beta te deja explorar ALINEA al 100% con hasta 3 libros, sin costo. Pro elimina todos los límites: libros ilimitados, paleta completa, Bitácora avanzada, exportación PDF y todas las funciones IA futuras.',
+  fq5:'¿Qué pasa si pierdo el archivo?',fa5:'Tu compra te da acceso permanente para descargar ALINEA de nuevo desde Lemon Squeezy cuando quieras. Recomendamos guardar una copia en tu dispositivo.',
+  fterms:'Términos de Servicio',fprivacy:'Aviso de Privacidad',fcontact:'Contacto',
+  fcopy:'Diseñado con obsesión por el detalle en el espacio exterior. © 2026 ALINEA',
+  ttitle:'Términos de Servicio',t1h:'1. Licencia',t1p:'Al comprar ALINEA Pro adquieres una Licencia de Por Vida con derecho perpetuo de uso personal en cualquier dispositivo de tu propiedad.',t2h:'2. Tus Derechos',t2a:'Usar ALINEA en cualquier número de dispositivos personales.',t2b:'Recibir todas las actualizaciones futuras sin costo adicional.',t2c:'Conservar el archivo indefinidamente.',t3h:'3. Restricciones',t3a:'Prohibido redistribuir o revender el archivo para distribución comercial.',t3b:'Prohibido descompilar o plagiar el código para crear productos comerciales.',t4h:'4. Precios',t4p:'Early Bird: $49 USD. Precio lista: $69 USD. Pago único sin cargos recurrentes vía Lemon Squeezy.',t5h:'5. Responsabilidad',t5p:'ALINEA se provee tal cual. No somos responsables de pérdida de datos por borrar el almacenamiento sin respaldo previo.',
+  ptitle:'Aviso de Privacidad',p1h:'Declaración Principal',p1p:'ALINEA NO recopila, NO almacena, NO rastrea y NO vende ningún dato personal. ALINEA no tiene servidores en la nube.',p2h:'¿A Dónde Van Tus Datos?',p2p:'A ningún lugar. Todo vive en el localStorage de tu navegador. Sin servidores externos, sin analíticas.',p3h:'Tu Responsabilidad',p3a:'Exporta tu biblioteca periódicamente.',p3b:'No borres el almacenamiento sin respaldar antes.',p3c:'Guarda una copia del archivo HTML.',p4h:'Cumplimiento',p4p:'Congruente con GDPR, LFPDPPP y CCPA. Sin recopilación: cumplimiento por diseño.',
+}
+};
+let lang='en';
+function setLang(l,btn){
+  lang=l;
+  document.querySelectorAll('.lsw button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const d=T[l];
+  document.querySelectorAll('[data-k]').forEach(el=>{
+    const k=el.getAttribute('data-k');
+    if(d[k]!==undefined)el.innerHTML=d[k];
+  });
+}
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const t=document.querySelector(a.getAttribute('href'));
@@ -1061,6 +1115,5 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 </script>
-
 </body>
 </html>
