@@ -40,6 +40,7 @@ nav{
   transition:border-color .5s,background .5s;
 }
 nav.scrolled{background:rgba(2,1,10,.85);border-color:rgba(139,92,246,.12)}
+@media(max-width:900px){nav{justify-content:space-between}.nr{gap:.5rem}.ncta{font-size:.46rem;padding:.34rem .7rem;letter-spacing:.08em}.lsw button{font-size:.46rem;padding:.26rem .5rem}}
 .nl{font-family:'DM Mono',monospace;font-size:.82rem;letter-spacing:.38em;text-transform:uppercase;color:var(--a2);cursor:default}
 .nc{display:flex;gap:2.2rem}
 .nc a{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
@@ -266,7 +267,7 @@ canvas.gv{position:absolute;inset:0;width:100%;height:100%}
 
 /* ══ SOCIAL PROOF ══ */
 #social{padding:100px 6%}
-.rev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.15rem;max-width:900px;margin:56px auto 0}
+/* rev-grid superseded by rev-grid-3 */
 .rcard{background:var(--card);border:1px solid rgba(139,92,246,.1);border-radius:18px;padding:1.85rem;transition:all .3s}
 .rcard:hover{border-color:rgba(139,92,246,.22);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.35)}
 .flag-wrap{display:inline-flex;align-items:center;gap:.55rem;margin-bottom:.85rem}
@@ -342,6 +343,7 @@ canvas.gv{position:absolute;inset:0;width:100%;height:100%}
 .price-close-h strong{font-style:normal;color:var(--text);font-weight:700}
 
 /* ══ FAQ ══ */
+.faq-title{max-width:100%;overflow:hidden;word-break:break-word;font-size:clamp(1.8rem,4vw,3rem)}
 #faq{padding:100px 6%}
 .faq-inner{max-width:660px;margin:0 auto}
 .faq-list{margin-top:48px}
@@ -355,11 +357,11 @@ canvas.gv{position:absolute;inset:0;width:100%;height:100%}
 .faq-item.open .faq-a{max-height:280px;padding-bottom:1.1rem}
 
 /* ══ FUTURE ══ */
-#future{padding:150px 6%;text-align:center}
-.future-inner{max-width:580px;margin:0 auto}
-.future-eyebrow{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:1.8rem}
-.future-h{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4.2vw,3.1rem);font-weight:300;line-height:1.25;color:rgba(240,238,255,.38);font-style:italic}
-.future-p{font-size:.9rem;color:var(--dim);line-height:1.88;margin-top:1.4rem}
+
+
+.future-eyebrow{font-family:'DM Mono',monospace;font-size:.46rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(42,36,72,.6);display:block;margin-bottom:1rem}
+.future-h{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2vw,1.5rem);font-weight:300;line-height:1.4;color:rgba(240,238,255,.28);font-style:italic;max-width:420px;margin:0 auto}
+.future-p{font-size:.8rem;color:rgba(42,36,72,.7);line-height:1.7;margin-top:.85rem}
 
 /* ══ CTA FINAL ══ */
 #cta-final{padding:170px 6% 130px;text-align:center;position:relative}
@@ -419,10 +421,178 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
 .fid2.v{opacity:1;transform:translateY(0)}
 
 @media(max-width:900px){
-  .nc,.lsw{display:none}
-  .prod-block,.prod-block.rev{grid-template-columns:1fr;gap:3rem;direction:ltr;margin-bottom:70px}
-  .diff-cols,.price-grid,.feat-grid{grid-template-columns:1fr}
-  .rev-grid,.rev-grid .rcard:nth-child(5){grid-column:auto;max-width:none;grid-template-columns:1fr;justify-self:auto}
+  /* NAV */
+  .nc{display:none}
+  .lsw{display:flex!important}
+  nav{padding:0 5%;height:56px}
+  .lsw button{font-size:.48rem;padding:.28rem .55rem}
+  .ncta{font-size:.5rem;padding:.38rem .8rem}
+
+  /* HERO */
+  #hero{padding:70px 5% 50px;min-height:100svh}
+  .orb{width:100px;height:100px;margin-bottom:2.2rem}
+  h1.hero-h{font-size:clamp(2.2rem,9vw,3.6rem)}
+  .hero-sub{font-size:.92rem;max-width:90vw;margin-bottom:2.2rem}
+  .btn-hero{font-size:.58rem;padding:.9rem 2rem}
+  .hero-note{font-size:.44rem}
+
+  /* COUNTDOWN */
+  #countdown{padding:1rem 4%;gap:1rem;flex-wrap:wrap}
+  .cd-msg{font-size:.48rem;text-align:center;width:100%}
+  .cd-n{font-size:1.45rem;min-width:38px;padding:.1rem .4rem}
+  .cd-l{font-size:.34rem}
+  .cd-sep{font-size:1.2rem}
+  .cd-btn{font-size:.5rem;padding:.4rem .9rem}
+
+  /* PRODUCT */
+  #product{padding:70px 5%}
+  .prod-block,.prod-block.rev{grid-template-columns:1fr;gap:2rem;direction:ltr;margin-bottom:60px}
+  .gal-vis,.exp-vis{height:260px}
+  .bit-vis{min-height:auto;padding:1.2rem}
+
+  /* DIFFERENCE */
+  #difference{padding:70px 5%}
+  .diff-cols{grid-template-columns:1fr;gap:1.2rem}
+  .diff-head{margin-bottom:40px}
+  .diff-col{padding:2rem 1.4rem}
+
+  /* PRIVACY */
+  #privacy{padding:70px 5%}
+  .priv-h{font-size:clamp(2rem,8vw,3rem)}
+  .priv-bullets{gap:.55rem}
+  .pb{font-size:.5rem;padding:.38rem .8rem}
+
+  /* FEATURES */
+  #features-full{padding:70px 5%}
+  .feat-grid{grid-template-columns:1fr;gap:1rem}
+
+  /* SOCIAL */
+  #social{padding:60px 0}
+  /* rev-grid-3 handles mobile */
+
+  /* PROMISE */
+  #promise{padding:60px 5%}
+
+  /* PRICING */
+  #pricing{padding:70px 5%}
+  .price-grid{grid-template-columns:1fr;gap:1.2rem}
+  .pamount{font-size:2.4rem}
+
+  /* FAQ */
+  #faq{padding:70px 5%}
+
+
+
+  /* CTA FINAL */
+  #cta-final{padding:100px 5% 80px}
+  .cta-final-orb{width:130px;height:130px}
+  .cta-final-h{font-size:clamp(1.8rem,7vw,2.8rem)}
+
+  /* FOOTER */
+  footer{padding:40px 5% 30px}
+}
+
+@media(max-width:480px){
+  h1.hero-h{font-size:clamp(1.9rem,10vw,2.8rem)}
+  .orb{width:80px;height:80px}
+  .sec-h{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .priv-h{font-size:clamp(1.8rem,9vw,2.5rem)}
+  #countdown{display:none}
+  .bit-row{flex-wrap:wrap}
+  .bit-stat{min-width:calc(50% - .5rem)}
+  .exp-vis{height:220px}
+  .gal-vis{height:220px}
+  .diff-col{padding:1.5rem 1.1rem}
+  .price-grid{gap:1rem}
+  .pcard{padding:1.8rem 1.4rem}
+  .pamount{font-size:2.2rem}
+}
+
+/* ══ FLAG TEXT ══ */
+.flag-txt{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:20px;border-radius:4px;
+  background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25);
+  font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.06em;
+  color:var(--a2);flex-shrink:0;
+}
+
+/* ══ PILL TOOLTIP ══ */
+.pill-tip{cursor:pointer;position:relative}
+.pill-tip:hover{
+  border-color:var(--a)!important;
+  background:rgba(139,92,246,.16)!important;
+  color:#fff!important;
+  box-shadow:0 0 18px rgba(139,92,246,.3)!important;
+  transform:translateY(-2px);
+}
+.pill-tooltip{
+  position:fixed;z-index:400;
+  background:var(--card2);border:1px solid rgba(139,92,246,.28);
+  border-radius:10px;padding:.65rem 1rem;
+  font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.04em;
+  color:rgba(196,181,253,.85);line-height:1.6;
+  max-width:240px;pointer-events:none;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .2s,transform .2s;
+  box-shadow:0 8px 32px rgba(0,0,0,.6),0 0 20px rgba(139,92,246,.15);
+}
+.pill-tooltip.show{opacity:1;transform:translateY(0)}
+
+/* ══ REVIEWS 3-COL ══ */
+.rev-sub-p{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:.95rem;color:var(--muted);line-height:1.75;
+  margin-top:.85rem;max-width:520px;margin-left:auto;margin-right:auto;
+  display:block;text-align:center;
+}
+.rev-grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.25rem;
+  max-width:1080px;
+  margin:3rem auto 0;
+  padding:0 6%;
+}
+.rcard{
+  background:var(--card);
+  border:1px solid rgba(139,92,246,.12);
+  border-radius:18px;
+  padding:1.6rem;
+  display:flex;flex-direction:column;gap:.75rem;
+  transition:all .3s;
+}
+.rcard:hover{
+  border-color:rgba(139,92,246,.28);
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 24px rgba(109,40,217,.08);
+}
+.rcard-top{display:flex;align-items:center;gap:.75rem}
+.rflag{
+  font-size:1.55rem;line-height:1;flex-shrink:0;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.4));
+}
+.rcard-meta{display:flex;flex-direction:column;gap:.15rem}
+.rcard-name{
+  font-family:'Playfair Display',serif;font-size:.88rem;font-weight:600;
+  color:var(--text);line-height:1.2;
+}
+.rcard-role{
+  font-family:'DM Mono',monospace;font-size:.44rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--a);
+}
+.rstars{color:var(--gold);font-size:.85rem;letter-spacing:.1em}
+.rq{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:.84rem;line-height:1.72;color:rgba(240,238,255,.78);
+  flex:1;
+}
+
+@media(max-width:900px){
+  .rev-grid-3{grid-template-columns:repeat(2,1fr);gap:1rem;padding:0 5%}
+}
+@media(max-width:480px){
+  .rev-grid-3{grid-template-columns:1fr;padding:0 5%}
 }
 </style>
 </head>
@@ -459,7 +629,7 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
   <h1 class="hero-h" data-k="heroH">¿Y si pudieras <em>ver</em><br>tu conocimiento?</h1>
   <p class="hero-sub" data-k="heroSub">Tu biblioteca no es una lista de libros.<br>Es una galaxia viva de conexiones que siempre estuvieron ahí.</p>
   <div class="hero-cta-wrap">
-    <a href="#pricing" class="btn-hero" data-k="heroCta">Try Beta Free — No credit card</a>
+    <a href="#pricing" class="btn-hero" data-k="heroCta">Try Beta Free</a>
     <span class="hero-note" data-k="heroNote">Free forever · 3 books · No subscription · No sign-up</span>
   </div>
 </section>
@@ -602,76 +772,88 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
 <!-- SOCIAL PROOF -->
 <section id="social">
   <div class="sh fi" style="text-align:center;margin-bottom:0;max-width:none">
-    <span class="sec-eyebrow" data-k="revEye">Lo que dicen los lectores</span>
-    <h2 class="sec-h" style="max-width:600px;margin:0 auto" data-k="revH">Primeras voces.<br><em>Early explorers.</em></h2>
-    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:var(--muted);line-height:1.75;margin-top:.85rem;max-width:520px;margin-left:auto;margin-right:auto">Sus palabras no fueron pedidas — surgieron solas.</p>
+    <span class="sec-eyebrow" data-k="revEye">What readers say</span>
+    <h2 class="sec-h" style="max-width:600px;margin:0 auto" data-k="revH">First voices.<br><em>Early explorers.</em></h2>
+    <p class="rev-sub-p" data-k="revSub">Their words were not asked for — they came on their own.</p>
   </div>
-  <div class="rev-grid" style="grid-template-columns:repeat(2,1fr);max-width:960px">
+  <div class="rev-grid-3">
 
-    <!-- Jesu Tagle — Chile -->
-    <div class="rcard fi" style="border-color:rgba(139,92,246,.2)">
-      <div class="flag-wrap">
-        <span style="font-size:1.4rem;line-height:1">🇨🇱</span>
-        <span class="flag-country">Chile · Early Explorer</span>
+    <div class="rcard fi">
+      <div class="rcard-top">
+        <span class="rflag">🇨🇱</span>
+        <div class="rcard-meta">
+          <span class="rcard-name">Jesu Tagle</span>
+          <span class="rcard-role">Chile · Early Explorer</span>
+        </div>
       </div>
-      <div class="rstars"><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span></div>
-      <p class="rq">"OMG, lo acabo de explorar y está absolutamente épico 🌌✨ Se siente muy místico. He estado cambiando los temas de la galaxia, jugando con el canvas y, la verdad, me estoy divirtiendo muchísimo. ¡Lo amo! 💜"</p>
-      <p class="rau"><span>Jesu Tagle</span></p>
+      <div class="rstars">★★★★★</div>
+      <p class="rq rev-es">"OMG, lo acabo de explorar y está absolutamente épico. Se siente muy místico. He estado cambiando los temas de la galaxia, jugando con el canvas y, la verdad, me estoy divirtiendo muchísimo. ¡Lo amo!"</p>
+      <p class="rq rev-en" style="display:none">"It feels so mystical. I've been changing the galaxy themes, playing with the canvas — honestly I'm having so much fun. I love it!"</p>
     </div>
 
-    <!-- Alexia Ramírez — México -->
-    <div class="rcard fid" style="border-color:rgba(16,185,129,.2)">
-      <div class="flag-wrap">
-        <span style="font-size:1.4rem;line-height:1">🇲🇽</span>
-        <span class="flag-country">México · Early Explorer</span>
+    <div class="rcard fid">
+      <div class="rcard-top">
+        <span class="rflag">🇲🇽</span>
+        <div class="rcard-meta">
+          <span class="rcard-name">Alexia Ramírez</span>
+          <span class="rcard-role">México · Early Explorer</span>
+        </div>
       </div>
-      <div class="rstars"><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span></div>
-      <p class="rq">"El tutorial de inicio está genial 🎯 — esas pistas iniciales te dan justo lo que necesitas para empezar. Que permita cambiar el color de la interfaz es excelente 🎨, y con el inglés y español ya te da un alcance global 🌍. Le das la posibilidad al usuario de explotar su mente."</p>
-      <p class="rau" style="color:rgba(110,231,183,.6)"><span style="color:#5eead4">Alexia Ramírez</span></p>
+      <div class="rstars">★★★★★</div>
+      <p class="rq rev-es">"El tutorial de inicio está genial — esas pistas iniciales te dan justo lo que necesitas. Que permita cambiar el color de la interfaz es excelente, y con el inglés y español ya te da un alcance global. Le das la posibilidad al usuario de explotar su mente."</p>
+      <p class="rq rev-en" style="display:none">"The onboarding is spot on — those hints give you exactly what you need. Changing the interface color is excellent and having English and Spanish gives it global reach. You give users the freedom to explode their mind."</p>
     </div>
 
-    <!-- Mariana Chávez — México -->
-    <div class="rcard fi" style="border-color:rgba(245,158,11,.2)">
-      <div class="flag-wrap">
-        <span style="font-size:1.4rem;line-height:1">🇲🇽</span>
-        <span class="flag-country">México · Lectora</span>
+    <div class="rcard fid2">
+      <div class="rcard-top">
+        <span class="rflag">🇲🇽</span>
+        <div class="rcard-meta">
+          <span class="rcard-name">Mariana Chávez</span>
+          <span class="rcard-role">México · Early Explorer</span>
+        </div>
       </div>
-      <div class="rstars"><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span></div>
-      <p class="rq">"Como lectora, ALINEA es un producto que sin duda alguna compraría 📚💛 No es solo poner tus libros y ya — es una base de datos completa que mapea las conexiones entre ellos. La Bitácora es una joya 💎 De lector a lector, se agradece con el corazón."</p>
-      <p class="rau" style="color:rgba(245,158,11,.6)"><span style="color:#f59e0b">Mariana Chávez</span></p>
+      <div class="rstars">★★★★★</div>
+      <p class="rq rev-es">"Como lectora, ALINEA es un producto que sin duda alguna compraría. No es solo poner tus libros y ya — es una base de datos completa que mapea las conexiones entre ellos. La Bitácora es una joya. De lector a lector, se agradece con el corazón."</p>
+      <p class="rq rev-en" style="display:none">"As a reader, ALINEA is a product I would absolutely buy. It's not just a place to list your books — it's a complete database that maps connections between them. The Bitácora is pure gold. From one reader to another — thank you."</p>
     </div>
 
-    <!-- Shreya Mishra — India -->
-    <div class="rcard fid" style="border-color:rgba(59,130,246,.2)">
-      <div class="flag-wrap">
-        <span style="font-size:1.4rem;line-height:1">🇮🇳</span>
-        <span class="flag-country">India · MD / Medical Researcher</span>
+    <div class="rcard fi">
+      <div class="rcard-top">
+        <span class="rflag">🇮🇳</span>
+        <div class="rcard-meta">
+          <span class="rcard-name">Shreya Mishra</span>
+          <span class="rcard-role">India · Early Explorer</span>
+        </div>
       </div>
-      <div class="rstars"><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span></div>
-      <p class="rq">"As a doctor, I have to read endless medical literature daily 🩺 ALINEA's Explorer is a game-changer — it allows me to search a single medical concept and instantly see how it connects across multiple studies 🔬🧠 It brilliantly bridges complex data with clinical intuition."</p>
-      <p class="rau" style="color:rgba(59,130,246,.6)"><span style="color:#93c5fd">Shreya Mishra</span></p>
+      <div class="rstars">★★★★★</div>
+      <p class="rq rev-es">"Como doctora, tengo que leer interminables publicaciones médicas cada día. El Explorador de ALINEA cambia las reglas del juego — busco un concepto y al instante veo cómo se conecta con múltiples estudios. Conecta datos complejos con intuición clínica de forma brillante."</p>
+      <p class="rq rev-en" style="display:none">"As a doctor, I have to read endless medical literature daily. ALINEA's Explorer is a game-changer — I search a single medical concept and instantly see how it connects across multiple studies. It brilliantly bridges complex data with clinical intuition."</p>
     </div>
 
-    <!-- Emiliano — México -->
-    <div class="rcard fi" style="border-color:rgba(236,72,153,.2)">
-      <div class="flag-wrap">
-        <span style="font-size:1.4rem;line-height:1">🇲🇽</span>
-        <span class="flag-country">México · Estudiante & Lector</span>
+    <div class="rcard fid">
+      <div class="rcard-top">
+        <span class="rflag">🇲🇽</span>
+        <div class="rcard-meta">
+          <span class="rcard-name">Emiliano</span>
+          <span class="rcard-role">México · Early Explorer</span>
+        </div>
       </div>
-      <div class="rstars"><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span></div>
-      <p class="rq">"Desde que entras sientes como si ya la llevaras usando años 🚀 La galaxia: nunca había visto una app que hiciera eso 🪐✨ También está súper útil para llevar control de libros de la universidad 📖 Con la privacidad y que lo tengas disponible siempre — está de lujo."</p>
-      <p class="rau" style="color:rgba(236,72,153,.6)"><span style="color:#f9a8d4">Emiliano</span></p>
+      <div class="rstars">★★★★★</div>
+      <p class="rq rev-es">"Desde que entras sientes como si ya la llevaras usando años — se siente súper intuitiva. La galaxia: nunca había visto una app que hiciera eso. También está súper útil para llevar control de libros de la universidad. Con la privacidad y que lo tengas disponible siempre — está de lujo."</p>
+      <p class="rq rev-en" style="display:none">"From the moment you open it, it feels like you've used it for years. The galaxy is something I've never seen in any app. Also perfect for university books. Private, always available — it's luxury."</p>
     </div>
 
-    <!-- Manon Ede — Suiza -->
-    <div class="rcard fid" style="border-color:rgba(167,139,250,.2)">
-      <div class="flag-wrap">
-        <span style="font-size:1.4rem;line-height:1">🇨🇭</span>
-        <span class="flag-country">Suiza · Early Explorer</span>
+    <div class="rcard fid2">
+      <div class="rcard-top">
+        <span class="rflag">🇨🇭</span>
+        <div class="rcard-meta">
+          <span class="rcard-name">Manon Ede</span>
+          <span class="rcard-role">Suiza · Early Explorer</span>
+        </div>
       </div>
-      <div class="rstars"><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span><span class="rstar">★</span></div>
-      <p class="rq">"There's something rare about ALINEA — it feels designed for people who actually think 🌀 The galaxy metaphor isn't just aesthetic; it reflects exactly how reading feels ✨ You never know which book will orbit another until you see them together. It's the most honest reading app I've ever used 💫"</p>
-      <p class="rau" style="color:rgba(167,139,250,.6)"><span style="color:#c4b5fd">Manon Ede</span></p>
+      <div class="rstars">★★★★★</div>
+      <p class="rq rev-es">"Hay algo poco común en ALINEA — se siente diseñado para personas que realmente piensan. La metáfora de la galaxia no es solo estética; refleja exactamente cómo se siente leer. Nunca sabes qué libro orbitará alrededor de otro hasta que los ves juntos. La app de lectura más honesta que he usado."</p>
+      <p class="rq rev-en" style="display:none">"There's something rare about ALINEA — it feels designed for people who actually think. The galaxy metaphor isn't just aesthetic; it reflects exactly how reading feels. You never know which book will orbit another until you see them together. The most honest reading app I've ever used."</p>
     </div>
 
   </div>
@@ -737,15 +919,6 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
         <p class="pguar" data-k="proguar">🔒 Pago seguro vía Lemon Squeezy · Entrega instantánea</p>
       </div>
     </div>
-    <div class="compare-wrap fi">
-      <div class="cmp-row head"><div class="cmp-cell head-cell" data-k="cmpFeature">Función</div><div class="cmp-cell head-cell" data-k="cmpBeta">Beta</div><div class="cmp-cell head-cell pro" data-k="cmpPro">Pro</div></div>
-      <div class="cmp-row"><div class="cmp-cell label" data-k="cm1">Libros</div><div class="cmp-cell"><span class="cmp-no">3</span></div><div class="cmp-cell"><span class="cmp-yes">∞</span></div></div>
-      <div class="cmp-row"><div class="cmp-cell label" data-k="cm2">Canvas Cósmico</div><div class="cmp-cell"><span class="cmp-yes">✓</span></div><div class="cmp-cell"><span class="cmp-yes">✓</span></div></div>
-      <div class="cmp-row"><div class="cmp-cell label" data-k="cm3">Bitácora avanzada</div><div class="cmp-cell"><span class="cmp-no">—</span></div><div class="cmp-cell"><span class="cmp-yes">✓</span></div></div>
-      <div class="cmp-row"><div class="cmp-cell label" data-k="cm4">Exportación datos</div><div class="cmp-cell"><span class="cmp-no">—</span></div><div class="cmp-cell"><span class="cmp-yes">✓</span></div></div>
-      <div class="cmp-row"><div class="cmp-cell label" data-k="cm5">Funciones IA</div><div class="cmp-cell"><span class="cmp-no">—</span></div><div class="cmp-cell"><span class="cmp-yes">✓</span></div></div>
-      <div class="cmp-row"><div class="cmp-cell label" data-k="cm6">Paleta de colores</div><div class="cmp-cell"><span class="cmp-no">3</span></div><div class="cmp-cell"><span class="cmp-yes">7+</span></div></div>
-    </div>
     <div class="price-close fi"><p class="price-close-h" data-k="priceClose"><strong>Sin mensualidades.</strong><br>Sin rentar tu conocimiento e información.</p></div>
   </div>
 </section>
@@ -757,7 +930,7 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
   <div class="faq-inner">
     <div class="sh fi" style="text-align:center;max-width:none">
       <span class="sec-eyebrow" data-k="faqEye">Preguntas</span>
-      <h2 class="sec-h" style="max-width:500px;margin:0 auto" data-k="faqH">Todo lo que<br><em>quieres saber.</em></h2>
+      <h2 class="sec-h faq-title" data-k="faqH">Everything you<br><em>want to know.</em></h2>
     </div>
     <div class="faq-list">
       <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fqt" data-k="fq1">¿Es realmente un pago único?</span><div class="fqico">+</div></div><div class="faq-a" data-k="fa1">Sí. Pagas una vez y posees ALINEA Pro para siempre. Sin suscripciones ni renovaciones. Cada actualización futura está incluida.</div></div>
@@ -769,16 +942,6 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
   </div>
 </section>
 
-<div class="dv"></div>
-
-<!-- FUTURE -->
-<section id="future">
-  <div class="future-inner fi">
-    <span class="future-eyebrow" data-k="futEye">Próximamente</span>
-    <h2 class="future-h" data-k="futH">"Una nueva forma de descubrir conexiones entre ideas, libros y patrones de pensamiento."</h2>
-    <p class="future-p" data-k="futP">Algo está llegando. Invisible, elegante, integrado.</p>
-  </div>
-</section>
 
 <!-- CTA FINAL -->
 <section id="cta-final">
@@ -792,7 +955,7 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
 <!-- FOOTER -->
 <footer>
   <div class="flogo">ALINEA</div>
-  <div class="fhandle">hello.alinea.io@gmail.com</div>
+  <a class="fhandle" href="https://www.instagram.com/alinea.io" target="_blank" rel="noopener" style="color:var(--a2);text-decoration:none;transition:color .2s">@alinea.io ↗</a>
   <div class="ftag">#MakingVisibleTheInvisible</div>
   <div class="fsocial">
     <a href="#">Instagram</a><a href="#">TikTok</a><a href="#">X / Twitter</a><a href="#">LinkedIn</a><a href="#">YouTube</a>
@@ -1052,13 +1215,13 @@ footer{padding:50px 6% 40px;border-top:1px solid rgba(139,92,246,.07);position:r
    THEMES  (7 colors + 30s auto-revert)
 ═══════════════════════════════════════════ */
 const THEMES={
-  purple:{a:'#8b5cf6',a2:'#c4b5fd',a3:'#6d28d9',glow:'rgba(139,92,246,.2)',border:'rgba(139,92,246,.15)',bs:'rgba(139,92,246,.07)',orb:'radial-gradient(circle at 36% 30%,#ede9fe 0%,#a78bfa 26%,#7c3aed 55%,#4c1d95 77%,#1a0040 100%)',rgb:[139,92,246],gs:'rgba(139,92,246,.8),0 0 150px rgba(109,40,217,.45),0 0 320px rgba(109,40,217,.2)'},
-  blue:  {a:'#3b82f6',a2:'#93c5fd',a3:'#1d4ed8',glow:'rgba(59,130,246,.2)',border:'rgba(59,130,246,.15)',bs:'rgba(59,130,246,.07)',orb:'radial-gradient(circle at 36% 30%,#dbeafe 0%,#93c5fd 26%,#3b82f6 55%,#1e3a8a 77%,#0d1f4d 100%)',rgb:[59,130,246],gs:'rgba(59,130,246,.8),0 0 150px rgba(29,78,216,.45),0 0 320px rgba(29,78,216,.2)'},
-  teal:  {a:'#14b8a6',a2:'#5eead4',a3:'#0f766e',glow:'rgba(20,184,166,.2)',border:'rgba(20,184,166,.15)',bs:'rgba(20,184,166,.07)',orb:'radial-gradient(circle at 36% 30%,#ccfbf1 0%,#5eead4 26%,#14b8a6 55%,#0f766e 77%,#042f2e 100%)',rgb:[20,184,166],gs:'rgba(20,184,166,.8),0 0 150px rgba(15,118,110,.45),0 0 320px rgba(15,118,110,.2)'},
-  rose:  {a:'#f43f5e',a2:'#fda4af',a3:'#be123c',glow:'rgba(244,63,94,.2)',border:'rgba(244,63,94,.15)',bs:'rgba(244,63,94,.07)',orb:'radial-gradient(circle at 36% 30%,#ffe4e6 0%,#fda4af 26%,#f43f5e 55%,#be123c 77%,#4c0519 100%)',rgb:[244,63,94],gs:'rgba(244,63,94,.8),0 0 150px rgba(190,18,60,.45),0 0 320px rgba(190,18,60,.2)'},
-  amber: {a:'#f59e0b',a2:'#fde68a',a3:'#b45309',glow:'rgba(245,158,11,.2)',border:'rgba(245,158,11,.15)',bs:'rgba(245,158,11,.07)',orb:'radial-gradient(circle at 36% 30%,#fef3c7 0%,#fde68a 26%,#f59e0b 55%,#b45309 77%,#451a03 100%)',rgb:[245,158,11],gs:'rgba(245,158,11,.8),0 0 150px rgba(180,83,9,.45),0 0 320px rgba(180,83,9,.2)'},
-  indigo:{a:'#6366f1',a2:'#a5b4fc',a3:'#4338ca',glow:'rgba(99,102,241,.2)',border:'rgba(99,102,241,.15)',bs:'rgba(99,102,241,.07)',orb:'radial-gradient(circle at 36% 30%,#e0e7ff 0%,#a5b4fc 26%,#6366f1 55%,#4338ca 77%,#1e1b4b 100%)',rgb:[99,102,241],gs:'rgba(99,102,241,.8),0 0 150px rgba(67,56,202,.45),0 0 320px rgba(67,56,202,.2)'},
-  emerald:{a:'#10b981',a2:'#6ee7b7',a3:'#047857',glow:'rgba(16,185,129,.2)',border:'rgba(16,185,129,.15)',bs:'rgba(16,185,129,.07)',orb:'radial-gradient(circle at 36% 30%,#d1fae5 0%,#6ee7b7 26%,#10b981 55%,#065f46 77%,#001a0a 100%)',rgb:[16,185,129],gs:'rgba(16,185,129,.8),0 0 150px rgba(4,120,87,.45),0 0 320px rgba(4,120,87,.2)'},
+  purple:{a4:'#4c1d95',a:'#8b5cf6',a2:'#c4b5fd',a3:'#6d28d9',glow:'rgba(139,92,246,.2)',border:'rgba(139,92,246,.15)',bs:'rgba(139,92,246,.07)',orb:'radial-gradient(circle at 36% 30%,#ede9fe 0%,#a78bfa 26%,#7c3aed 55%,#4c1d95 77%,#1a0040 100%)',rgb:[139,92,246],gs:'rgba(139,92,246,.8),0 0 150px rgba(109,40,217,.45),0 0 320px rgba(109,40,217,.2)'},
+  blue:  {a4:'#1e3a8a',a:'#3b82f6',a2:'#93c5fd',a3:'#1d4ed8',glow:'rgba(59,130,246,.2)',border:'rgba(59,130,246,.15)',bs:'rgba(59,130,246,.07)',orb:'radial-gradient(circle at 36% 30%,#dbeafe 0%,#93c5fd 26%,#3b82f6 55%,#1e3a8a 77%,#0d1f4d 100%)',rgb:[59,130,246],gs:'rgba(59,130,246,.8),0 0 150px rgba(29,78,216,.45),0 0 320px rgba(29,78,216,.2)'},
+  teal:  {a4:'#042f2e',a:'#14b8a6',a2:'#5eead4',a3:'#0f766e',glow:'rgba(20,184,166,.2)',border:'rgba(20,184,166,.15)',bs:'rgba(20,184,166,.07)',orb:'radial-gradient(circle at 36% 30%,#ccfbf1 0%,#5eead4 26%,#14b8a6 55%,#0f766e 77%,#042f2e 100%)',rgb:[20,184,166],gs:'rgba(20,184,166,.8),0 0 150px rgba(15,118,110,.45),0 0 320px rgba(15,118,110,.2)'},
+  rose:  {a4:'#4c0519',a:'#f43f5e',a2:'#fda4af',a3:'#be123c',glow:'rgba(244,63,94,.2)',border:'rgba(244,63,94,.15)',bs:'rgba(244,63,94,.07)',orb:'radial-gradient(circle at 36% 30%,#ffe4e6 0%,#fda4af 26%,#f43f5e 55%,#be123c 77%,#4c0519 100%)',rgb:[244,63,94],gs:'rgba(244,63,94,.8),0 0 150px rgba(190,18,60,.45),0 0 320px rgba(190,18,60,.2)'},
+  amber: {a4:'#451a03',a:'#f59e0b',a2:'#fde68a',a3:'#b45309',glow:'rgba(245,158,11,.2)',border:'rgba(245,158,11,.15)',bs:'rgba(245,158,11,.07)',orb:'radial-gradient(circle at 36% 30%,#fef3c7 0%,#fde68a 26%,#f59e0b 55%,#b45309 77%,#451a03 100%)',rgb:[245,158,11],gs:'rgba(245,158,11,.8),0 0 150px rgba(180,83,9,.45),0 0 320px rgba(180,83,9,.2)'},
+  indigo:{a4:'#1e1b4b',a:'#6366f1',a2:'#a5b4fc',a3:'#4338ca',glow:'rgba(99,102,241,.2)',border:'rgba(99,102,241,.15)',bs:'rgba(99,102,241,.07)',orb:'radial-gradient(circle at 36% 30%,#e0e7ff 0%,#a5b4fc 26%,#6366f1 55%,#4338ca 77%,#1e1b4b 100%)',rgb:[99,102,241],gs:'rgba(99,102,241,.8),0 0 150px rgba(67,56,202,.45),0 0 320px rgba(67,56,202,.2)'},
+  emerald:{a4:'#001a0a',a:'#10b981',a2:'#6ee7b7',a3:'#047857',glow:'rgba(16,185,129,.2)',border:'rgba(16,185,129,.15)',bs:'rgba(16,185,129,.07)',orb:'radial-gradient(circle at 36% 30%,#d1fae5 0%,#6ee7b7 26%,#10b981 55%,#065f46 77%,#001a0a 100%)',rgb:[16,185,129],gs:'rgba(16,185,129,.8),0 0 150px rgba(4,120,87,.45),0 0 320px rgba(4,120,87,.2)'},
 };
 
 let themeTimer=null,currentTheme='purple';
@@ -1070,6 +1233,24 @@ function setTheme(name,dot){
   r.setProperty('--a',th.a);r.setProperty('--a2',th.a2);r.setProperty('--a3',th.a3);
   r.setProperty('--glow',th.glow);r.setProperty('--border',th.border);r.setProperty('--bs',th.bs);
 
+  /* update buttons */
+  document.querySelectorAll('.btn-hero,.btn-pro,.cd-btn,.ncta').forEach(b=>{
+    b.style.background='linear-gradient(135deg,'+th.a3+','+th.a+')';
+    b.style.boxShadow='0 0 50px '+th.glow+',0 4px 30px rgba(0,0,0,.5)';
+  });
+  /* update modal chrome */
+  document.querySelectorAll('.lmbox').forEach(b=>{
+    b.style.border='1px solid '+th.border;
+    b.style.boxShadow='0 0 80px '+th.glow+',0 32px 80px rgba(0,0,0,.9)';
+  });
+  document.querySelectorAll('.lmbody h4').forEach(h=>{ h.style.color=th.a; });
+  document.querySelectorAll('.lmx').forEach(x=>{ x.style.borderColor=th.border; });
+  document.querySelectorAll('.pb-pro').forEach(b=>{
+    b.style.color=th.a2; b.style.borderColor=th.a+'66'; b.style.background=th.bs;
+  });
+  document.querySelectorAll('.diff-icon,.ficon').forEach(el=>{
+    el.style.borderColor=th.border; el.style.background=th.bs;
+  });
   /* update orbs */
   document.querySelectorAll('.orb,.cta-final-orb,.exp-orb-mini').forEach(o=>{
     o.style.background=th.orb;
@@ -1143,22 +1324,27 @@ window.addEventListener('scroll',()=>{
    BILINGUAL
 ═══════════════════════════════════════════ */
 const T={
-es:{nvis:'Visual',nprice:'Precio',nrev:'Reseñas',nfaq:'FAQ',ncta:'Probar Beta Gratis →',heroEyebrow:'ALINEA · Beta disponible ahora',heroH:'¿Y si pudieras <em>ver</em><br>tu conocimiento?',heroSub:'Tu biblioteca no es una lista de libros.<br>Es una galaxia viva de conexiones que siempre estuvieron ahí.',heroCta:'Probar Beta Gratis — Sin tarjeta',heroNote:'Gratis para siempre · 3 libros · Sin suscripción · Sin registro',cdmsg:'Early Access termina en —',cdstrong:'asegura $49 USD',cddays:'Días',cdhrs:'Horas',cdmin:'Min',cdsec:'Seg',cdbtn:'Asegurar $49 →',pk1:'Galaxia Viva',ph1:'Visualiza cómo<br>se conectan<br><em>tus ideas.</em>',pp1:'Keywords, órbitas y conexiones dinámicas. Tus libros dialogan entre sí formando un mapa vivo de tu pensamiento.',pk2:'Explorador de Ideas',ph2:'Descubre patrones<br>que nunca<br><em>habías visto.</em>',pp2:'Palabras flotando, exploración interactiva, conexiones que emergen. Tu biblioteca en modo gravedad.',pk3:'Bitácora de Vuelo',ph3:'Tu lectura<br><em>deja una huella.</em>',pp3:'Estadísticas elegantes, evolución de intereses, categorías creciendo. El panel de control de tu mente lectora.',bs1:'Libros',bs2:'Citas',bs3:'Conexiones',bb1:'Filosofía',bb2:'Ciencia',bb3:'Historia',bb4:'Ficción',diffEye:'La diferencia',diffH:'ALINEA no organiza libros.<br><em>Construye universos intelectuales.</em>',dc1t:'Conexiones vivas',dc1p:'Tus ideas dialogan entre sí. Un libro de física conversa con uno de filosofía. Tu mente se vuelve visible.',dc2t:'Privacidad absoluta',dc2p:'Tus datos nunca abandonan tu dispositivo. Ni nosotros podemos ver tu información. Cero servidores.',dc3t:'Ownership real',dc3p:'Tu biblioteca siempre será tuya. Sin suscripciones, sin rentar tu conocimiento, sin dependencias externas.',privH:'Tu mente<br><em>te pertenece.</em>',privSub:'ALINEA no utiliza servidores. Ni siquiera nosotros podemos ver tu información.',pbul1:'Sin rastreo',pbul2:'Sin vender datos',pbul3:'Todo en tu dispositivo',pbul4:'Exportación JSON',pbul5:'Tu galaxia, siempre tuya',featEye:'Funciones clave',featH:'Construido para lectores<br>que <em>van en serio.</em>',clbl:'Personaliza tu galaxia',f1t:'Control de Vuelo',f1d:'Libros en lectura, completados, wishlist, notas, palabras clave, calificaciones y Top 5 de autores — todo en tiempo real.',f2t:'Captura Instantánea',f2d:'Registra cualquier subrayado en segundos. Clasifica por página, palabra clave y la emoción exacta que te transmitió.',f3t:'Compartir tu Cosmos',f3d:'Transforma citas en piezas de arte visual automáticas. Listas con un clic para tus historias e inspirar a tu círculo.',revEye:'Lo que dicen los lectores',revH:'Diseñado para<br><em>lectores reales.</em>',r1:'"OMG, lo acabo de explorar y está absolutamente épico. Se siente muy místico — me estoy divirtiendo muchísimo. ¡Lo amo!"',r2:'"No es solo poner tus libros y ya — es un mapa completo de conexiones. La Bitácora es una joya pura. De lector a lector: gracias."',r3:'"El nivel de privacidad fue lo que me convenció. 100% local con una interfaz premium. Exactamente lo que buscaba."',r4:'"Como investigadora, mapear mi biblioteca visualmente resolvió mis problemas de retención. Una obra maestra."',r5:'"El onboarding te da justo lo que necesitas. Los colores, el soporte bilingüe — la libertad de explotar tu mente."',promlbl:'Lo que ALINEA nunca hará',pp1:'Sin suscripciones',pp2:'Sin rastreo',pp3:'Sin anuncios',pp4:'Sin rentar tu conocimiento',pd1:'Pagas una sola vez. El software es tuyo para siempre.',pd2:'Tus libros y pensamientos se guardan localmente. Tu conocimiento es tuyo.',pd3:'Tu espacio de lectura es un santuario. Jamás verás interrupciones.',pd4:'Un pago. Acceso de por vida. Todas las actualizaciones futuras incluidas.',priceEye:'Modelo de negocio',priceH:'Paga una vez.<br><em>Es tuyo para siempre.</em>',fbadge:'Beta Gratuita',fname:'ALINEA Beta',fperiod:'Gratis para siempre',ff1:'3 libros para explorar tu galaxia',ff2:'Canvas Cósmico completo',ff3:'Generador de tarjetas',ff4:'3 temas de color',ff5:'Galaxia completa',ff6:'Bitácora avanzada',ff7:'Exportación de datos',fcta:'Probar Beta Gratis →',proname:'ALINEA Pro',properiod:'pago único · de por vida · todas las actualizaciones',pf1:'Galaxia completa — conexiones ilimitadas',pf2:'Exploración avanzada',pf3:'Bitácora avanzada (Top 5, misiones)',pf4:'Exportación completa de datos',pf5:'Futuras funciones de IA',pf6:'Paleta completa + hex personalizado',pf7:'100% local-first para siempre',procta:'Obtener ALINEA Pro — $49 USD →',proguar:'🔒 Pago seguro vía Lemon Squeezy · Entrega instantánea',cmpFeature:'Función',cmpBeta:'Beta',cmpPro:'Pro',cm1:'Libros',cm2:'Canvas Cósmico',cm3:'Bitácora avanzada',cm4:'Exportación datos',cm5:'Funciones IA',cm6:'Paleta de colores',priceClose:'<strong>Sin mensualidades.</strong><br>Sin rentar tu conocimiento e información.',faqEye:'Preguntas',faqH:'Todo lo que<br><em>quieres saber.</em>',fq1:'¿Es realmente un pago único?',fa1:'Sí. Pagas una vez y posees ALINEA Pro para siempre. Sin suscripciones ni renovaciones. Cada actualización futura está incluida.',fq2:'¿Cómo se instala?',fa2:'ALINEA es un solo archivo HTML — sin App Store, sin Play Store. Ábrelo en cualquier navegador en tu celular, tablet, Mac o PC.',fq3:'¿Están seguros mis datos?',fa3:'Completamente — nunca salen de tu dispositivo. ALINEA no tiene servidores. Nadie puede acceder ni rastrear tus datos. Ni nosotros.',fq4:'¿Cuántos dispositivos?',fa4:'Máximo 3 dispositivos simultáneos. El uso masivo revoca la licencia automáticamente.',fq5:'¿Qué pasa si pierdo el archivo?',fa5:'Tu compra te da acceso permanente para descargarlo de nuevo desde Lemon Squeezy.',futEye:'Próximamente',futH:'"Una nueva forma de descubrir conexiones entre ideas, libros y patrones de pensamiento."',futP:'Algo está llegando. Invisible, elegante, integrado.',ctaH:'Construye tu<br><em>universo intelectual.</em>',ctaCta:'Probar Beta Gratis — Empieza Ya',ctaNote:'Volver visible lo invisible.',lterms:'Términos de Servicio',lprivacy:'Aviso de Privacidad',lmt:'Términos de Servicio',lmp:'Aviso de Privacidad',fcopy:'Diseñado con obsesión por el detalle. © 2026 ALINEA'},
-en:{nvis:'Visual',nprice:'Pricing',nrev:'Reviews',nfaq:'FAQ',ncta:'Try Beta Free →',heroEyebrow:'ALINEA · Beta available now',heroH:'What if you could <em>see</em><br>your knowledge?',heroSub:'Your library is not a list of books.<br>It is a living galaxy of connections that were always there.',heroCta:'Try Beta Free — No credit card',heroNote:'Free forever · 3 books · No subscription · No sign-up',cdmsg:'Early Access ends in —',cdstrong:'lock in $49 USD',cddays:'Days',cdhrs:'Hours',cdmin:'Min',cdsec:'Sec',cdbtn:'Lock in $49 →',pk1:'Living Galaxy',ph1:'Visualize how<br>your ideas<br><em>connect.</em>',pp1:'Keywords, orbits and dynamic connections. Your books talk to each other forming a living map of your thinking.',pk2:'Ideas Explorer',ph2:'Discover patterns<br>you never<br><em>noticed.</em>',pp2:'Floating words, interactive exploration, emerging connections. Your library in gravity mode.',pk3:'Flight Log',ph3:'Your reading<br><em>leaves a trace.</em>',pp3:'Elegant statistics, evolving interests, growing categories. The control panel of your reading mind.',bs1:'Books',bs2:'Quotes',bs3:'Connections',bb1:'Philosophy',bb2:'Science',bb3:'History',bb4:'Fiction',diffEye:'The difference',diffH:"ALINEA does not organize books.<br><em>It builds intellectual universes.</em>",dc1t:'Living connections',dc1p:'Your ideas talk to each other. A physics book converses with a philosophy one. Your mind becomes visible.',dc2t:'Absolute privacy',dc2p:'Your data never leaves your device. Not even we can see your information. Zero servers.',dc3t:'Real ownership',dc3p:'Your library will always be yours. No subscriptions, no renting your knowledge, no external dependencies.',privH:'Your mind<br><em>belongs to you.</em>',privSub:'ALINEA does not use servers. Not even we can see your information.',pbul1:'No tracking',pbul2:'No data selling',pbul3:'Everything on your device',pbul4:'JSON export',pbul5:'Your galaxy, always yours',featEye:'Key features',featH:'Built for readers who<br><em>take it seriously.</em>',clbl:'Personalize your galaxy',f1t:'Flight Control',f1d:'Books in progress, completed, wishlist, notes, keywords, ratings and Top 5 authors — all in real time.',f2t:'Instant Capture',f2d:'Log any highlight in seconds. Classify by page, keyword and the exact emotion the reading gave you.',f3t:'Share Your Cosmos',f3d:'Transform quotes into automatic visual art. Ready in one click for your stories and inspiring your circle.',revEye:'What readers say',revH:'Designed for<br><em>real readers.</em>',r1:'"OMG, I just explored it and it is absolutely epic. It feels so mystical. I am having so much fun. I love it!"',r2:'"It is not just a place to list your books — it is a complete map of connections. The Bitácora is pure gold."',r3:'"The privacy level is what sold me. 100% local with a premium interface. Exactly what I was looking for."',r4:'"As a researcher, mapping my library visually solved my retention problems. A masterpiece."',r5:'"The onboarding gives you exactly what you need. Interface colors, bilingual support — the freedom to explode your mind."',promlbl:'What ALINEA will never do',pp1:'No subscriptions',pp2:'No tracking',pp3:'No ads',pp4:'No renting your knowledge',pd1:'You pay once. The software is yours forever.',pd2:'Your books and thoughts are stored locally. Your knowledge is yours.',pd3:'Your reading space is a sanctuary. You will never see interruptions.',pd4:'One payment. Lifetime access. All future updates included.',priceEye:'Business model',priceH:'Pay once.<br><em>Yours forever.</em>',fbadge:'Free Beta',fname:'ALINEA Beta',fperiod:'Free forever',ff1:'3 books to explore your galaxy',ff2:'Full Cosmic Canvas',ff3:'Card generator',ff4:'3 color themes',ff5:'Full galaxy',ff6:'Advanced Bitácora',ff7:'Data export',fcta:'Try Beta Free →',proname:'ALINEA Pro',properiod:'one-time · lifetime · all updates included',pf1:'Full galaxy — unlimited connections',pf2:'Advanced exploration',pf3:'Advanced Bitácora (Top 5, missions)',pf4:'Full data export',pf5:'Future AI features',pf6:'Full palette + custom hex',pf7:'100% local-first forever',procta:'Get ALINEA Pro — $49 USD →',proguar:'🔒 Secure via Lemon Squeezy · Instant delivery',cmpFeature:'Feature',cmpBeta:'Beta',cmpPro:'Pro',cm1:'Books',cm2:'Cosmic Canvas',cm3:'Advanced Bitácora',cm4:'Data export',cm5:'AI features',cm6:'Color palette',priceClose:'<strong>No monthly fees.</strong><br>No renting your knowledge and information.',faqEye:'Questions',faqH:'Everything you<br><em>want to know.</em>',fq1:'Is this really a one-time payment?',fa1:'Yes. You pay once and own ALINEA Pro forever. No subscriptions, no renewals.',fq2:'How do I install it?',fa2:'ALINEA is a single HTML file — no App Store, no Play Store. Open it in any browser on your phone, tablet, Mac or PC.',fq3:'Is my data safe?',fa3:'Completely — it never leaves your device. No servers, no cloud. No one can access your data. Not even us.',fq4:'How many devices?',fa4:'Up to 3 personal devices simultaneously.',fq5:'What if I lose the file?',fa5:'Your purchase gives you permanent re-download access from Lemon Squeezy.',futEye:'Coming soon',futH:'"A new way to discover connections between ideas, books and patterns of thought."',futP:'Something is coming. Invisible, elegant, integrated.',ctaH:'Build your<br><em>intellectual universe.</em>',ctaCta:'Try Beta Free — Start Now',ctaNote:'Making visible the invisible.',lterms:'Terms of Service',lprivacy:'Privacy Policy',lmt:'Terms of Service',lmp:'Privacy Policy',fcopy:'Crafted with obsession for detail. © 2026 ALINEA'}
+es:{nvis:'Visual',nprice:'Precio',nrev:'Reseñas',nfaq:'FAQ',ncta:'Probar Beta Gratis →',heroEyebrow:'ALINEA · Beta disponible ahora',heroH:'¿Y si pudieras <em>ver</em><br>tu conocimiento?',heroSub:'Tu biblioteca no es una lista de libros.<br>Es una galaxia viva de conexiones que siempre estuvieron ahí.',heroCta:'Probar Beta Gratis',heroNote:'Gratis para siempre · 3 libros · Sin suscripción · Sin registro',cdmsg:'Early Access termina en —',cdstrong:'asegura $49 USD',cddays:'Días',cdhrs:'Horas',cdmin:'Min',cdsec:'Seg',cdbtn:'Asegurar $49 →',pk1:'Galaxia Viva',ph1:'Visualiza cómo<br>se conectan<br><em>tus ideas.</em>',pp1:'Keywords, órbitas y conexiones dinámicas. Tus libros dialogan entre sí formando un mapa vivo de tu pensamiento.',pk2:'Explorador de Ideas',ph2:'Descubre patrones<br>que nunca<br><em>habías visto.</em>',pp2:'Palabras flotando, exploración interactiva, conexiones que emergen. Tu biblioteca en modo gravedad.',pk3:'Bitácora de Vuelo',ph3:'Tu lectura<br><em>deja una huella.</em>',pp3:'Estadísticas elegantes, evolución de intereses, categorías creciendo. El panel de control de tu mente lectora.',bs1:'Libros',bs2:'Citas',bs3:'Conexiones',bb1:'Filosofía',bb2:'Ciencia',bb3:'Historia',bb4:'Ficción',diffEye:'La diferencia',diffH:'ALINEA no organiza libros.<br><em>Construye universos intelectuales.</em>',dc1t:'Conexiones vivas',dc1p:'Tus ideas dialogan entre sí. Un libro de física conversa con uno de filosofía. Tu mente se vuelve visible.',dc2t:'Privacidad absoluta',dc2p:'Tus datos nunca abandonan tu dispositivo. Ni nosotros podemos ver tu información. Cero servidores.',dc3t:'Ownership real',dc3p:'Tu biblioteca siempre será tuya. Sin suscripciones, sin rentar tu conocimiento, sin dependencias externas.',privH:'Tu mente<br><em>te pertenece.</em>',privSub:'ALINEA no utiliza servidores. Ni siquiera nosotros podemos ver tu información.',pbul1:'Sin rastreo',pbul2:'Sin vender datos',pbul3:'Todo en tu dispositivo',pbul4:'Exportación JSON',pbul5:'Tu galaxia, siempre tuya',featEye:'Funciones clave',featH:'Construido para lectores<br>que <em>van en serio.</em>',clbl:'Personaliza tu galaxia',f1t:'Control de Vuelo',f1d:'Libros en lectura, completados, wishlist, notas, palabras clave, calificaciones y Top 5 de autores — todo en tiempo real.',f2t:'Captura Instantánea',f2d:'Registra cualquier subrayado en segundos. Clasifica por página, palabra clave y la emoción exacta que te transmitió.',f3t:'Compartir tu Cosmos',f3d:'Transforma citas en piezas de arte visual automáticas. Listas con un clic para tus historias e inspirar a tu círculo.',revEye:'Lo que dicen los lectores',revH:'Primeras voces.<br><em>Early explorers.</em>',revSub:'Sus palabras no fueron pedidas — surgieron solas.',r1:'"OMG, lo acabo de explorar y está absolutamente épico. Se siente muy místico — me estoy divirtiendo muchísimo. ¡Lo amo!"',r2:'"No es solo poner tus libros y ya — es un mapa completo de conexiones. La Bitácora es una joya pura. De lector a lector: gracias."',r3:'"El nivel de privacidad fue lo que me convenció. 100% local con una interfaz premium. Exactamente lo que buscaba."',r4:'"Como investigadora, mapear mi biblioteca visualmente resolvió mis problemas de retención. Una obra maestra."',r5:'"El onboarding te da justo lo que necesitas. Los colores, el soporte bilingüe — la libertad de explotar tu mente."',promlbl:'Lo que ALINEA nunca hará',pp1:'Sin suscripciones',pp2:'Sin rastreo',pp3:'Sin anuncios',pp4:'Sin rentar tu conocimiento',pd1:'Pagas una sola vez. El software es tuyo para siempre.',pd2:'Tus libros y pensamientos se guardan localmente. Tu conocimiento es tuyo.',pd3:'Tu espacio de lectura es un santuario. Jamás verás interrupciones.',pd4:'Un pago. Acceso de por vida. Todas las actualizaciones futuras incluidas.',priceEye:'Modelo de negocio',priceH:'Paga una vez.<br><em>Es tuyo para siempre.</em>',fbadge:'Beta Gratuita',fname:'ALINEA Beta',fperiod:'Gratis para siempre',ff1:'3 libros para explorar tu galaxia',ff2:'Canvas Cósmico completo',ff3:'Generador de tarjetas',ff4:'3 temas de color',ff5:'Galaxia completa',ff6:'Bitácora avanzada',ff7:'Exportación de datos',fcta:'Probar Beta Gratis →',proname:'ALINEA Pro',properiod:'pago único · de por vida · todas las actualizaciones',pf1:'Galaxia completa — conexiones ilimitadas',pf2:'Exploración avanzada',pf3:'Bitácora avanzada (Top 5, misiones)',pf4:'Exportación completa de datos',pf5:'Futuras funciones de IA',pf6:'Paleta completa + hex personalizado',pf7:'100% local-first para siempre',procta:'Obtener ALINEA Pro — $49 USD →',proguar:'🔒 Pago seguro vía Lemon Squeezy · Entrega instantánea',cmpFeature:'Función',cmpBeta:'Beta',cmpPro:'Pro',cm1:'Libros',cm2:'Canvas Cósmico',cm3:'Bitácora avanzada',cm4:'Exportación datos',cm5:'Funciones IA',cm6:'Paleta de colores',priceClose:'<strong>Sin mensualidades.</strong><br>Sin rentar tu conocimiento e información.',faqEye:'Preguntas',faqH:'Todo lo que<br><em>quieres saber.</em>',fq1:'¿Es realmente un pago único?',fa1:'Sí. Pagas una vez y posees ALINEA Pro para siempre. Sin suscripciones ni renovaciones. Cada actualización futura está incluida.',fq2:'¿Cómo se instala?',fa2:'ALINEA es un solo archivo HTML — sin App Store, sin Play Store. Ábrelo en cualquier navegador en tu celular, tablet, Mac o PC.',fq3:'¿Están seguros mis datos?',fa3:'Completamente — nunca salen de tu dispositivo. ALINEA no tiene servidores. Nadie puede acceder ni rastrear tus datos. Ni nosotros.',fq4:'¿Cuántos dispositivos?',fa4:'Máximo 3 dispositivos simultáneos. El uso masivo revoca la licencia automáticamente.',fq5:'¿Qué pasa si pierdo el archivo?',fa5:'Tu compra te da acceso permanente para descargarlo de nuevo desde Lemon Squeezy.',futEye:'Próximamente',futH:'"Una nueva forma de descubrir conexiones entre ideas, libros y patrones de pensamiento."',futP:'Algo está llegando. Invisible, elegante, integrado.',ctaH:'Construye tu<br><em>universo intelectual.</em>',ctaCta:'Probar Beta Gratis — Empieza Ya',ctaNote:'Volver visible lo invisible.',lterms:'Términos de Servicio',lprivacy:'Aviso de Privacidad',lmt:'Términos de Servicio',lmp:'Aviso de Privacidad',fcopy:'Diseñado con obsesión por el detalle. © 2026 ALINEA'},
+en:{nvis:'Visual',nprice:'Pricing',nrev:'Reviews',nfaq:'FAQ',ncta:'Try Beta Free →',heroEyebrow:'ALINEA · Beta available now',heroH:'What if you could <em>see</em><br>your knowledge?',heroSub:'Your library is not a list of books.<br>It is a living galaxy of connections that were always there.',heroCta:'Try Beta Free',heroNote:'Free forever · 3 books · No subscription · No sign-up',cdmsg:'Early Access ends in —',cdstrong:'lock in $49 USD',cddays:'Days',cdhrs:'Hours',cdmin:'Min',cdsec:'Sec',cdbtn:'Lock in $49 →',pk1:'Living Galaxy',ph1:'Visualize how<br>your ideas<br><em>connect.</em>',pp1:'Keywords, orbits and dynamic connections. Your books talk to each other forming a living map of your thinking.',pk2:'Ideas Explorer',ph2:'Discover patterns<br>you never<br><em>noticed.</em>',pp2:'Floating words, interactive exploration, emerging connections. Your library in gravity mode.',pk3:'Flight Log',ph3:'Your reading<br><em>leaves a trace.</em>',pp3:'Elegant statistics, evolving interests, growing categories. The control panel of your reading mind.',bs1:'Books',bs2:'Quotes',bs3:'Connections',bb1:'Philosophy',bb2:'Science',bb3:'History',bb4:'Fiction',diffEye:'The difference',diffH:"ALINEA does not organize books.<br><em>It builds intellectual universes.</em>",dc1t:'Living connections',dc1p:'Your ideas talk to each other. A physics book converses with a philosophy one. Your mind becomes visible.',dc2t:'Absolute privacy',dc2p:'Your data never leaves your device. Not even we can see your information. Zero servers.',dc3t:'Real ownership',dc3p:'Your library will always be yours. No subscriptions, no renting your knowledge, no external dependencies.',privH:'Your mind<br><em>belongs to you.</em>',privSub:'ALINEA does not use servers. Not even we can see your information.',pbul1:'No tracking',pbul2:'No data selling',pbul3:'Everything on your device',pbul4:'JSON export',pbul5:'Your galaxy, always yours',featEye:'Key features',featH:'Built for readers who<br><em>take it seriously.</em>',clbl:'Personalize your galaxy',f1t:'Flight Control',f1d:'Books in progress, completed, wishlist, notes, keywords, ratings and Top 5 authors — all in real time.',f2t:'Instant Capture',f2d:'Log any highlight in seconds. Classify by page, keyword and the exact emotion the reading gave you.',f3t:'Share Your Cosmos',f3d:'Transform quotes into automatic visual art. Ready in one click for your stories and inspiring your circle.',revEye:'What readers say',revH:'First voices.<br><em>Early explorers.</em>',revSub:'Their words were not asked for — they came on their own.',r1:'"OMG, I just explored it and it is absolutely epic. It feels so mystical. I am having so much fun. I love it!"',r2:'"It is not just a place to list your books — it is a complete map of connections. The Bitácora is pure gold."',r3:'"The privacy level is what sold me. 100% local with a premium interface. Exactly what I was looking for."',r4:'"As a researcher, mapping my library visually solved my retention problems. A masterpiece."',r5:'"The onboarding gives you exactly what you need. Interface colors, bilingual support — the freedom to explode your mind."',promlbl:'What ALINEA will never do',pp1:'No subscriptions',pp2:'No tracking',pp3:'No ads',pp4:'No renting your knowledge',pd1:'You pay once. The software is yours forever.',pd2:'Your books and thoughts are stored locally. Your knowledge is yours.',pd3:'Your reading space is a sanctuary. You will never see interruptions.',pd4:'One payment. Lifetime access. All future updates included.',priceEye:'Business model',priceH:'Pay once.<br><em>Yours forever.</em>',fbadge:'Free Beta',fname:'ALINEA Beta',fperiod:'Free forever',ff1:'3 books to explore your galaxy',ff2:'Full Cosmic Canvas',ff3:'Card generator',ff4:'3 color themes',ff5:'Full galaxy',ff6:'Advanced Bitácora',ff7:'Data export',fcta:'Try Beta Free →',proname:'ALINEA Pro',properiod:'one-time · lifetime · all updates included',pf1:'Full galaxy — unlimited connections',pf2:'Advanced exploration',pf3:'Advanced Bitácora (Top 5, missions)',pf4:'Full data export',pf5:'Future AI features',pf6:'Full palette + custom hex',pf7:'100% local-first forever',procta:'Get ALINEA Pro — $49 USD →',proguar:'🔒 Secure via Lemon Squeezy · Instant delivery',cmpFeature:'Feature',cmpBeta:'Beta',cmpPro:'Pro',cm1:'Books',cm2:'Cosmic Canvas',cm3:'Advanced Bitácora',cm4:'Data export',cm5:'AI features',cm6:'Color palette',priceClose:'<strong>No monthly fees.</strong><br>No renting your knowledge and information.',faqEye:'Questions',faqH:'Everything you<br><em>want to know.</em>',fq1:'Is this really a one-time payment?',fa1:'Yes. You pay once and own ALINEA Pro forever. No subscriptions, no renewals.',fq2:'How do I install it?',fa2:'ALINEA is a single HTML file — no App Store, no Play Store. Open it in any browser on your phone, tablet, Mac or PC.',fq3:'Is my data safe?',fa3:'Completely — it never leaves your device. No servers, no cloud. No one can access your data. Not even us.',fq4:'How many devices?',fa4:'Up to 3 personal devices simultaneously.',fq5:'What if I lose the file?',fa5:'Your purchase gives you permanent re-download access from Lemon Squeezy.',futEye:'Coming soon',futH:'"A new way to discover connections between ideas, books and patterns of thought."',futP:'Something is coming. Invisible, elegant, integrated.',ctaH:'Build your<br><em>intellectual universe.</em>',ctaCta:'Try Beta Free — Start Now',ctaNote:'Making visible the invisible.',lterms:'Terms of Service',lprivacy:'Privacy Policy',lmt:'Terms of Service',lmp:'Privacy Policy',fcopy:'Crafted with obsession for detail. © 2026 ALINEA'}
 };
 
 let lang='en';
-document.addEventListener('DOMContentLoaded',()=>{ const btn=document.querySelector('.lsw button'); setLang('en',btn); });
+document.addEventListener('DOMContentLoaded',()=>{ const btn=document.querySelector('.lsw button'); setLang('en',btn); switchReviewLang('en'); });
 function setLang(l,btn){
   lang=l;
   document.querySelectorAll('.lsw button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   const d=T[l];
+  switchReviewLang(l);
   document.querySelectorAll('[data-k]').forEach(el=>{
     const k=el.getAttribute('data-k');
     if(d[k]!==undefined)el.innerHTML=d[k];
   });
 }
 
+function switchReviewLang(l){
+  document.querySelectorAll('.rev-es').forEach(el=>{ el.style.display=l==='es'?'':'none'; });
+  document.querySelectorAll('.rev-en').forEach(el=>{ el.style.display=l==='en'?'':'none'; });
+}
 /* smooth anchors */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
@@ -1166,6 +1352,44 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
   });
 });
+
+/* ── PILL TOOLTIPS ── */
+(function(){
+  const tt = document.getElementById('pill-tooltip');
+  if(!tt) return;
+  let curLang = 'en';
+  // expose lang getter
+  window._getLang = ()=>curLang;
+  // hook into setLang to update curLang
+  const origSetLang = window.setLang;
+  window.setLang = function(l,btn){ curLang=l; if(origSetLang) origSetLang(l,btn); };
+
+  document.querySelectorAll('.pill-tip').forEach(pill=>{
+    pill.addEventListener('mouseenter', e=>{
+      const tip = curLang==='es'
+        ? pill.getAttribute('data-tip-es')
+        : pill.getAttribute('data-tip-en');
+      if(!tip) return;
+      tt.textContent = tip;
+      tt.classList.add('show');
+    });
+    pill.addEventListener('mousemove', e=>{
+      const x = e.clientX, y = e.clientY;
+      const tw = tt.offsetWidth, th2 = tt.offsetHeight;
+      const vw = window.innerWidth, vh = window.innerHeight;
+      let left = x + 14;
+      let top  = y - th2 - 12;
+      if(left + tw > vw - 10) left = x - tw - 14;
+      if(top < 10) top = y + 18;
+      tt.style.left = left + 'px';
+      tt.style.top  = top  + 'px';
+    });
+    pill.addEventListener('mouseleave', ()=>{
+      tt.classList.remove('show');
+    });
+  });
+})();
+
 </script>
 </body>
 </html>
