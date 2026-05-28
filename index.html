@@ -5,19 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ALINEA — Your Personal Knowledge Galaxy & Reading Tracker</title>
 <meta name="description" content="Convert your reading highlights and personal notes into an interconnected galaxy of knowledge. Local-first, private, and AI-powered tool for avid readers.">
-<meta name="keywords" content="reading tracker, knowledge galaxy, book notes, AI reading, local-first, private reading app, book connections">
+<meta name="keywords" content="reading tracker, knowledge galaxy, book notes, local-first, private reading app, book connections">
 <meta name="author" content="ALINEA">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alinea.work">
 <meta property="og:title" content="ALINEA — Your Personal Knowledge Galaxy">
 <meta property="og:description" content="Convert your reading highlights and notes into an interconnected galaxy of knowledge. Local-first, private, AI-powered.">
-<meta property="og:image" content="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/alinea-quote.PNG">
+<link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-orb.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-orb.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-og.png">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ALINEA — Your Personal Knowledge Galaxy">
 <meta name="twitter:description" content="Convert your reading highlights and notes into an interconnected galaxy of knowledge. Local-first, private, AI-powered.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/alinea-quote.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-og.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════
@@ -50,9 +52,15 @@ body::before{
 }
 #starCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-/* scroll performance */
-section{contain:layout style;transform:translateZ(0);}
-.carousel-track, .share-carousel{contain:layout style;overflow:hidden;}
+/* prevent any section from creating scroll */
+#how, #share, #connections, #privacy, #voices, #faq, #pricing, #personalize, #finale{
+  overflow:hidden;
+  max-width:100vw;
+}
+.carousel-track, .share-carousel-wrap{
+  overflow:hidden;
+  max-width:100vw;
+}
 
 /* mobile — kill fixed canvas, use simple static bg instead */
 @media(max-width:600px){
@@ -111,13 +119,13 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 /* ══ HERO ══ */
 #hero{
   min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:100px 6% 40px;overflow:hidden;position:relative;z-index:1;
+  text-align:center;padding:80px 6% 20px;overflow:hidden;position:relative;z-index:1;
 }
 .hero-orb{
   width:130px;height:130px;border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#ffffff 0%,#e0d4ff 14%,#a78bfa 38%,#7c3aed 64%,#3b0764 100%);
   box-shadow:0 0 50px rgba(139,92,246,.6),0 0 120px rgba(109,40,217,.3),0 0 200px rgba(109,40,217,.12);
-  margin:0 auto 4rem;
+  margin:0 auto 2.5rem;
   animation:orbFloat 7s ease-in-out infinite;
   transition:background .8s,box-shadow .8s;
 }
@@ -125,10 +133,10 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .hero-hl{
   font-family:'Playfair Display',serif;font-weight:900;
   font-size:clamp(2.8rem,7vw,6.5rem);line-height:1.04;letter-spacing:-.025em;
-  color:var(--text);margin-bottom:2rem;
+  color:var(--text);margin-bottom:1.2rem;
 }
 .hero-hl em{font-style:italic;font-weight:700;color:var(--a2);}
-.hero-sub-wrap{min-height:3rem;margin-bottom:3rem;position:relative;width:100%;display:flex;justify-content:center;}
+.hero-sub-wrap{min-height:2.5rem;margin-bottom:1.8rem;position:relative;width:100%;display:flex;justify-content:center;}
 .hero-sub{
   font-family:'Playfair Display',serif;font-style:italic;font-weight:300;
   font-size:clamp(1rem,2vw,1.35rem);color:var(--muted);line-height:1.7;
@@ -163,7 +171,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .hero-ctas{animation:hlIn 1.1s .7s cubic-bezier(.16,1,.3,1) both;opacity:0;}
 
 /* ══ 02 INVISIBLE CONNECTIONS ══ */
-#connections{padding:10vh 7% 12vh;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+#connections{padding:6vh 7% 8vh;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
 #connections::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.06) 0%,transparent 70%);pointer-events:none;}
 .conn-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .conn-text{display:flex;flex-direction:column;gap:1.8rem;}
@@ -194,9 +202,9 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 #gCanvas{width:100%;height:100%;display:block;cursor:default;}
 
 /* ══ COLOR + CATEGORY ══ */
-#personalize{padding:6vh 7%;max-width:860px;margin:0 auto;text-align:center;}
-.color-label{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,181,253,.6);display:block;margin-bottom:1.2rem;}
-.cdots{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+#personalize{padding:3vh 7%;max-width:860px;margin:0 auto;text-align:center;}
+.color-label{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,181,253,.6);display:block;margin-bottom:.8rem;}
+.cdots{display:flex;gap:1rem;justify-content:center;flex-wrap:nowrap;margin:1rem auto;}
 .cdot{width:36px;height:36px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .3s;flex-shrink:0;box-shadow:0 0 8px currentColor;}
 .cdot:hover{transform:scale(1.35);box-shadow:0 0 20px currentColor;}
 .cdot.on{border-color:rgba(255,255,255,.55);transform:scale(1.22);box-shadow:0 0 26px currentColor;}
@@ -212,7 +220,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .cat-pill.on{background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(76,29,149,.28));border-color:var(--a2);color:var(--text);box-shadow:0 0 26px rgba(139,92,246,.22),0 10px 28px rgba(0,0,0,.4);transform:translateY(-2px);}
 
 /* ══ 03 HOW IT WORKS — COVERFLOW CAROUSEL ══ */
-#how{padding:8vh 0;overflow:hidden;}
+#how{padding:5vh 0;overflow:hidden;}
 .how-head{text-align:center;padding:0 7%;margin-bottom:5rem;}
 .carousel-track{
   position:relative;
@@ -241,13 +249,13 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 }
 .carousel-slide.how-left1{
   transform:translateX(-330px) scale(.82) rotateY(10deg);
-  opacity:.6;z-index:2;
+  opacity:.25;z-index:2;
   border-color:rgba(139,92,246,.2);
   box-shadow:none;
 }
 .carousel-slide.how-right1{
   transform:translateX(330px) scale(.82) rotateY(-10deg);
-  opacity:.6;z-index:2;
+  opacity:.25;z-index:2;
   border-color:rgba(139,92,246,.2);
   box-shadow:none;
 }
@@ -605,6 +613,9 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   .price-grid{grid-template-columns:1fr;gap:1.2rem;}
   .pc.free{margin-top:0;}
   .pc.pro .pc-amount{font-size:3.5rem;}
+  .pc{width:100%;box-sizing:border-box;border-radius:20px;margin-left:0;margin-right:0;}
+  .pricing-inner{padding-left:4%;padding-right:4%;overflow:hidden;}
+  #pricing{overflow:hidden;}
 }
 
 /* promo block */
@@ -701,12 +712,15 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   .share-card.pos-left{transform:translateX(-145px) scale(.75);}
   .share-card.pos-right{transform:translateX(145px) scale(.75);}
 
-  /* countdown — fix number size */
-  .promo-num{font-size:2rem;min-width:52px;}
-  .promo-colon{font-size:1.8rem;}
-  .promo-phase.now .promo-phase-price{font-size:3.5rem;}
-  .promo-phases{gap:.7rem;}
-  .promo-block{padding:1.6rem 1.2rem;}
+  /* countdown fix */
+  .promo-clock{gap:.3rem;}
+  .promo-digit{min-width:52px;padding:.6rem .4rem .5rem;}
+  .promo-num{font-size:2rem;}
+  .promo-colon{font-size:1.4rem;padding-top:.3rem;}
+  .promo-unit{font-size:.28rem;}
+  .promo-phase.now .promo-phase-price{font-size:2.8rem;}
+  .promo-phases{gap:.4rem;}
+  .promo-block{padding:2rem 1.2rem;}
 
   /* voices cards don't overflow */
   .vc-grid{grid-template-columns:1fr;}
@@ -719,7 +733,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   .share-card.pos-right{transform:translateX(145px) scale(.75) !important;}
 
   /* disable float animations on mobile */
-  .ri{animation:none !important;opacity:1 !important;transform:none !important;transition:none !important;}
+  .cdots{display:grid;grid-template-columns:repeat(4,36px);gap:.8rem;justify-content:center;max-width:220px;}
   .pc:hover, .share-card:hover, .carousel-slide:hover{transform:none !important;}
 }
 
@@ -1201,7 +1215,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           <li><span class="ck">✓</span><span>3 color themes</span></li>
           <li><span class="ck">✓</span><span>Export book & quote stories</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">Book connections & Explorer</span></li>
-          <li><span class="ckd">—</span><span class="feat-locked">AI integration — coming soon</span></li>
+          <li><span class="ckd">—</span><span class="feat-locked">Advanced Bitácora</span></li>
+          <li><span class="ckd">—</span><span class="feat-locked">PDF export & Welcome Kit</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">Advanced Bitácora</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">PDF export & Welcome Kit</span></li>
         </ul>
@@ -1217,7 +1232,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
         <ul class="pc-feats">
           <li><span class="ck">✓</span><span data-en="Unlimited books & connections" data-es="Libros y conexiones ilimitadas">Unlimited books & connections</span></li>
           <li><span class="ck">✓</span><span data-en="Full Explorer + book connections" data-es="Explorador completo + conexiones">Full Explorer + book connections</span></li>
-          <li><span class="ck">✦</span><span data-en="AI integration — coming soon" data-es="Integración con IA — próximamente">AI integration — coming soon</span></li>
+          <li><span class="ck">✓</span><span data-en="Advanced Bitácora" data-es="Bitácora avanzada">Advanced Bitácora</span></li>
           <li><span class="ck">✓</span><span data-en="Advanced Bitácora" data-es="Bitácora avanzada">Advanced Bitácora</span></li>
           <li><span class="ck">✓</span><span data-en="PDF export & Welcome Kit" data-es="Export PDF y Welcome Kit">PDF export & Welcome Kit</span></li>
           <li><span class="ck">✓</span><span data-en="All 7 palettes + custom hex color" data-es="Los 7 temas + color hex personalizado">All 7 palettes + custom hex color</span></li>
@@ -1235,24 +1250,11 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
       <div class="promo-bg-orb"></div>
       <span class="promo-eyebrow">✦ Early Bird 2026</span>
       <h3 class="promo-headline">The price goes up.<br>The product doesn't.</h3>
-      <div class="promo-phases">
-        <div class="promo-phase now">
-          <div class="promo-phase-period">Jun 1 – 15</div>
-          <div class="promo-phase-price">$49</div>
-          <div class="promo-phase-tag">Now</div>
-        </div>
-        <div class="promo-phase-arrow">→</div>
-        <div class="promo-phase">
-          <div class="promo-phase-period">Jun 16 – 30</div>
-          <div class="promo-phase-price">$59</div>
-          <div class="promo-phase-tag">Soon</div>
-        </div>
-        <div class="promo-phase-arrow">→</div>
-        <div class="promo-phase">
-          <div class="promo-phase-period">Jul 1 onwards</div>
-          <div class="promo-phase-price">$69</div>
-          <div class="promo-phase-tag">Final price</div>
-        </div>
+      <div style="text-align:center;margin-bottom:1.8rem;">
+        <div class="promo-phase-period" style="color:rgba(196,181,253,.5);margin-bottom:.4rem;">Jun 1 – 15</div>
+        <div class="promo-phase-price" style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(3rem,6vw,5.5rem);color:var(--a2);text-shadow:0 0 40px rgba(var(--a-rgb,139,92,246),.35);line-height:1;">$49</div>
+        <div class="promo-phase-tag" style="color:var(--a);font-family:'DM Mono',monospace;font-size:.38rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem;">Early Bird — Now</div>
+        <div style="font-family:'DM Mono',monospace;font-size:.36rem;letter-spacing:.08em;color:rgba(196,181,253,.22);margin-top:.8rem;text-transform:uppercase;">Rises to $59 on Jun 16 · $69 on Jul 1</div>
       </div>
       <div class="promo-divider"></div>
       <span class="promo-clock-label">The $49 price ends in</span>
@@ -1279,27 +1281,30 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <h2 class="section-head">Everything you want to <em>know.</em></h2>
   </div>
   <div class="faq-inner">
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq0">Is ALINEA really a one-time purchase?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa0">Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update is included.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq1">Where is my data stored?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa1">Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq2">Why doesn't ALINEA require an account?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa2">Because your reading life belongs to you — not to a platform. Your purchase generates a unique key that unlocks your local database.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq3">Can I back up my library?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa3">Yes. You can export your entire galaxy as JSON anytime. We recommend creating regular backups of your library.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq4">What devices does ALINEA work on?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa4">ALINEA works on modern browsers and can be installed like an app on iPhone, Android and desktop. It's a single HTML file — no App Store needed.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq0">How do I download ALINEA Beta?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa0">Beta is completely free. Go to the checkout page, enter your email — it's $0, no card required. You'll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you're ready to go.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq1">How do I get ALINEA Pro?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa1">Click "Get ALINEA Pro" and you'll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You'll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq2">Is ALINEA really a one-time purchase?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa2">Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update is included.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq3">What devices does ALINEA work on?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa3">ALINEA works on any modern browser — iPhone, Android, desktop and tablet. We recommend installing it as a WebApp (PWA): on iPhone tap Share → "Add to Home Screen", on Android tap the menu → "Install app". It works just like a native app, no App Store needed.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq4">Where is my data stored?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa4">Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq5">Why are there no subscriptions?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa5">Knowledge shouldn't feel rented. Buy ALINEA once and keep your universe forever.</div></div>
     <!-- hidden FAQ items -->
-    <div id="faq-more" style="display:none;">
+    <div id="faq-more" style="overflow:hidden;max-height:0;transition:max-height 2.0s cubic-bezier(.16,1,.3,1);">
+      <div style="padding-top:.5rem;">
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq6">Can I import highlights from Kindle or Goodreads?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa6">Not yet — but it's coming. Kindle and Goodreads import is on the roadmap for ALINEA Pro. For now, you can add your highlights manually or by dictation directly inside the app.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq7">What happens to my data if I stop using ALINEA?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa7">Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, everything stays exactly where you left it. Your galaxy is yours, forever.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq8">Does ALINEA work on Android?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa8">Yes. ALINEA works on any modern browser — iPhone, Android, desktop and tablet. Install it as a PWA and it works just like a native app, no App Store required.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq9">How do I activate my Pro license?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa9">After purchase, Lemon Squeezy sends you a license key by email. Open ALINEA, go to Settings, enter your key and your galaxy unlocks instantly. Takes about 30 seconds.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq10">Is ALINEA a company?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa10">Just one person. Born out of a need — a place to see everything you highlight in books, all connected in a beautiful way. From reader to reader. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq7">Why doesn't ALINEA require an account?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa7">Because your reading life belongs to you — not to a platform. Your purchase generates a unique key that unlocks your local database.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq8">Can I back up my library?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa8">Yes. You can export your entire galaxy as JSON anytime. We recommend creating regular backups of your library.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq9">What happens to my data if I stop using ALINEA?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa9">Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, everything stays exactly where you left it. Your galaxy is yours, forever.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq10">Does ALINEA work on Android?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa10">Yes. ALINEA works on any modern browser — iPhone, Android, desktop and tablet. Install it as a PWA and it works just like a native app, no App Store required.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq11">Is ALINEA a company?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa11">Just one person. Born out of a need — a place to see everything you highlight in books, all connected in a beautiful way. From reader to reader. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a></div></div>
+    </div>
     </div>
     <div style="text-align:center;margin-top:1.5rem;">
       <button id="faq-toggle" onclick="
         const m=document.getElementById('faq-more');
         const b=document.getElementById('faq-toggle');
-        const open=m.style.display==='block';
-        m.style.display=open?'none':'block';
-        b.textContent=open?'+ See more questions':'− See less';
+        const isOpen=m.style.maxHeight&&m.style.maxHeight!=='0px';
+        if(isOpen){m.style.maxHeight='0px';b.textContent='+ See more questions';}
+        else{m.style.maxHeight=m.scrollHeight+'px';b.textContent='− See less';}
       " style="font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:1px solid rgba(139,92,246,.2);color:rgba(196,181,253,.45);padding:.6rem 1.4rem;border-radius:20px;cursor:pointer;transition:all .3s;">+ See more questions</button>
     </div>
   </div>
@@ -1664,10 +1669,62 @@ function setLang(l,btn){
   const proF=document.querySelector('.promo-fine');if(proF)proF.textContent=d.promoFine;
 
   // faq translation
-  const fqQ=['¿Es realmente un pago único?', '¿Dónde se guardan mis datos?', '¿Por qué ALINEA no requiere una cuenta?', '¿Puedo hacer respaldo de mi biblioteca?', '¿En qué dispositivos funciona ALINEA?', '¿Por qué no hay suscripciones?', '¿Puedo importar mis highlights de Kindle o Goodreads?', '¿Qué pasa con mis datos si dejo de usar ALINEA?', '¿ALINEA funciona en Android?', '¿Cómo activo mi licencia Pro?', '¿ALINEA es una empresa?'];
-  const fqA=['Sí. Lo compras una vez y lo tienes para siempre. Sin suscripciones, sin renovaciones. Cada actualización futura está incluida.', 'Tu biblioteca vive completamente en tu dispositivo. ALINEA no tiene servidores. Nadie puede acceder ni rastrear tus datos — ni nosotros.', 'Porque tu vida de lectura te pertenece a ti — no a una plataforma. Tu compra genera una clave única que desbloquea tu base de datos local.', 'Sí. Puedes exportar tu galaxia completa como JSON en cualquier momento. Te recomendamos crear respaldos regulares de tu biblioteca.', 'ALINEA funciona en navegadores modernos y puede instalarse como app en iPhone, Android y escritorio. Es un solo archivo HTML — sin App Store.', 'El conocimiento no debería sentirse rentado. Compra ALINEA una vez y conserva tu universo para siempre.', 'Todavía no — pero está en camino. La importación desde Kindle y Goodreads está en el roadmap de ALINEA Pro. Por ahora puedes agregar tus highlights manualmente o por dictado directamente en la app.', 'Nada cambia. Tus datos viven en tu dispositivo — no en nuestros servidores. Si dejas de usar ALINEA, todo sigue exactamente donde lo dejaste. Tu galaxia es tuya, para siempre.', 'Sí. ALINEA funciona en cualquier navegador moderno — iPhone, Android, escritorio y tablet. Instálala como PWA y funciona como una app nativa, sin App Store.', 'Después de tu compra, Lemon Squeezy te envía una clave de licencia por correo. Abre ALINEA, ve a Configuración, ingresa tu clave y tu galaxia se desbloquea al instante. Tarda unos 30 segundos.', 'Solo una persona. Nació de una necesidad: un lugar donde ver todo lo que se subraya en libros, todo conectado de manera hermosa. De lector a lector. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'];
-  const fqQen=['Is ALINEA really a one-time purchase?', 'Where is my data stored?', "Why doesn't ALINEA require an account?", 'Can I back up my library?', 'What devices does ALINEA work on?', 'Why are there no subscriptions?', 'Can I import highlights from Kindle or Goodreads?', 'What happens to my data if I stop using ALINEA?', 'Does ALINEA work on Android?', 'How do I activate my Pro license?', 'Is ALINEA a company?'];
-  const fqAen=['Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update is included.', 'Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.', 'Because your reading life belongs to you — not to a platform. Your purchase generates a unique key that unlocks your local database.', 'Yes. You can export your entire galaxy as JSON anytime. We recommend creating regular backups of your library.', "ALINEA works on modern browsers and can be installed like an app on iPhone, Android and desktop. It's a single HTML file — no App Store needed.", "Knowledge shouldn't feel rented. Buy ALINEA once and keep your universe forever.", 'Not yet — but it\'s coming. Kindle and Goodreads import is on the roadmap for ALINEA Pro. For now, you can add your highlights manually or by dictation directly inside the app.', 'Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, everything stays exactly where you left it. Your galaxy is yours, forever.', 'Yes. ALINEA works on any modern browser — iPhone, Android, desktop and tablet. Install it as a PWA and it works just like a native app, no App Store required.', 'After purchase, Lemon Squeezy sends you a license key by email. Open ALINEA, go to Settings, enter your key and your galaxy unlocks instantly. Takes about 30 seconds.', 'Just one person. Born out of a need — a place to see everything you highlight in books, all connected in a beautiful way. From reader to reader. @miguel_valdez1'];
+  const fqQ=[
+    '¿Cómo descargo ALINEA Beta?',
+    '¿Cómo obtengo ALINEA Pro?',
+    '¿Es realmente un pago único?',
+    '¿En qué dispositivos funciona ALINEA?',
+    '¿Dónde se guardan mis datos?',
+    '¿Por qué no hay suscripciones?',
+    '¿Puedo importar mis highlights de Kindle o Goodreads?',
+    '¿Por qué ALINEA no requiere una cuenta?',
+    '¿Puedo hacer respaldo de mi biblioteca?',
+    '¿Qué pasa con mis datos si dejo de usar ALINEA?',
+    '¿ALINEA funciona en Android?',
+    '¿ALINEA es una empresa?'
+  ];
+  const fqA=[
+    'La Beta es completamente gratis. Ve al checkout, ingresa tu correo — cuesta $0, sin tarjeta. Recibirás un correo de confirmación con el link para abrir ALINEA directo en tu navegador. Instálala como app desde ahí y listo.',
+    'Haz click en "Obtener ALINEA Pro" y llegarás al checkout. Paga una vez vía Lemon Squeezy — seguro e instantáneo. Recibirás una clave de licencia por correo. Abre ALINEA, ve a Configuración, ingresa tu clave y tu galaxia completa se desbloquea al instante.',
+    'Sí. Lo compras una vez y lo tienes para siempre. Sin suscripciones, sin renovaciones. Cada actualización futura está incluida.',
+    'ALINEA funciona en navegadores modernos y puede instalarse como app en iPhone, Android y escritorio. Es un solo archivo HTML — sin App Store.',
+    'Tu biblioteca vive completamente en tu dispositivo. ALINEA no tiene servidores. Nadie puede acceder ni rastrear tus datos — ni nosotros.',
+    'El conocimiento no debería sentirse rentado. Compra ALINEA una vez y conserva tu universo para siempre.',
+    'Todavía no — pero está en camino. La importación desde Kindle y Goodreads está en el roadmap de ALINEA Pro. Por ahora puedes agregar tus highlights manualmente o por dictado directamente en la app.',
+    'Porque tu vida de lectura te pertenece a ti — no a una plataforma. Tu compra genera una clave única que desbloquea tu base de datos local.',
+    'Sí. Puedes exportar tu galaxia completa como JSON en cualquier momento. Te recomendamos crear respaldos regulares de tu biblioteca.',
+    'Nada cambia. Tus datos viven en tu dispositivo — no en nuestros servidores. Si dejas de usar ALINEA, todo sigue exactamente donde lo dejaste. Tu galaxia es tuya, para siempre.',
+    'Sí. ALINEA funciona en cualquier navegador moderno — iPhone, Android, escritorio y tablet. Instálala como PWA y funciona como una app nativa, sin App Store.',
+    'Solo una persona. Nació de una necesidad: un lugar donde ver todo lo que se subraya en libros, todo conectado de manera hermosa. De lector a lector. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
+  ];
+  const fqQen=[
+    'How do I download ALINEA Beta?',
+    'How do I get ALINEA Pro?',
+    'Is ALINEA really a one-time purchase?',
+    'What devices does ALINEA work on?',
+    'Where is my data stored?',
+    'Why are there no subscriptions?',
+    'Can I import highlights from Kindle or Goodreads?',
+    "Why doesn't ALINEA require an account?",
+    'Can I back up my library?',
+    'What happens to my data if I stop using ALINEA?',
+    'Does ALINEA work on Android?',
+    'Is ALINEA a company?'
+  ];
+  const fqAen=[
+    'Beta is completely free. Go to the checkout page, enter your email — it\'s $0, no card required. You\'ll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you\'re ready to go.',
+    'Click "Get ALINEA Pro" and you\'ll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You\'ll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.',
+    'Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update is included.',
+    "ALINEA works on modern browsers and can be installed like an app on iPhone, Android and desktop. It's a single HTML file — no App Store needed.",
+    'Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.',
+    "Knowledge shouldn't feel rented. Buy ALINEA once and keep your universe forever.",
+    'Not yet — but it\'s coming. Kindle and Goodreads import is on the roadmap for ALINEA Pro. For now, you can add your highlights manually or by dictation directly inside the app.',
+    'Because your reading life belongs to you — not to a platform. Your purchase generates a unique key that unlocks your local database.',
+    'Yes. You can export your entire galaxy as JSON anytime. We recommend creating regular backups of your library.',
+    'Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, everything stays exactly where you left it. Your galaxy is yours, forever.',
+    'Yes. ALINEA works on any modern browser — iPhone, Android, desktop and tablet. Install it as a PWA and it works just like a native app, no App Store required.',
+    'Just one person. Born out of a need — a place to see everything you highlight in books, all connected in a beautiful way. From reader to reader. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
+  ];
   const qArr=curLang==='es'?fqQ:fqQen;const aArr=curLang==='es'?fqA:fqAen;
   qArr.forEach((q,i)=>{const el=document.getElementById('fq'+i);if(el)el.textContent=q;});
   aArr.forEach((a,i)=>{const el=document.getElementById('fa'+i);if(el)el.innerHTML=a;});
@@ -1677,8 +1734,8 @@ function setLang(l,btn){
   const pbFree=document.querySelector('.pc.free .pbadge');if(pbFree)pbFree.textContent=curLang==='es'?'Gratis · Para siempre':'Free · Forever';
   const pcPeriodFree=document.querySelector('.pc.free .pc-period');if(pcPeriodFree)pcPeriodFree.textContent=curLang==='es'?'Sin registro · Sin expiración':'No sign-up · No expiration';
   const pcFeatsFixed=document.querySelectorAll('.pc.free .pc-feats li span:last-child:not([data-en])');
-  const betaFeatsES=['Hasta 3 libros','Canvas cósmico completo','Notas y subrayados (ilimitados)','3 temas de color','Exportar stories de libros y citas','Conexiones y Explorador','Integración con IA — próximamente','Bitácora avanzada','Export PDF y Welcome Kit'];
-  const betaFeatsEN=['Up to 3 books','Full Cosmic Canvas','Notes & highlights (unlimited)','3 color themes','Export book & quote stories','Book connections & Explorer','AI integration — coming soon','Advanced Bitácora','PDF export & Welcome Kit'];
+  const betaFeatsES=['Hasta 3 libros','Canvas cósmico completo','Notas y subrayados (ilimitados)','3 temas de color','Exportar stories de libros y citas','Conexiones y Explorador','Bitácora avanzada','Export PDF y Welcome Kit'];
+  const betaFeatsEN=['Up to 3 books','Full Cosmic Canvas','Notes & highlights (unlimited)','3 color themes','Export book & quote stories','Book connections & Explorer','Advanced Bitácora','PDF export & Welcome Kit'];
   pcFeatsFixed.forEach((el,i)=>{const arr=curLang==='es'?betaFeatsES:betaFeatsEN;if(arr[i])el.textContent=arr[i];});
   // finale btn translation
   const fbp=document.getElementById('finaleBetaPrice');if(fbp)fbp.textContent=curLang==='es'?'Gratis':'Free';
