@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ALINEA — Your Personal Knowledge Galaxy & Reading Tracker</title>
-<meta name="description" content="Convert your reading highlights and personal notes into an interconnected galaxy of knowledge. Local-first, private, and AI-powered tool for avid readers.">
+<meta name="description" content="Turn your reading highlights and notes into an interconnected galaxy of knowledge. Local-first, private, and beautifully organized.">
 <meta name="keywords" content="reading tracker, knowledge galaxy, book notes, local-first, private reading app, book connections">
 <meta name="author" content="ALINEA">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alinea.work">
 <meta property="og:title" content="ALINEA — Your Personal Knowledge Galaxy">
-<meta property="og:description" content="Convert your reading highlights and notes into an interconnected galaxy of knowledge. Local-first, private, AI-powered.">
+<meta property="og:description" content="Turn your reading highlights and notes into an interconnected galaxy of knowledge. Local-first, private, and beautifully organized.">
 <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-orb.png">
 <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-orb.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-og.png">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ALINEA — Your Personal Knowledge Galaxy">
-<meta name="twitter:description" content="Convert your reading highlights and notes into an interconnected galaxy of knowledge. Local-first, private, AI-powered.">
+<meta name="twitter:description" content="Turn your reading highlights and notes into an interconnected galaxy of knowledge. Local-first, private, and beautifully organized.">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-og.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
@@ -880,6 +880,12 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   border-color:rgba(139,92,246,.2);
   box-shadow:none;
 }
+@media(max-width:768px){
+  .share-card.pos-left{transform:translateX(-220px) scale(.75) !important;}
+  .share-card.pos-right{transform:translateX(220px) scale(.75) !important;}
+  .carousel-slide.how-left1{transform:translateX(-255px) scale(.82) !important;}
+  .carousel-slide.how-right1{transform:translateX(255px) scale(.82) !important;}
+}
 .share-card.pos-hidden{
   transform:translateX(350px) scale(.6);
   opacity:0;z-index:1;
@@ -937,9 +943,9 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <a class="nav-logo" href="#hero">ALINEA</a>
   <div class="nav-r">
     <div class="lsw">
-      <button onclick="setLang('es',this)">ES</button>
+      <button onclick="setLang('es',this)" class="on">ES</button>
       <div class="sp"></div>
-      <button onclick="setLang('en',this)" class="on">EN</button>
+      <button onclick="setLang('en',this)">EN</button>
     </div>
     <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="nav-cta lemonsqueezy-button" id="navCta">Try Beta Free</a>
   </div>
@@ -1299,9 +1305,9 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
         const m=document.getElementById('faq-more');
         const b=document.getElementById('faq-toggle');
         const isOpen=m.style.maxHeight&&m.style.maxHeight!=='0px';
-        if(isOpen){m.style.maxHeight='0px';b.textContent='+ See more questions';}
-        else{m.style.maxHeight=m.scrollHeight+'px';b.textContent='− See less';}
-      " style="font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:1px solid rgba(139,92,246,.2);color:rgba(196,181,253,.45);padding:.6rem 1.4rem;border-radius:20px;cursor:pointer;transition:all .3s;">+ See more questions</button>
+        if(isOpen){m.style.maxHeight='0px';b.textContent=curLang==='es'?'+ Ver más preguntas':'+ See more questions';}
+        else{m.style.maxHeight=m.scrollHeight+'px';b.textContent=curLang==='es'?'− Ver menos':'− See less';}
+      " style="font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:1px solid rgba(139,92,246,.2);color:rgba(196,181,253,.45);padding:.6rem 1.4rem;border-radius:20px;cursor:pointer;transition:all .3s;">+ Ver más preguntas</button>
     </div>
   </div>
 </section>
@@ -1506,6 +1512,15 @@ const T={
     promoLabel:'The $49 price ends in',
     promoCta:'Get ALINEA Pro — $49 USD →',
     promoFine:'One-time payment · Lifetime access · All future updates',
+    shareEye:'Your discoveries, made visible',
+    shareSub:'Every book you finish, every quote that moves you, every galaxy you build — ready to share. One tap. Yours forever.',
+    shareF1title:'Your galaxy, as an image',
+    shareF1desc:'Every book orbiting its category. Every connection visible. A map of your mind that no one else has — because no one else has read exactly what you have.',
+    shareF2title:'Book & quote stories',
+    shareF2desc:'Finished a book? Share it. Found a quote that moved you? Let it travel. Download the image and post it anywhere — Instagram, TikTok, Reddit, X, wherever you are.',
+    shareF3title:'Your library, at a glance',
+    shareF3desc:"Every book you've read, in one image. Your reading life, finally visible — download it, keep it, share it wherever you want.",
+    countdownDays:'days',countdownHours:'hours',countdownMin:'min',countdownSec:'sec',
   },
   es:{
     navCta:'Probar Beta Gratis',
@@ -1546,6 +1561,15 @@ const T={
     promoLabel:'El precio de $49 termina en',
     promoCta:'Adquirir ALINEA Pro — $49 USD →',
     promoFine:'Pago único · Acceso de por vida · Todas las actualizaciones',
+    shareEye:'Tus descubrimientos, hechos visibles',
+    shareSub:'Cada libro que terminas, cada cita que te mueve, cada galaxia que construyes — lista para compartir. Un tap. Tuya para siempre.',
+    shareF1title:'Tu galaxia, como imagen',
+    shareF1desc:'Cada libro orbitando su categoría. Cada conexión visible. Un mapa de tu mente que nadie más tiene — porque nadie más ha leído exactamente lo que tú.',
+    shareF2title:'Stories de libros y citas',
+    shareF2desc:'¿Terminaste un libro? Compártelo. ¿Encontraste una cita que te movió? Que viaje. Descarga la imagen y publícala donde quieras — Instagram, TikTok, Reddit, X, donde estés.',
+    shareF3title:'Tu biblioteca, de un vistazo',
+    shareF3desc:'Cada libro que has leído, en una imagen. Tu vida de lectura, finalmente visible — descárgala, guárdala, compártela donde quieras.',
+    countdownDays:'días',countdownHours:'horas',countdownMin:'min',countdownSec:'seg',
   }
 };
 
@@ -1748,6 +1772,29 @@ function setLang(l,btn){
   if(sHead)sHead.innerHTML=curLang==='es'?'Exploras solo.<br>Pero <em>no tienes que compartir solo.</em>':'You explore alone.<br>But <em>you don\'t have to share alone.</em>';
   // re-wrap ALINEA instances after lang change
   wrapAlinea();
+  // faq toggle button
+  const faqToggle=document.getElementById('faq-toggle');
+  if(faqToggle){
+    const faqMore=document.getElementById('faq-more');
+    const isOpen=faqMore&&faqMore.style.maxHeight&&faqMore.style.maxHeight!=='0px';
+    faqToggle.textContent=isOpen?(curLang==='es'?'− Ver menos':'− See less'):(curLang==='es'?'+ Ver más preguntas':'+ See more questions');
+  }
+  // share section
+  const shEye=document.querySelector('#share .eyebrow');if(shEye)shEye.textContent=d.shareEye;
+  const shSub=document.querySelector('#share .section-sub');if(shSub)shSub.textContent=d.shareSub;
+  const shTitles=document.querySelectorAll('.share-feature-title');
+  const shDescs=document.querySelectorAll('.share-feature-desc');
+  if(shTitles[0])shTitles[0].textContent=d.shareF1title;
+  if(shDescs[0])shDescs[0].textContent=d.shareF1desc;
+  if(shTitles[1])shTitles[1].textContent=d.shareF2title;
+  if(shDescs[1])shDescs[1].textContent=d.shareF2desc;
+  if(shTitles[2])shTitles[2].textContent=d.shareF3title;
+  if(shDescs[2])shDescs[2].textContent=d.shareF3desc;
+  // countdown unit labels
+  document.querySelectorAll('.promo-unit').forEach((el,i)=>{
+    const units=[d.countdownDays,d.countdownHours,d.countdownMin,d.countdownSec];
+    if(units[i])el.textContent=units[i];
+  });
 }
 
 /* ═══════════════════════════════════════
@@ -2084,7 +2131,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelect
 
 /* INIT */
 document.addEventListener('DOMContentLoaded',()=>{
-  setLang('en',document.querySelector('.lsw button:last-child'));
+  setLang('es',document.querySelector('.lsw button:first-child'));
   applyBookData();
   // ensure connLine is always rebuilt
   const cL2=document.getElementById('connLine2');
