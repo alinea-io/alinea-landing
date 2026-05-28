@@ -111,7 +111,7 @@ section,.sec{position:relative;z-index:1;}
 .ri.d1{transition-delay:.15s;}.ri.d2{transition-delay:.28s;}.ri.d3{transition-delay:.4s;}
 .ri.show{opacity:1;transform:translateY(0);}
 .eyebrow{font-family:'DM Mono',monospace;font-size:.46rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(139,92,246,.45);display:block;margin-bottom:.9rem;}
-.section-head{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.6rem,5vw,4.2rem);line-height:1.06;letter-spacing:-.02em;color:var(--text);}
+.section-head{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.6rem,5vw,4.2rem);line-height:1.06;letter-spacing:-.02em;color:var(--text);}
 .section-head em{font-style:italic;font-weight:400;color:var(--a2);}
 .section-sub{font-family:'Playfair Display',serif;font-style:italic;font-weight:300;font-size:clamp(1.05rem,1.8vw,1.25rem);color:var(--muted);line-height:1.82;}
 a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
@@ -135,7 +135,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   font-size:clamp(2.8rem,7vw,6.5rem);line-height:1.04;letter-spacing:-.025em;
   color:var(--text);margin-bottom:1.2rem;
 }
-.hero-hl em{font-style:italic;font-weight:700;color:var(--a2);}
+.hero-hl em{font-style:italic;font-weight:400;color:var(--a2);}
 .hero-sub-wrap{min-height:2.5rem;margin-bottom:1.8rem;position:relative;width:100%;display:flex;justify-content:center;}
 .hero-sub{
   font-family:'Playfair Display',serif;font-style:italic;font-weight:300;
@@ -178,7 +178,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .conn-head{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.4rem,4.5vw,3.8rem);line-height:1.06;letter-spacing:-.02em;color:var(--text);}
 .conn-head em{font-style:italic;font-weight:400;color:var(--a2);}
 .conn-line-1{font-family:'Playfair Display',serif;font-style:italic;font-weight:300;font-size:clamp(1.3rem,2.5vw,1.75rem);color:rgba(240,232,255,.65);line-height:1.85;border-left:2px solid rgba(139,92,246,.22);padding-left:1.2rem;}
-.conn-lines p{font-family:'Playfair Display',serif;font-style:italic;font-weight:300;font-size:clamp(1.05rem,2vw,1.3rem);color:var(--muted);line-height:1.85;}
+.conn-lines p{font-family:'Playfair Display',serif;font-style:italic;font-weight:300;font-size:clamp(1.05rem,2vw,1.3rem);color:var(--muted);line-height:1.85;max-width:600px;}
 .conn-lines p strong{font-style:normal;font-weight:700;color:var(--text);}
 .conn-alinea{
   font-family:'DM Mono',monospace;
@@ -556,7 +556,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .pc.free .pc-feats li{color:rgba(196,181,253,.82);}
 .pc.pro .pc-feats li{color:rgba(196,181,253,.82);}
 
-.ck{color:var(--ok);flex-shrink:0;font-size:.9rem;}
+.ck{color:var(--a2);flex-shrink:0;font-size:.9rem;}
 .ckd{color:rgba(139,92,246,.2);flex-shrink:0;font-size:.9rem;}
 .feat-locked{opacity:.45;font-style:italic;}
 .feat-locked::before{content:'🔒 ';font-style:normal;font-size:.7em;opacity:.6;}
@@ -941,7 +941,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
       <div class="sp"></div>
       <button onclick="setLang('en',this)" class="on">EN</button>
     </div>
-    <a href="#pricing" class="nav-cta" id="navCta">Try Beta Free</a>
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="nav-cta lemonsqueezy-button" id="navCta">Try Beta Free</a>
   </div>
 </nav>
 
@@ -961,7 +961,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   </div>
   <p class="hero-micro">A private universe built from everything you read, write and connect.</p>
   <div class="hero-ctas">
-    <a href="#pricing" class="btn-primary" id="heroCta">Try Beta Free</a>
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="btn-primary lemonsqueezy-button" id="heroCta">Try Beta Free</a>
   </div>
   <div class="scroll-hint"><div class="scroll-line"></div></div>
 </section>
@@ -973,10 +973,10 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <div class="conn-grid" style="grid-template-columns:1fr;max-width:680px;margin:0 auto;">
     <div class="conn-text">
       <span class="eyebrow" id="connEyebrow">The invisible connections</span>
-      <h2 class="conn-head" id="connHead">Your books have always been speaking to <em>each other.</em></h2>
+      <h2 class="conn-head" id="connHead">Your books have always been <em>speaking to each other.</em></h2>
       <div class="conn-line-1" id="connLine1">Every note.<br>Every underline.<br>Every forgotten thought.</div>
       <div class="conn-lines">
-        <p id="connLine2">Across years of reading, your ideas quietly formed patterns <strong>invisible to the eye.</strong><span id="connLine3"> <span class="conn-alinea">ALINEA</span> lets you finally see them.</span></p>
+        <p id="connLine2">Your ideas quietly formed patterns <strong>invisible&nbsp;to&nbsp;the&nbsp;eye.</strong><br><span id="connLine3"><span class="conn-alinea">ALINEA</span> lets you finally see them.</span></p>
       </div>
     </div>
   </div>
@@ -1079,7 +1079,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <!-- 04 PRIVACY -->
 <section id="privacy">
   <div class="ri" style="text-align:center;max-width:760px;margin:0 auto;">
-    <h2 class="priv-head" id="privHead">Your mind belongs to <em>you.</em></h2>
+    <h2 class="priv-head" id="privHead">Your mind<br><em>belongs to you.</em></h2>
     <p class="priv-sub">No accounts. No servers. No tracking. No selling your data.<br>Your galaxy exists only on your device.</p>
     <div class="pills-grid">
       <button class="pill-btn" style="--dur:5.5s;--delay:0s" id="pill0" data-label-en="🔍 No tracking" data-label-es="🔍 Sin rastreo" onclick="togglePill(this)">🔍 No tracking<div class="pill-popup">Zero analytics. Zero trackers. Not a single pixel knows you were here.</div></button>
@@ -1099,7 +1099,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <!-- 05 SOCIAL PROOF -->
 <section id="voices">
   <div class="voices-head ri">
-    <h2 class="section-head" style="font-size:clamp(2.8rem,6vw,5rem);">Made from reader<br>to <em>reader.</em></h2>
+    <h2 class="section-head" style="font-size:clamp(2.8rem,6vw,5rem);">Made from<br><em>reader to reader.</em></h2>
     <p class="voices-subhead">What happens when someone sees their galaxy for the first time.</p>
   </div>
   <div class="voices-grid">
@@ -1135,7 +1135,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     </div>
   </div>
   <div class="voices-cta ri" style="text-align:center;margin-top:4rem;">
-    <a href="#pricing" class="btn-primary">Download Beta — it's free</a>
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="btn-primary lemonsqueezy-button">Download Beta — it's free</a>
     <span class="hero-cta-note">No sign-up · 3 books · Yours forever</span>
   </div>
 </section>
@@ -1148,7 +1148,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <div class="share-inner">
     <div class="share-head ri">
       <span class="eyebrow">Your discoveries, made visible</span>
-      <h2 class="section-head">You explore alone.<br>But you don't have to <em>share alone.</em></h2>
+      <h2 class="section-head" id="shareHead">You explore alone.<br>But <em>you don't have to share alone.</em></h2>
       <p class="section-sub" style="max-width:560px;margin:1.5rem auto 0;">Every book you finish, every quote that moves you, every galaxy you build — ready to share. One tap. Yours forever.</p>
     </div>
     <div class="share-grid">
@@ -1217,10 +1217,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           <li><span class="ckd">—</span><span class="feat-locked">Book connections & Explorer</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">Advanced Bitácora</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">PDF export & Welcome Kit</span></li>
-          <li><span class="ckd">—</span><span class="feat-locked">Advanced Bitácora</span></li>
-          <li><span class="ckd">—</span><span class="feat-locked">PDF export & Welcome Kit</span></li>
         </ul>
-        <a href="#" class="btn-free-p" id="btnFreeP">Try Beta Free →</a>
+        <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="btn-free-p lemonsqueezy-button" id="btnFreeP">Try Beta Free →</a>
       </div>
       <div class="pc pro ri d1">
         <span class="pbadge pb-pro">✦ Early Bird · Most Popular</span>
@@ -1232,7 +1230,6 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
         <ul class="pc-feats">
           <li><span class="ck">✓</span><span data-en="Unlimited books & connections" data-es="Libros y conexiones ilimitadas">Unlimited books & connections</span></li>
           <li><span class="ck">✓</span><span data-en="Full Explorer + book connections" data-es="Explorador completo + conexiones">Full Explorer + book connections</span></li>
-          <li><span class="ck">✓</span><span data-en="Advanced Bitácora" data-es="Bitácora avanzada">Advanced Bitácora</span></li>
           <li><span class="ck">✓</span><span data-en="Advanced Bitácora" data-es="Bitácora avanzada">Advanced Bitácora</span></li>
           <li><span class="ck">✓</span><span data-en="PDF export & Welcome Kit" data-es="Export PDF y Welcome Kit">PDF export & Welcome Kit</span></li>
           <li><span class="ck">✓</span><span data-en="All 7 palettes + custom hex color" data-es="Los 7 temas + color hex personalizado">All 7 palettes + custom hex color</span></li>
@@ -1278,13 +1275,13 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <!-- FAQ -->
 <section id="faq">
   <div class="ri" style="text-align:center;max-width:680px;margin:0 auto;">
-    <h2 class="section-head">Everything you want to <em>know.</em></h2>
+    <h2 class="section-head">Everything<br><em>you want to know.</em></h2>
   </div>
   <div class="faq-inner">
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq0">How do I download ALINEA Beta?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa0">Beta is completely free. Go to the checkout page, enter your email — it's $0, no card required. You'll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you're ready to go.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq1">How do I get ALINEA Pro?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa1">Click "Get ALINEA Pro" and you'll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You'll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq2">Is ALINEA really a one-time purchase?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa2">Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update is included.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq3">What devices does ALINEA work on?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa3">ALINEA works on any modern browser — iPhone, Android, desktop and tablet. We recommend installing it as a WebApp (PWA): on iPhone tap Share → "Add to Home Screen", on Android tap the menu → "Install app". It works just like a native app, no App Store needed.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq3">Does ALINEA work on my device?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa3">Yes — iPhone, Android, desktop and tablet. We recommend installing it as a WebApp (PWA): on iPhone tap Share → "Add to Home Screen", on Android tap the menu → "Install app". It works just like a native app, no App Store needed.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq4">Where is my data stored?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa4">Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq5">Why are there no subscriptions?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa5">Knowledge shouldn't feel rented. Buy ALINEA once and keep your universe forever.</div></div>
     <!-- hidden FAQ items -->
@@ -1294,8 +1291,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq7">Why doesn't ALINEA require an account?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa7">Because your reading life belongs to you — not to a platform. Your purchase generates a unique key that unlocks your local database.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq8">Can I back up my library?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa8">Yes. You can export your entire galaxy as JSON anytime. We recommend creating regular backups of your library.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq9">What happens to my data if I stop using ALINEA?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa9">Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, everything stays exactly where you left it. Your galaxy is yours, forever.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq10">Does ALINEA work on Android?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa10">Yes. ALINEA works on any modern browser — iPhone, Android, desktop and tablet. Install it as a PWA and it works just like a native app, no App Store required.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq11">Is ALINEA a company?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa11">Just one person. Born out of a need — a place to see everything you highlight in books, all connected in a beautiful way. From reader to reader. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq10">Is ALINEA a company?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa10">Just one person. Born out of a need — a place to see everything you highlight in books, all connected in a beautiful way. From reader to reader. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a></div></div>
     </div>
     </div>
     <div style="text-align:center;margin-top:1.5rem;">
@@ -1316,11 +1312,11 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <section id="finale">
   <div class="finale-inner ri">
     <div class="finale-orb" id="ctaOrb"></div>
-    <h2 class="finale-head">Your galaxy<br>is <em>waiting.</em></h2>
+    <h2 class="finale-head">Your galaxy<br><em>is waiting.</em></h2>
     <p class="finale-sub">Build your universe of ideas.<br>One book at a time.</p>
     <div class="finale-btns">
       <div class="finale-btn-wrap">
-        <a href="#" class="finale-btn-free">
+        <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="finale-btn-free lemonsqueezy-button">
           <span class="finale-btn-badge" style="color:rgba(196,181,253,.45);background:rgba(139,92,246,.06);border-color:rgba(139,92,246,.15);">Free · Forever</span>
           <span class="finale-btn-name">ALINEA Beta</span>
           <span class="finale-btn-price" id="finaleBetaPrice">Free</span>
@@ -1382,7 +1378,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <!-- FLOAT BTN -->
 <div id="floatBtn">
   <div class="float-label" id="floatLabel">Free forever · 3 books</div>
-  <a href="#pricing" class="float-cta" id="floatCta"><div class="float-orb"></div><span id="floatCtaTxt">Try Beta Free</span></a>
+  <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="float-cta lemonsqueezy-button" id="floatCta"><div class="float-orb"></div><span id="floatCtaTxt">Try Beta Free</span></a>
 </div>
 
 <script>
@@ -1483,9 +1479,9 @@ const T={
     catPersonal:'💡 Self-Development',catNegocios:'💰 Business',catLit:'📖 Literature',catFan:'🔮 Fantasy',catSci:'🚀 Sci-Fi',
     howEye:'How ALINEA works',howH:'Four steps. One galaxy.',
     connEye:'The invisible connections',
-    connHead:'Your books have always been speaking to each other.',
+    connHead:'Your books have always been <em>speaking to each other.</em>',
     connLine1:'Every note.<br>Every underline.<br>Every forgotten thought.',
-    connLine2:'Across years of reading, your ideas quietly formed patterns <strong>invisible to the eye.</strong>',
+    connLine2:'Your ideas quietly formed patterns <strong>invisible&nbsp;to&nbsp;the&nbsp;eye.</strong>',
     connLine3:'lets you finally see them.',
     slide1title:'Add your books.',slide1desc:'Build your library with covers, categories, ratings and reading states. Automatic covers from Open Library.',
     slide2title:'Write what moves you.',slide2desc:'Notes, highlights and quotes become part of your universe. Every word you write deepens your galaxy. Keywords connect ideas automatically.',
@@ -1523,7 +1519,7 @@ const T={
     catPersonal:'💡 Desarrollo Personal',catNegocios:'💰 Negocios',catLit:'📖 Literatura',catFan:'🔮 Fantasía',catSci:'🚀 Ciencia Ficción',
     howEye:'Cómo funciona ALINEA',howH:'Cuatro pasos. Una galaxia.',
     connEye:'Las conexiones invisibles',
-    connHead:'Tus libros siempre han estado hablando entre sí.',
+    connHead:'Tus libros siempre han estado <em>hablando entre sí.</em>',
     connLine1:'Cada nota. Cada subrayado. Cada pensamiento olvidado.',
     connLine2:'A lo largo de años de lectura, tus ideas formaron patrones <strong>invisibles al ojo,</strong>',
     connLine3:'los hace visibles.',
@@ -1569,10 +1565,10 @@ function setLang(l,btn){
   d.subs.forEach((s,i)=>{const el=document.getElementById('sub'+i);if(el)el.textContent=s;});
   // section 02 — connections
   const cEye=document.getElementById('connEyebrow');if(cEye)cEye.textContent=d.connEye;
-  const cHead=document.getElementById('connHead');if(cHead)cHead.innerHTML=d.connHead.replace('each other.','<em>each other.</em>').replace('entre sí.','<em>entre sí.</em>');
+  const cHead=document.getElementById('connHead');if(cHead)cHead.innerHTML=d.connHead;
   const cL1=document.getElementById('connLine1');if(cL1)cL1.innerHTML=d.connLine1;
   const cL2=document.getElementById('connLine2');
-  if(cL2)cL2.innerHTML=d.connLine2+'<span id="connLine3"> <span class="conn-alinea">ALINEA</span> '+d.connLine3+'</span>';
+  if(cL2)cL2.innerHTML=d.connLine2+'<br><span id="connLine3"><span class="conn-alinea">ALINEA</span> '+d.connLine3+'</span>';
   // personalize
   const cl=document.querySelector('.color-label');if(cl)cl.textContent=d.colorLabel;
   const catl=document.querySelector('.cat-label');if(catl)catl.textContent=d.catLabel;
@@ -1589,13 +1585,13 @@ function setLang(l,btn){
   if(slideTitles[2])slideTitles[2].textContent=d.slide3title;if(slideDescs[2])slideDescs[2].textContent=d.slide3desc;
   if(slideTitles[3])slideTitles[3].textContent=d.slide4title;if(slideDescs[3])slideDescs[3].textContent=d.slide4desc;
   // privacy
-  const ph=document.getElementById('privHead');if(ph)ph.innerHTML=curLang==='es'?'Tu mente<br>te <em>pertenece.</em>':'Your mind<br>belongs to <em>you.</em>';
+  const ph=document.getElementById('privHead');if(ph)ph.innerHTML=curLang==='es'?'Tu mente<br><em>te pertenece.</em>':'Your mind<br><em>belongs to you.</em>';
   const ps=document.querySelector('.priv-sub');if(ps)ps.innerHTML=d.privSub.replace('\n','<br>');
   const pm=document.querySelector('.priv-micro');if(pm)pm.textContent=d.privMicro;
   // voices
   const ve=document.querySelector('#voices .eyebrow');if(ve)ve.textContent=d.voicesEye;
   const vBig=document.querySelector('.voices-head .section-head');
-  if(vBig)vBig.innerHTML=curLang==='es'?'Creado de lector<br>a <em>lector.</em>':'Made from reader<br>to <em>reader.</em>';
+  if(vBig)vBig.innerHTML=curLang==='es'?'Creado de<br><em>lector a lector.</em>':'Made from<br><em>reader to reader.</em>';
   const vSub=document.querySelector('.voices-subhead');
   if(vSub)vSub.textContent=d.voicesH;
   // voices cards translation
@@ -1729,7 +1725,7 @@ function setLang(l,btn){
   qArr.forEach((q,i)=>{const el=document.getElementById('fq'+i);if(el)el.textContent=q;});
   aArr.forEach((a,i)=>{const el=document.getElementById('fa'+i);if(el)el.innerHTML=a;});
   // faq
-  const fh=document.querySelector('#faq .section-head');if(fh)fh.innerHTML=d.faqH.replace('know.','<em>know.</em>').replace('saber.','<em>saber.</em>');
+  const fh=document.querySelector('#faq .section-head');if(fh)fh.innerHTML=curLang==='es'?'Todo lo que<br><em>quieres saber.</em>':'Everything<br><em>you want to know.</em>';
   // pricing card static text
   const pbFree=document.querySelector('.pc.free .pbadge');if(pbFree)pbFree.textContent=curLang==='es'?'Gratis · Para siempre':'Free · Forever';
   const pcPeriodFree=document.querySelector('.pc.free .pc-period');if(pcPeriodFree)pcPeriodFree.textContent=curLang==='es'?'Sin registro · Sin expiración':'No sign-up · No expiration';
@@ -1742,14 +1738,14 @@ function setLang(l,btn){
   const fbn=document.getElementById('finaleBetaNote');if(fbn)fbn.textContent=curLang==='es'?'3 libros · Sin registro':'3 books · No sign-up';
   const fpn=document.querySelector('.finale-btn-pro .finale-btn-note');if(fpn)fpn.textContent=curLang==='es'?'Pago único · De por vida':'One-time · Lifetime';
   // finale
-  const fHead=document.querySelector('.finale-head');if(fHead)fHead.innerHTML=d.finaleH.replace('waiting.','<em>waiting.</em>').replace('espera.','<em>espera.</em>');
+  const fHead=document.querySelector('.finale-head');if(fHead)fHead.innerHTML=curLang==='es'?'Tu galaxia<br><em>te espera.</em>':'Your galaxy<br><em>is waiting.</em>';
   const fSub=document.querySelector('.finale-sub');if(fSub)fSub.innerHTML=d.finaleSub.replace('\n','<br>');
   const fTag=document.querySelector('.f-tagline');if(fTag)fTag.textContent=d.footerTag;
   // sticky
   const st=document.querySelector('.scd-tag');if(st)st.textContent=d.stickyTag;
   const sb=document.querySelector('.scd-btn');if(sb)sb.textContent=d.stickyBtn;
-  // update book data
-  applyBookData();
+  const sHead=document.getElementById('shareHead');
+  if(sHead)sHead.innerHTML=curLang==='es'?'Exploras solo.<br>Pero <em>no tienes que compartir solo.</em>':'You explore alone.<br>But <em>you don\'t have to share alone.</em>';
   // re-wrap ALINEA instances after lang change
   wrapAlinea();
 }
@@ -2092,7 +2088,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   applyBookData();
   // ensure connLine is always rebuilt
   const cL2=document.getElementById('connLine2');
-  if(cL2)cL2.innerHTML='Across years of reading, your ideas quietly formed patterns <strong>invisible to the eye.</strong><span id="connLine3"> <span class="conn-alinea">ALINEA</span> lets you finally see them.</span>';
+  if(cL2)cL2.innerHTML='Your ideas quietly formed patterns <strong>invisible&nbsp;to&nbsp;the&nbsp;eye.</strong><br><span id="connLine3"><span class="conn-alinea">ALINEA</span> lets you finally see them.</span>';
   // wrap every standalone "ALINEA" text node in DM Mono span
   wrapAlinea();
 });
@@ -2125,5 +2121,6 @@ function wrapAlinea(){
   walk(document.body);
 }
 </script>
+<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 </body>
 </html>
