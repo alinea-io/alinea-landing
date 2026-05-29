@@ -91,14 +91,14 @@ nav.solid{
 .lsw button.on{background:rgba(139,92,246,.16);color:var(--a2);}
 .lsw .sp{width:1px;background:var(--border);}
 .nav-cta{
-  font-family:'DM Mono',monospace;font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:.38rem .9rem;border-radius:8px;
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.52rem 1.3rem;border-radius:50px;
   background:linear-gradient(135deg,var(--a4),var(--a3),var(--a));
   color:#fff;text-decoration:none;border:none;cursor:pointer;
-  box-shadow:0 0 18px rgba(139,92,246,.3);
-  transition:all .3s;
+  box-shadow:0 0 22px rgba(139,92,246,.4);
+  transition:all .3s;white-space:nowrap;
 }
-.nav-cta:hover{box-shadow:0 0 30px rgba(139,92,246,.55);transform:translateY(-1px);}
+.nav-cta:hover{box-shadow:0 0 38px rgba(139,92,246,.65);transform:translateY(-1px);}
 
 /* ══ STICKY COUNTDOWN ══ */
 #stickyCD{display:none !important;}
@@ -508,7 +508,11 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   font-size:1.5rem;font-weight:700;
   color:var(--text);margin-bottom:.4rem;
 }
-.pc.free .pc-name{color:var(--text);}
+.pc-name .alinea-mono{
+  font-family:'DM Mono',monospace;
+  letter-spacing:.12em;
+  color:var(--a2);
+}
 
 .pc-was{
   font-family:'DM Mono',monospace;font-size:.55rem;
@@ -521,7 +525,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   margin-bottom:.25rem;
 }
 .pc.free .pc-amount{font-size:3rem;color:var(--text);}
-.pc.pro .pc-amount{font-size:4.2rem;color:var(--text);}
+.pc.pro .pc-amount{font-size:4.2rem;color:var(--a2);text-shadow:0 0 30px rgba(196,181,253,.5),0 0 60px rgba(139,92,246,.3);}
 .pc-amount sup{
   font-size:.32em;vertical-align:top;margin-top:.6em;
   font-family:'DM Mono',monospace;
@@ -683,9 +687,14 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 
   /* global padding for all sections on mobile */
   #share, #faq, #connections, #privacy, #voices, #pricing, #how{
-    padding-left:6% !important;
-    padding-right:6% !important;
+    padding-left:5% !important;
+    padding-right:5% !important;
   }
+  .faq-inner{padding-left:0;padding-right:0;margin-left:0;margin-right:0;width:100%;}
+  #faq .ri{padding-left:0;padding-right:0;}
+  .share-inner{padding-left:0;padding-right:0;}
+  .fq-t{font-size:.9rem !important;}
+  .faq-q{padding:.9rem 0;}
 
   /* share text needs breathing room */
   .share-text{padding:0 .5rem;}
@@ -721,6 +730,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   .promo-phase.now .promo-phase-price{font-size:2.8rem;}
   .promo-phases{gap:.4rem;}
   .promo-block{padding:2rem 1.2rem;}
+  #inlineCD > div > div:first-child { grid-template-columns: 1fr !important; }
 
   /* voices cards don't overflow */
   .vc-grid{grid-template-columns:1fr;}
@@ -943,11 +953,11 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <a class="nav-logo" href="#hero">ALINEA</a>
   <div class="nav-r">
     <div class="lsw">
-      <button onclick="setLang('es',this)" class="on">ES</button>
+      <button onclick="setLang('es',this)">ES</button>
       <div class="sp"></div>
-      <button onclick="setLang('en',this)">EN</button>
+      <button onclick="setLang('en',this)" class="on">EN</button>
     </div>
-    <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="nav-cta lemonsqueezy-button" id="navCta">Try Beta Free</a>
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/1d802004-c8ff-42d3-89e0-3ee4dfa2a95e" class="nav-cta lemonsqueezy-button" id="navCta">Get Pro</a>
   </div>
 </nav>
 
@@ -1096,7 +1106,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
       <button class="pill-btn" style="--dur:6.8s;--delay:1.2s" id="pill3" data-label-en="📦 JSON export" data-label-es="📦 Exportación JSON" onclick="togglePill(this)">📦 JSON export<div class="pill-popup">Your entire galaxy as a portable JSON. Take it anywhere, forever.</div></button>
       <button class="pill-btn" style="--dur:5.8s;--delay:.6s" id="pill4" data-label-en="∞ Yours forever" data-label-es="∞ Tuya para siempre" onclick="togglePill(this)">∞ Yours forever<div class="pill-popup">One payment. No renewals. No one can shut it down or lock you out.</div></button>
     </div>
-    <span class="priv-micro">We recommend creating regular backups of your galaxy.</span>
+    <span class="priv-micro" id="privMicroTxt">We recommend creating regular backups of your galaxy.</span>
+    <span style="display:block;margin-top:1.2rem;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(196,181,253,.55);">✦ <span id="privMicroProTxt">ALINEA Pro reminds you automatically to do your backup — daily, weekly or monthly.</span></span>
   </div>
 </section>
 
@@ -1210,7 +1221,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <div class="price-grid">
       <div class="pc free ri">
         <span class="pbadge pb-free">Free · Forever</span>
-        <div class="pc-name">ALINEA Beta</div>
+        <div class="pc-name"><span class="alinea-mono">ALINEA</span> Beta</div>
         <div class="pc-amount"><sup>$</sup>0</div>
         <div class="pc-period">No sign-up · No expiration</div>
         <div class="pc-sep"></div>
@@ -1223,12 +1234,13 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           <li><span class="ckd">—</span><span class="feat-locked">Book connections & Explorer</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">Advanced Bitácora</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">PDF export & Welcome Kit</span></li>
+          <li><span class="ckd">—</span><span class="feat-locked" id="backupFeatBeta">Backup reminders (calendar sync)</span></li>
         </ul>
         <a href="https://alinea.lemonsqueezy.com/checkout/buy/0b8ec975-001c-4c5c-8a2a-29f8b4da6f33?embed=1" class="btn-free-p lemonsqueezy-button" id="btnFreeP">Try Beta Free →</a>
       </div>
       <div class="pc pro ri d1">
         <span class="pbadge pb-pro">✦ Early Bird · Most Popular</span>
-        <div class="pc-name">ALINEA Pro</div>
+        <div class="pc-name"><span class="alinea-mono">ALINEA</span> Pro</div>
         <div class="pc-was">$69 USD</div>
         <div class="pc-amount"><sup>$</sup>49</div>
         <div class="pc-period">one-time · lifetime · all updates</div>
@@ -1238,40 +1250,61 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           <li><span class="ck">✓</span><span data-en="Full Explorer + book connections" data-es="Explorador completo + conexiones">Full Explorer + book connections</span></li>
           <li><span class="ck">✓</span><span data-en="Advanced Bitácora" data-es="Bitácora avanzada">Advanced Bitácora</span></li>
           <li><span class="ck">✓</span><span data-en="PDF export & Welcome Kit" data-es="Export PDF y Welcome Kit">PDF export & Welcome Kit</span></li>
+          <li><span class="ck">✓</span><span data-en="Backup reminders — daily, weekly or monthly" data-es="Recordatorios de respaldo — diario, semanal o mensual">Backup reminders — daily, weekly or monthly</span></li>
           <li><span class="ck">✓</span><span data-en="All 7 palettes + custom hex color" data-es="Los 7 temas + color hex personalizado">All 7 palettes + custom hex color</span></li>
           <li><span class="ck">✓</span><span data-en="100% local-first, forever" data-es="100% local para siempre">100% local-first, forever</span></li>
           <li><span class="ck">✓</span><span data-en="Lifetime updates — always" data-es="Actualizaciones de por vida">Lifetime updates — always</span></li>
         </ul>
-        <a href="#" class="btn-pro-p" id="btnProP">Get ALINEA Pro — $49 USD →</a>
+        <a href="https://alinea.lemonsqueezy.com/checkout/buy/1d802004-c8ff-42d3-89e0-3ee4dfa2a95e" class="btn-pro-p lemonsqueezy-button" id="btnProP">Get ALINEA Pro — $49 USD →</a>
         <p class="pc-guar">🔒 Secure via Lemon Squeezy · Instant delivery</p>
       </div>
     </div>
     <div class="price-close ri">
       <p id="priceClose"><strong>No subscriptions.</strong> <em>No renting your knowledge.</em></p>
     </div>
-    <div class="promo-block ri" id="inlineCD">
+    <div class="promo-block ri" id="inlineCD" style="padding:3rem 3rem;">
       <div class="promo-bg-orb"></div>
-      <span class="promo-eyebrow">✦ Early Bird 2026</span>
-      <h3 class="promo-headline">The price goes up.<br>The product doesn't.</h3>
-      <div style="text-align:center;margin-bottom:1.8rem;">
-        <div class="promo-phase-period" style="color:rgba(196,181,253,.5);margin-bottom:.4rem;">Jun 1 – 15</div>
-        <div class="promo-phase-price" style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(3rem,6vw,5.5rem);color:var(--a2);text-shadow:0 0 40px rgba(var(--a-rgb,139,92,246),.35);line-height:1;">$49</div>
-        <div class="promo-phase-tag" style="color:var(--a);font-family:'DM Mono',monospace;font-size:.38rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem;">Early Bird — Now</div>
-        <div style="font-family:'DM Mono',monospace;font-size:.36rem;letter-spacing:.08em;color:rgba(196,181,253,.22);margin-top:.8rem;text-transform:uppercase;">Rises to $59 on Jun 16 · $69 on Jul 1</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+        <!-- LEFT: copy + price + code -->
+        <div style="display:flex;flex-direction:column;gap:1.1rem;">
+          <span class="promo-eyebrow" style="margin-bottom:0;font-size:.55rem;">✦ Early Bird 2026</span>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.3rem,2.5vw,1.6rem);color:rgba(196,181,253,.7);line-height:1.3;" id="promoHeadlineEl">Lock it in before it rises.</div>
+          <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.1rem;">
+            <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--a2);">Jun 2–15 &nbsp;·&nbsp; <strong>$49</strong> <span style="color:rgba(196,181,253,.4);font-weight:400;">← Now</span></div>
+            <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(196,181,253,.45);">Jun 16–30 &nbsp;·&nbsp; $59</div>
+            <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(196,181,253,.28);">Jul 1+ &nbsp;·&nbsp; $69</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:.5rem;">
+            <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(4rem,7vw,6rem);color:var(--a2);line-height:1;text-shadow:0 0 40px rgba(196,181,253,.6),0 0 80px rgba(139,92,246,.35);">$49</div>
+            <span style="font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.1em;color:rgba(196,181,253,.4);text-transform:uppercase;">usd</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.4rem;">
+            <span id="discountLabel" style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(196,181,253,.5);"></span>
+            <div id="discountCode" style="font-family:'DM Mono',monospace;font-size:1.3rem;font-weight:700;letter-spacing:.22em;color:#fff;background:rgba(139,92,246,.1);border:1.5px dashed rgba(139,92,246,.5);border-radius:10px;padding:.55rem 1.4rem;cursor:pointer;transition:all .2s;display:inline-block;" onclick="copyDiscount(this)" title="Click to copy"></div>
+            <span id="discountCopied" style="font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.1em;color:rgba(196,181,253,.5);opacity:0;transition:opacity .3s;">✓ Copied!</span>
+          </div>
+        </div>
+        <!-- RIGHT: clock + cta + fine -->
+        <div style="display:flex;flex-direction:column;gap:1.4rem;align-items:center;">
+          <span class="promo-clock-label" style="margin-bottom:0;font-size:.6rem;">The $49 price ends in</span>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;width:100%;">
+            <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:1rem .3rem;text-align:center;box-shadow:0 0 18px rgba(139,92,246,.15),inset 0 1px 0 rgba(196,181,253,.08);">
+              <div class="promo-num" id="icd-d" style="font-size:2.2rem;text-shadow:0 0 20px rgba(196,181,253,.5);">14</div><div class="promo-unit" style="font-size:.5rem;margin-top:.2rem;">days</div>
+            </div>
+            <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:1rem .3rem;text-align:center;box-shadow:0 0 18px rgba(139,92,246,.15),inset 0 1px 0 rgba(196,181,253,.08);">
+              <div class="promo-num" id="icd-h" style="font-size:2.2rem;text-shadow:0 0 20px rgba(196,181,253,.5);">23</div><div class="promo-unit" style="font-size:.5rem;margin-top:.2rem;">hrs</div>
+            </div>
+            <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:1rem .3rem;text-align:center;box-shadow:0 0 18px rgba(139,92,246,.15),inset 0 1px 0 rgba(196,181,253,.08);">
+              <div class="promo-num" id="icd-m" style="font-size:2.2rem;text-shadow:0 0 20px rgba(196,181,253,.5);">59</div><div class="promo-unit" style="font-size:.5rem;margin-top:.2rem;">min</div>
+            </div>
+            <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:1rem .3rem;text-align:center;box-shadow:0 0 18px rgba(139,92,246,.15),inset 0 1px 0 rgba(196,181,253,.08);">
+              <div class="promo-num" id="icd-s" style="font-size:2.2rem;text-shadow:0 0 20px rgba(196,181,253,.5);">59</div><div class="promo-unit" style="font-size:.5rem;margin-top:.2rem;">sec</div>
+            </div>
+          </div>
+          <a href="https://alinea.lemonsqueezy.com/checkout/buy/1d802004-c8ff-42d3-89e0-3ee4dfa2a95e" class="promo-cta lemonsqueezy-button" style="text-align:center;font-size:.65rem;">Get ALINEA Pro — $49 USD →</a>
+          <span class="promo-fine" style="font-size:.5rem;">One-time payment · Lifetime access · All future updates</span>
+        </div>
       </div>
-      <div class="promo-divider"></div>
-      <span class="promo-clock-label">The $49 price ends in</span>
-      <div class="promo-clock">
-        <div class="promo-digit"><div class="promo-num" id="icd-d">14</div><div class="promo-unit">days</div></div>
-        <div class="promo-colon">:</div>
-        <div class="promo-digit"><div class="promo-num" id="icd-h">23</div><div class="promo-unit">hours</div></div>
-        <div class="promo-colon">:</div>
-        <div class="promo-digit"><div class="promo-num" id="icd-m">59</div><div class="promo-unit">min</div></div>
-        <div class="promo-colon">:</div>
-        <div class="promo-digit"><div class="promo-num" id="icd-s">59</div><div class="promo-unit">sec</div></div>
-      </div>
-      <a href="#" class="promo-cta">Get ALINEA Pro — $49 USD →</a>
-      <span class="promo-fine">One-time payment · Lifetime access · All future updates</span>
     </div>
   </div>
 </section>
@@ -1330,7 +1363,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
         </a>
       </div>
       <div class="finale-btn-wrap">
-        <a href="#pricing" class="finale-btn-pro">
+        <a href="https://alinea.lemonsqueezy.com/checkout/buy/1d802004-c8ff-42d3-89e0-3ee4dfa2a95e" class="finale-btn-pro lemonsqueezy-button">
           <span class="finale-btn-badge">✦ Early Bird</span>
           <span class="finale-btn-name">ALINEA Pro</span>
           <span class="finale-btn-price">$49 <small>USD</small></span>
@@ -1389,8 +1422,66 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 
 <script>
 /* ═══════════════════════════════════════
-   THEMES
+   DISCOUNT CODE LOGIC
 ═══════════════════════════════════════ */
+function initDiscountCode(){
+  const now=new Date();
+  const y=now.getFullYear(),mo=now.getMonth(),d=now.getDate();
+  let code='',labelEN='',labelES='',price='',clockLabelEN='',clockLabelES='';
+  const isMayLaunch=(y===2026&&mo===4&&d>=28);
+  const isJun1to15=(y===2026&&mo===5&&d<=15);
+  const isJun16to30=(y===2026&&mo===5&&d>=16&&d<=30);
+
+  if(isMayLaunch||isJun1to15){
+    code='LAUNCH49'; price='$49';
+    labelEN='USE THIS CODE AT CHECKOUT:'; labelES='USA ESTE CÓDIGO EN EL CHECKOUT:';
+    clockLabelEN='The $49 price ends in'; clockLabelES='El precio de $49 termina en';
+  } else if(isJun16to30){
+    code='WELCOME10'; price='$59';
+    labelEN='USE THIS CODE — $10 OFF:'; labelES='USA ESTE CÓDIGO — $10 DE DESCUENTO:';
+    clockLabelEN='The $59 price ends in'; clockLabelES='El precio de $59 termina en';
+  } else {
+    // Jul 1+ — hide entire promo block
+    const block=document.getElementById('inlineCD');
+    if(block)block.style.display='none';
+    return;
+  }
+  window._discountCode=code;
+  window._discountLabelEN=labelEN; window._discountLabelES=labelES;
+  window._discountPrice=price;
+  window._clockLabelEN=clockLabelEN; window._clockLabelES=clockLabelES;
+
+  // update static price display
+  const priceEl=document.querySelector('#inlineCD .promo-phase-price-dyn');
+  if(priceEl)priceEl.textContent=price;
+
+  // update ← Now marker
+  const rows=document.querySelectorAll('#inlineCD .price-row-item');
+  rows.forEach(r=>r.querySelector('.now-label')&&(r.querySelector('.now-label').style.display='none'));
+  if(isJun16to30){
+    const jun16row=document.getElementById('priceRow59');
+    if(jun16row){const nl=jun16row.querySelector('.now-label');if(nl)nl.style.display='';}
+    const jun1row=document.getElementById('priceRow49');
+    if(jun1row){const nl=jun1row.querySelector('.now-label');if(nl)nl.style.display='none';}
+  }
+  updateDiscountUI();
+}
+function updateDiscountUI(){
+  const code=window._discountCode;if(!code)return;
+  const label=curLang==='es'?window._discountLabelES:window._discountLabelEN;
+  const clockLabel=curLang==='es'?window._clockLabelES:window._clockLabelEN;
+  ['discountLabel','discountLabelCard'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=label;});
+  ['discountCode','discountCodeCard'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent=code;el.setAttribute('data-code',code);}});
+  const cl=document.querySelector('.promo-clock-label');if(cl&&clockLabel)cl.textContent=clockLabel;
+}
+function copyDiscount(el){
+  const code=el.getAttribute('data-code')||el.textContent.trim();
+  navigator.clipboard.writeText(code).catch(()=>{});
+  el.style.background='rgba(139,92,246,.3)';
+  el.style.borderColor='rgba(196,181,253,.9)';
+  const copied=el.nextElementSibling;
+  if(copied){copied.style.opacity='1';setTimeout(()=>{copied.style.opacity='0';el.style.background='rgba(139,92,246,.08)';el.style.borderColor='rgba(139,92,246,.5)';},2000);}
+}
 const TH={
   purple:{a:'#8b5cf6',a2:'#c4b5fd',a3:'#7c3aed',a4:'#4c1d95',rgb:[139,92,246],orb:'radial-gradient(circle at 35% 30%,#ffffff 0%,#e0d4ff 14%,#a78bfa 38%,#7c3aed 64%,#3b0764 100%)',gs:'0 0 28px rgba(139,92,246,.4),0 0 70px rgba(109,40,217,.15)'},
   blue:{a:'#3b82f6',a2:'#93c5fd',a3:'#1d4ed8',a4:'#1e3a8a',rgb:[59,130,246],orb:'radial-gradient(circle at 35% 30%,#ffffff 0%,#dbeafe 14%,#93c5fd 38%,#3b82f6 64%,#1e3a8a 100%)',gs:'0 0 28px rgba(59,130,246,.4),0 0 70px rgba(29,78,216,.15)'},
@@ -1474,7 +1565,7 @@ function applyBookData(){
 ═══════════════════════════════════════ */
 const T={
   en:{
-    navCta:'Try Beta Free',
+    navCta:'Get Pro',
     heroCta:'Try Beta Free',
     h1a:'What if you could',h1b:'see your knowledge?',
     heroMicro:'A private universe built from everything you read, write and connect.',
@@ -1496,6 +1587,7 @@ const T={
     privHead:'Your mind belongs to you.',
     privSub:'No accounts. No servers. No tracking. No selling your data.\nYour galaxy exists only on your device.',
     privMicro:'We recommend creating regular backups of your galaxy.',
+    privMicroPro:'ALINEA Pro reminds you automatically to do your backup — daily, weekly or monthly.',
     voicesEye:'Made from reader to reader',
     voicesH:'What happens when someone sees their galaxy for the first time.',
     voicesCta:"Download Beta — it's free",
@@ -1508,7 +1600,7 @@ const T={
     footerTag:'Created by a reader, for readers.',
     stickyTag:'✦ Early Bird · Jun 1–15',
     stickyBtn:'Get ALINEA Pro →',
-    promoHeadline:"The price goes up.\nThe product doesn't.",
+    promoHeadline:"Lock it in before it rises.",
     promoLabel:'The $49 price ends in',
     promoCta:'Get ALINEA Pro — $49 USD →',
     promoFine:'One-time payment · Lifetime access · All future updates',
@@ -1523,7 +1615,7 @@ const T={
     countdownDays:'days',countdownHours:'hours',countdownMin:'min',countdownSec:'sec',
   },
   es:{
-    navCta:'Probar Beta Gratis',
+    navCta:'Obtener Pro',
     heroCta:'Probar Beta Gratis',
     h1a:'¿Y si pudieras',h1b:'ver tu conocimiento?',
     heroMicro:'Un universo privado construido con todo lo que lees, escribes y conectas.',
@@ -1545,6 +1637,7 @@ const T={
     privHead:'Tu mente te pertenece.',
     privSub:'Sin cuentas. Sin servidores. Sin rastreo. Sin vender tus datos.\nTu galaxia existe solo en tu dispositivo.',
     privMicro:'Te recomendamos crear respaldos regulares de tu galaxia.',
+    privMicroPro:'ALINEA Pro te recuerda automáticamente hacer tu respaldo — diario, semanal o mensual.',
     voicesEye:'Creado de lector a lector',
     voicesH:'Lo que pasa cuando alguien ve su galaxia por primera vez.',
     voicesCta:'Descarga Beta — es gratis',
@@ -1557,7 +1650,7 @@ const T={
     footerTag:'Creado por un lector, para lectores.',
     stickyTag:'✦ Early Bird · Jun 1–15',
     stickyBtn:'Adquirir ALINEA Pro →',
-    promoHeadline:'El precio sube.\nEl producto no.',
+    promoHeadline:'Asegúralo antes de que suba.',
     promoLabel:'El precio de $49 termina en',
     promoCta:'Adquirir ALINEA Pro — $49 USD →',
     promoFine:'Pago único · Acceso de por vida · Todas las actualizaciones',
@@ -1612,6 +1705,8 @@ function setLang(l,btn){
   const ph=document.getElementById('privHead');if(ph)ph.innerHTML=curLang==='es'?'Tu mente<br><em>te pertenece.</em>':'Your mind<br><em>belongs to you.</em>';
   const ps=document.querySelector('.priv-sub');if(ps)ps.innerHTML=d.privSub.replace('\n','<br>');
   const pm=document.querySelector('.priv-micro');if(pm)pm.textContent=d.privMicro;
+  const pmp=document.getElementById('privMicroProTxt');if(pmp)pmp.textContent=d.privMicroPro;
+  const bfb=document.getElementById('backupFeatBeta');if(bfb)bfb.textContent=curLang==='es'?'Recordatorios de respaldo (sincronización calendario)':'Backup reminders (calendar sync)';
   // voices
   const ve=document.querySelector('#voices .eyebrow');if(ve)ve.textContent=d.voicesEye;
   const vBig=document.querySelector('.voices-head .section-head');
@@ -1683,7 +1778,7 @@ function setLang(l,btn){
   const bfp=document.getElementById('btnFreeP');if(bfp)bfp.textContent=curLang==='es'?'Probar Beta Gratis →':'Try Beta Free →';
   const bpp=document.getElementById('btnProP');if(bpp)bpp.textContent=curLang==='es'?'Adquirir ALINEA Pro — $49 USD →':'Get ALINEA Pro — $49 USD →';
   // promo block
-  const proH=document.querySelector('.promo-headline');if(proH)proH.innerHTML=d.promoHeadline.replace('\n','<br>');
+  const proH=document.getElementById('promoHeadlineEl');if(proH)proH.innerHTML=d.promoHeadline.replace('\n','<br>');
   const proL=document.querySelector('.promo-clock-label');if(proL)proL.textContent=d.promoLabel;
   const proC=document.querySelector('.promo-cta');if(proC)proC.textContent=d.promoCta;
   const proF=document.querySelector('.promo-fine');if(proF)proF.textContent=d.promoFine;
@@ -1772,6 +1867,12 @@ function setLang(l,btn){
   if(sHead)sHead.innerHTML=curLang==='es'?'Exploras solo.<br>Pero <em>no tienes que compartir solo.</em>':'You explore alone.<br>But <em>you don\'t have to share alone.</em>';
   // re-wrap ALINEA instances after lang change
   wrapAlinea();
+  // discount code labels
+  if(window._discountCode){
+    const lbl=curLang==='es'?window._discountLabelES:window._discountLabelEN;
+    const dl=document.getElementById('discountLabel');if(dl)dl.textContent=lbl;
+    const dlc=document.getElementById('discountLabelCard');if(dlc)dlc.textContent=lbl;
+  }
   // faq toggle button
   const faqToggle=document.getElementById('faq-toggle');
   if(faqToggle){
@@ -2079,11 +2180,14 @@ document.addEventListener('click',e=>{
    COUNTDOWN
 ═══════════════════════════════════════ */
 (function(){
-  const end=new Date('2026-06-15T23:59:59');
+  const now=new Date();
+  const mo=now.getMonth(),d=now.getDate(),y=now.getFullYear();
+  const isPhase2=(y===2026&&mo===5&&d>=16&&d<=30);
+  const end=isPhase2?new Date('2026-06-30T23:59:59'):new Date('2026-06-15T23:59:59');
   const kill=new Date('2026-07-01T00:00:00');
   const icd=document.getElementById('inlineCD');
   const scd=document.getElementById('stickyCD');
-  if(new Date()>=kill){if(icd)icd.style.display='none';if(scd)scd.style.display='none';return;}
+  if(now>=kill){if(icd)icd.style.display='none';if(scd)scd.style.display='none';return;}
   function tick(){
     const diff=end-new Date();if(diff<=0)return;
     const d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
@@ -2131,7 +2235,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelect
 
 /* INIT */
 document.addEventListener('DOMContentLoaded',()=>{
-  setLang('es',document.querySelector('.lsw button:first-child'));
+  setLang('en',document.querySelector('.lsw button:last-child'));
+  initDiscountCode();
   applyBookData();
   // ensure connLine is always rebuilt
   const cL2=document.getElementById('connLine2');
@@ -2148,7 +2253,7 @@ function wrapAlinea(){
       const parent=node.parentElement;
       if(!parent||SKIP.has(parent.tagName)||parent.classList.contains('conn-alinea')||parent.closest('.conn-alinea'))return;
       // skip FAQ, nav, footer, pricing, voices
-      if(parent.closest('#faq,.faq-item,#nav,.nav-logo,.nav-cta,#voices,.vc-q,footer,.f-logo,.pc-feats,.pc-name,#stickyCD,.scd-btn,.promo-cta,.btn-pro-p,.btn-free-p,.finale-btn-name'))return;
+      if(parent.closest('#faq,.faq-item,#nav,.nav-logo,.nav-cta,#voices,.vc-q,footer,.f-logo,.pc-feats,#stickyCD,.scd-btn,.promo-cta,.btn-pro-p,.btn-free-p,.finale-btn-name'))return;
       const frag=document.createDocumentFragment();
       const parts=node.textContent.split(/(ALINEA)/g);
       parts.forEach(p=>{
