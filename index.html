@@ -742,7 +742,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   .promo-phase.now .promo-phase-price{font-size:2.8rem;}
   .promo-phases{gap:.4rem;}
   .promo-block{padding:2rem 1.2rem;}
-  .how-head{overflow:hidden;padding:0 5% !important;margin-bottom:2rem !important;}
+  .how-head{overflow:visible;padding:0 5% !important;margin-bottom:2rem !important;}
   .share-head{margin-bottom:2rem !important;}
   .how-head .section-head{font-size:clamp(2.2rem,10vw,3.5rem) !important;overflow-wrap:break-word;}
   .section-head{word-break:normal !important;hyphens:none !important;}
@@ -1545,6 +1545,12 @@ function setTheme(name,dot){
     coverEl.style.boxShadow=`0 8px 28px rgba(${th.rgb[0]},${th.rgb[1]},${th.rgb[2]},.35),4px 0 0 rgba(0,0,0,.2)`;
   }
   if(window._setRGB)window._setRGB(...th.rgb);
+  // update share story button color
+  const ssBtn=document.getElementById('landingShareStoryBtn');
+  if(ssBtn){
+    ssBtn.style.background=`linear-gradient(135deg,${th.a3},${th.a},${th.a2})`;
+    ssBtn.style.boxShadow=`0 0 22px rgba(${th.rgb[0]},${th.rgb[1]},${th.rgb[2]},.35),0 4px 18px rgba(0,0,0,.4)`;
+  }
   document.querySelectorAll('.cdot').forEach(d=>d.classList.remove('on'));
   if(dot)dot.classList.add('on');
   applyBookData();
@@ -1922,6 +1928,15 @@ function setLang(l,btn){
     const isOpen=faqMore&&faqMore.style.maxHeight&&faqMore.style.maxHeight!=='0px';
     faqToggle.textContent=isOpen?(curLang==='es'?'− Ver menos':'− See less'):(curLang==='es'?'+ Ver más preguntas':'+ See more questions');
   }
+  // share story button — translation + theme color
+  const ssLabel=document.getElementById('landingShareStoryLabel');
+  if(ssLabel)ssLabel.textContent=curLang==='es'?'Compartir Story':'Share Story';
+  const ssBtn=document.getElementById('landingShareStoryBtn');
+  if(ssBtn){
+    const _th=TH[curTheme]||TH.purple;
+    ssBtn.style.background=`linear-gradient(135deg,${_th.a3},${_th.a},${_th.a2})`;
+    ssBtn.style.boxShadow=`0 0 22px ${_th.a}55,0 4px 18px rgba(0,0,0,.4)`;
+  }
   // share section
   const shEye=document.querySelector('#share .eyebrow');if(shEye)shEye.textContent=d.shareEye;
   const shSub=document.querySelector('#share .section-sub');if(shSub)shSub.textContent=d.shareSub;
@@ -1950,7 +1965,7 @@ function setLang(l,btn){
   function resize(){W=C.width=innerWidth;H=C.height=innerHeight;}
   resize();addEventListener('resize',resize);
   // fewer stars on mobile for performance
-  const N=isMobile?40:Math.min(Math.floor(W*H/9000),120);
+  const N=isMobile?90:Math.min(Math.floor(W*H/9000),120);
   for(let i=0;i<N;i++)stars.push({x:Math.random()*1e4,y:Math.random()*1e4,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.08,r:Math.random()*1.6+.3,base:Math.random()*.4+.08,tp:Math.random()*Math.PI*2,ts:Math.random()*.018+.004});
   function draw(ts){
     // throttle to 30fps on mobile
