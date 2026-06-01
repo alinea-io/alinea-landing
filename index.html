@@ -2429,7 +2429,8 @@ async function landingGenerateStory(btn) {
   btn.style.opacity = '.6';
   label.textContent = curLang === 'es' ? 'Generando…' : 'Generating…';
 
-  const ac  = '#8b5cf6', ac2 = '#c4b5fd', ac3 = '#7c3aed';
+  const _th = TH[curTheme] || TH.purple;
+  const ac = _th.a, ac2 = _th.a2, ac3 = _th.a3;
   const W = 1080, H = 1920;
   const cv = document.createElement('canvas');
   cv.width = W; cv.height = H;
