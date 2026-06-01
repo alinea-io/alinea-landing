@@ -871,7 +871,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 .share-carousel{
   position:relative;
   width:100%;
-  height:680px;
+  height:700px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -879,8 +879,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 }
 .share-card{
   position:absolute;
-  width:280px;
-  border-radius:22px;
+  width:300px;
+  border-radius:28px;
   overflow:hidden;
   border:2px solid rgba(139,92,246,.22);
   box-shadow:0 24px 60px rgba(0,0,0,.6);
@@ -927,10 +927,10 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 /* mobile */
 @media(max-width:900px){
   .share-grid{grid-template-columns:1fr;gap:3rem;}
-  .share-carousel{height:500px;overflow:hidden;}
-  .share-card{width:200px;}
-  .share-card.pos-left{transform:translateX(-155px) scale(.75);}
-  .share-card.pos-right{transform:translateX(155px) scale(.75);}
+  .share-carousel{height:580px;overflow:hidden;}
+  .share-card{width:240px;}
+  .share-card.pos-left{transform:translateX(-180px) scale(.75);}
+  .share-card.pos-right{transform:translateX(180px) scale(.75);}
 }
 .share-text{display:flex;flex-direction:column;gap:2rem;}
 .share-feature{display:flex;flex-direction:column;gap:.5rem;}
@@ -1201,6 +1201,19 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           <span class="share-dot on"></span>
           <span class="share-dot"></span>
           <span class="share-dot"></span>
+        </div>
+        <div style="text-align:center;margin-top:1.8rem;">
+          <button id="landingShareStoryBtn" onclick="landingGenerateStory(this)" style="
+            font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;
+            padding:.85rem 2.2rem;border-radius:50px;
+            background:linear-gradient(135deg,#4c1d95,#7c3aed,#8b5cf6);
+            color:#fff;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.6rem;
+            box-shadow:0 0 22px rgba(139,92,246,.35),0 4px 18px rgba(0,0,0,.4);
+            transition:all .35s;position:relative;overflow:hidden;
+          ">
+            <span>✦</span><span id="landingShareStoryLabel">Share Story</span>
+          </button>
+          <p style="font-family:'DM Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(139,92,246,.35);margin-top:.7rem;">Generate &amp; download · 1080×1920</p>
         </div>
       </div>
       <div class="share-text ri d2">
@@ -2114,6 +2127,21 @@ function setLang(l,btn){
     wrap.addEventListener('mouseenter',()=>clearInterval(shareTimer));
     wrap.addEventListener('mouseleave',()=>{shareTimer=setInterval(next,9000);});
     wrap.addEventListener('touchstart',()=>clearInterval(shareTimer),{passive:true});
+
+    // ── Swipe support ──
+    let _tx=0,_ty=0,_swiping=false;
+    wrap.addEventListener('touchstart',e=>{
+      _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_swiping=true;
+    },{passive:true});
+    wrap.addEventListener('touchend',e=>{
+      if(!_swiping)return;_swiping=false;
+      const dx=e.changedTouches[0].clientX-_tx;
+      const dy=e.changedTouches[0].clientY-_ty;
+      if(Math.abs(dx)<40||Math.abs(dx)<Math.abs(dy)*1.2)return;
+      if(dx<0)cur=(cur+1)%cards.length;
+      else cur=(cur-1+cards.length)%cards.length;
+      update();resetTimer();
+    },{passive:true});
   }
 
   cards.forEach(c=>c.addEventListener('click',()=>{
@@ -2174,6 +2202,21 @@ function setLang(l,btn){
     howTrack.addEventListener('mouseenter',()=>clearInterval(howTimer));
     howTrack.addEventListener('mouseleave',()=>{howTimer=setInterval(next,9000);});
     howTrack.addEventListener('touchstart',()=>clearInterval(howTimer),{passive:true});
+
+    // ── Swipe support ──
+    let _tx=0,_ty=0,_swiping=false;
+    howTrack.addEventListener('touchstart',e=>{
+      _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_swiping=true;
+    },{passive:true});
+    howTrack.addEventListener('touchend',e=>{
+      if(!_swiping)return;_swiping=false;
+      const dx=e.changedTouches[0].clientX-_tx;
+      const dy=e.changedTouches[0].clientY-_ty;
+      if(Math.abs(dx)<40||Math.abs(dx)<Math.abs(dy)*1.2)return;
+      if(dx<0)cur=(cur+1)%n;
+      else cur=(cur-1+n)%n;
+      update();resetHowTimer();
+    },{passive:true});
   }
 
   slides.forEach((s,i)=>s.addEventListener('click',()=>{cur=i;update();resetHowTimer();}));
@@ -2276,6 +2319,15 @@ function openM(id){document.getElementById(id).classList.add('open');document.bo
 function closeM(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-bg.open').forEach(m=>{m.classList.remove('open');document.body.style.overflow='';});});
 
+/* ── SCROLL TO TOP ON RELOAD / BACK-FORWARD ── */
+window.addEventListener('pageshow', () => {
+  window.scrollTo({ top: 0, behavior: 'instant' });
+});
+// Also reset on unload so the browser doesn't cache position
+window.addEventListener('beforeunload', () => {
+  window.scrollTo(0, 0);
+});
+
 /* INIT */
 document.addEventListener('DOMContentLoaded',()=>{
   setLang('en',document.querySelector('.lsw button:last-child'));
@@ -2314,6 +2366,287 @@ function wrapAlinea(){
     }
   }
   walk(document.body);
+}
+
+/* ═══════════════════════════════════════
+   LANDING — SHARE STORY GENERATOR
+   Random message pool · bilingual · same
+   aesthetic as ALINEA Pro quote stories
+═══════════════════════════════════════ */
+
+// Pool of stories — pulled from the landing's own copy.
+// Each entry: { headline, sub, body }
+const _storyPool = {
+  en: [
+    {
+      headline: 'What if you could\nsee your knowledge?',
+      sub:      'ALINEA · Try Beta Free',
+      body:     'A private universe built from everything\nyou read, write and connect.'
+    },
+    {
+      headline: 'Your books have always been\nspeaking to each other.',
+      sub:      'The invisible connections',
+      body:     'Your ideas quietly formed patterns invisible to the eye.\nALINEA lets you finally see them.'
+    },
+    {
+      headline: 'Every note.\nEvery underline.\nEvery lasting thought.',
+      sub:      'Nothing is lost.',
+      body:     'Every word you write deepens your galaxy.\nKeywords connect ideas automatically.'
+    },
+    {
+      headline: 'Your mind\nbelongs to you.',
+      sub:      'No accounts. No servers. No tracking.',
+      body:     'No selling your data.\nYour galaxy exists only on your device.'
+    },
+    {
+      headline: 'Made from\nreader to reader.',
+      sub:      'ALINEA',
+      body:     'What happens when someone sees\ntheir galaxy for the first time.'
+    },
+    {
+      headline: "You don't have to\nshare alone.",
+      sub:      'Your discoveries, made visible',
+      body:     'Every book you finish, every quote that moves you,\nevery galaxy you build — ready to share.\nOne tap. Yours forever.'
+    },
+    {
+      headline: 'Pay once.\nYours forever.',
+      sub:      'No subscriptions · No renting your knowledge',
+      body:     'One-time · Lifetime · All future updates.'
+    },
+    {
+      headline: 'Your galaxy\nis waiting.',
+      sub:      'Build your universe of ideas.',
+      body:     'One book at a time.'
+    },
+  ],
+  es: [
+    {
+      headline: '¿Y si pudieras\nver tu conocimiento?',
+      sub:      'ALINEA · Prueba la Beta Gratis',
+      body:     'Un universo privado construido con todo\nlo que lees, escribes y conectas.'
+    },
+    {
+      headline: 'Tus libros siempre han estado\nhablando entre sí.',
+      sub:      'Las conexiones invisibles',
+      body:     'Tus ideas formaron patrones invisibles al ojo.\nALINEA los hace visibles.'
+    },
+    {
+      headline: 'Cada nota.\nCada subrayado.\nCada pensamiento.',
+      sub:      'Nada se pierde.',
+      body:     'Cada palabra que escribes profundiza tu galaxia.\nLas keywords conectan ideas automáticamente.'
+    },
+    {
+      headline: 'Tu mente\nte pertenece.',
+      sub:      'Sin cuentas. Sin servidores. Sin rastreo.',
+      body:     'Sin vender tus datos.\nTu galaxia existe solo en tu dispositivo.'
+    },
+    {
+      headline: 'Creado de\nlector a lector.',
+      sub:      'ALINEA',
+      body:     'Lo que pasa cuando alguien ve\nsu galaxia por primera vez.'
+    },
+    {
+      headline: 'No tienes que\ncompartir solo.',
+      sub:      'Tus descubrimientos, hechos visibles',
+      body:     'Cada libro que terminas, cada cita que te mueve,\ncada galaxia que construyes — lista para compartir.\nUn tap. Tuya para siempre.'
+    },
+    {
+      headline: 'Paga una vez.\nEs tuyo para siempre.',
+      sub:      'Sin suscripciones · Sin rentar tu conocimiento',
+      body:     'Pago único · De por vida · Todas las actualizaciones.'
+    },
+    {
+      headline: 'Tu galaxia\nte espera.',
+      sub:      'Construye tu universo de ideas.',
+      body:     'Un libro a la vez.'
+    },
+  ]
+};
+
+let _lastStoryIdx = -1;
+
+function _pickStory() {
+  const pool = _storyPool[curLang] || _storyPool.en;
+  let idx;
+  do { idx = Math.floor(Math.random() * pool.length); } while (idx === _lastStoryIdx && pool.length > 1);
+  _lastStoryIdx = idx;
+  return pool[idx];
+}
+
+function _wrapText(ctx, text, maxW) {
+  const lines = [];
+  text.split('\n').forEach(para => {
+    const words = para.split(' ');
+    let cur = '';
+    words.forEach(w => {
+      const test = cur ? cur + ' ' + w : w;
+      if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; }
+      else cur = test;
+    });
+    if (cur) lines.push(cur);
+  });
+  return lines;
+}
+
+async function landingGenerateStory(btn) {
+  const label = document.getElementById('landingShareStoryLabel');
+  const orig  = label.textContent;
+  btn.style.opacity = '.6';
+  label.textContent = curLang === 'es' ? 'Generando…' : 'Generating…';
+
+  const ac  = '#8b5cf6', ac2 = '#c4b5fd', ac3 = '#7c3aed';
+  const W = 1080, H = 1920;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+
+  // New random star field every time
+  const seed = Date.now();
+  const rng = s => { let x = Math.sin(s + seed) * 10000; return x - Math.floor(x); };
+
+  await (document.fonts ? document.fonts.ready : Promise.resolve());
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#04030d'); bg.addColorStop(.5, '#0a0818'); bg.addColorStop(1, '#04030d');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+  // Stars
+  for (let i = 0; i < 320; i++) {
+    ctx.beginPath();
+    ctx.arc(rng(i*7.3)*W, rng(i*3.7)*H, rng(i*11.1)*1.4+.2, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${rng(i*5.9)*.55+.1})`; ctx.fill();
+  }
+
+  // Center glow — slightly random each time
+  const glowAlpha = (0.12 + rng(seed*0.001) * 0.10).toFixed(3);
+  const glowCY    = H * (0.40 + rng(seed*0.002) * 0.12);
+  const gr = ctx.createRadialGradient(W/2, glowCY, 0, W/2, glowCY, W*.75);
+  gr.addColorStop(0, `rgba(139,92,246,${glowAlpha})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+
+  // Header: orb + ALINEA
+  const orbY = Math.round(H*.13), orbR = 78;
+  const halo = ctx.createRadialGradient(W/2, orbY, 0, W/2, orbY, orbR+50);
+  halo.addColorStop(0, ac+'44'); halo.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(W/2, orbY, orbR+50, 0, Math.PI*2); ctx.fill();
+
+  const og = ctx.createRadialGradient(W/2-orbR*.3, orbY-orbR*.3, 0, W/2, orbY, orbR);
+  og.addColorStop(0, '#fff'); og.addColorStop(.25, ac2); og.addColorStop(.65, ac); og.addColorStop(1, ac3);
+  ctx.shadowBlur = 65; ctx.shadowColor = 'rgba(139,92,246,.8)';
+  ctx.fillStyle = og; ctx.beginPath(); ctx.arc(W/2, orbY, orbR, 0, Math.PI*2); ctx.fill();
+
+  const sp = ctx.createRadialGradient(W/2-orbR*.3, orbY-orbR*.32, 0, W/2-orbR*.3, orbY-orbR*.32, orbR*.28);
+  sp.addColorStop(0, 'rgba(255,255,255,.5)'); sp.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.shadowBlur = 0; ctx.fillStyle = sp;
+  ctx.beginPath(); ctx.arc(W/2-orbR*.3, orbY-orbR*.32, orbR*.28, 0, Math.PI*2); ctx.fill();
+
+  ctx.fillStyle = ac2; ctx.font = '500 52px "DM Mono",monospace';
+  ctx.textAlign = 'center'; ctx.letterSpacing = '14px';
+  ctx.fillText('ALINEA', W/2, orbY+orbR+66); ctx.letterSpacing = '0';
+
+  const lineY = orbY+orbR+96;
+  ctx.strokeStyle = ac+'55'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(W*.22, lineY); ctx.lineTo(W*.78, lineY); ctx.stroke();
+  const headerBottom = lineY + 24;
+
+  // Pick story
+  const story   = _pickStory();
+  const zoneTop = headerBottom + 20;
+  const zoneBot = H * .815;
+  const zoneH   = zoneBot - zoneTop;
+  const maxW    = W - 180;
+
+  // Scale headline font to fit
+  let fsH = 108;
+  ctx.font = `700 italic ${fsH}px "Playfair Display",serif`;
+  ctx.letterSpacing = '-1px';
+  let headLines = _wrapText(ctx, story.headline, maxW);
+  for (let sz = fsH; sz >= 48; sz -= 4) {
+    ctx.font = `700 italic ${sz}px "Playfair Display",serif`;
+    headLines = _wrapText(ctx, story.headline, maxW);
+    if (headLines.length * sz * 1.22 <= zoneH * .46) { fsH = sz; break; }
+  }
+  const lhH = fsH * 1.22;
+
+  const fsS = Math.max(34, Math.min(48, Math.round(fsH * .44)));
+  ctx.font = `300 ${fsS}px "DM Mono",monospace`;
+  ctx.letterSpacing = '3px';
+  const subLines = _wrapText(ctx, story.sub, maxW);
+  const lhS = fsS * 1.5;
+
+  const fsB = Math.max(30, Math.min(42, Math.round(fsH * .38)));
+  ctx.font = `300 italic ${fsB}px "Lato",sans-serif`;
+  ctx.letterSpacing = '0';
+  const bodyLines = _wrapText(ctx, story.body, maxW);
+  const lhB = fsB * 1.65;
+
+  const gapHS = 52, gapSB = 64;
+  const totalBlock = headLines.length*lhH + gapHS + subLines.length*lhS + gapSB + bodyLines.length*lhB;
+  const startY = zoneTop + Math.max(0, (zoneH - totalBlock) / 2);
+
+  // Headline
+  ctx.font = `700 italic ${fsH}px "Playfair Display",serif`;
+  ctx.letterSpacing = '-1px';
+  ctx.fillStyle = '#f0eeff';
+  ctx.textAlign = 'center';
+  headLines.forEach((ln, i) => ctx.fillText(ln, W/2, startY + i*lhH + fsH));
+
+  // Thin divider
+  const sepY1 = startY + headLines.length*lhH + 22;
+  ctx.strokeStyle = ac+'40'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(W*.32, sepY1); ctx.lineTo(W*.68, sepY1); ctx.stroke();
+
+  // Sub
+  const subStartY = startY + headLines.length*lhH + gapHS;
+  ctx.font = `300 ${fsS}px "DM Mono",monospace`;
+  ctx.letterSpacing = '3px';
+  ctx.fillStyle = ac2 + 'cc';
+  subLines.forEach((ln, i) => ctx.fillText(ln, W/2, subStartY + i*lhS));
+  ctx.letterSpacing = '0';
+
+  // Body
+  const bodyStartY = subStartY + subLines.length*lhS + gapSB;
+  ctx.font = `300 italic ${fsB}px "Lato",sans-serif`;
+  ctx.fillStyle = 'rgba(196,181,253,.52)';
+  bodyLines.forEach((ln, i) => ctx.fillText(ln, W/2, bodyStartY + i*lhB));
+
+  // Footer
+  const fH = 160, fY = H - fH;
+  ctx.fillStyle = 'rgba(4,3,12,.05)'; ctx.fillRect(0, fY, W, fH);
+  ctx.strokeStyle = ac+'50'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(W*.30, fY+1); ctx.lineTo(W*.70, fY+1); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.font = '300 24px "DM Mono",monospace';
+  ctx.textAlign = 'center'; ctx.letterSpacing = '2px';
+  ctx.fillText('#MakingVisibleTheInvisible', W/2, fY+72); ctx.letterSpacing = '0px';
+  ctx.fillStyle = ac+'cc'; ctx.font = '400 26px "DM Mono",monospace'; ctx.letterSpacing = '2px';
+  ctx.fillText('@alinea.work', W/2, fY+112); ctx.letterSpacing = '0px';
+
+  btn.style.opacity = '1';
+  label.textContent = orig;
+
+  // Download / Share
+  cv.toBlob(async blob => {
+    if (!blob) return;
+    const file = new File([blob], 'alinea-story.png', { type: 'image/png' });
+    const shareText = curLang === 'es'
+      ? 'Mi universo de conocimiento en ALINEA 🌌 @alinea.work'
+      : 'My knowledge universe in ALINEA 🌌 @alinea.work';
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: 'ALINEA', text: shareText }); }
+      catch(e) { if (e.name !== 'AbortError') _landingDownload(blob); }
+    } else {
+      _landingDownload(blob);
+    }
+  }, 'image/png');
+}
+
+function _landingDownload(blob) {
+  const url = URL.createObjectURL(blob);
+  const a   = document.createElement('a');
+  a.href = url; a.download = 'alinea-story.png';
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
 }
 </script>
 <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
