@@ -2397,7 +2397,8 @@ const _storyPool = {
     'Paga una vez.\nEs tuyo para siempre.',
     'Tu galaxia\nte espera.',
   ]
-};et _lastStoryIdx = -1;
+};
+let _lastStoryIdx = -1;
 
 function _pickStory() {
   const pool = _storyPool[curLang] || _storyPool.en;
