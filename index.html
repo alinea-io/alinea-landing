@@ -2378,92 +2378,26 @@ function wrapAlinea(){
 // Each entry: { headline, sub, body }
 const _storyPool = {
   en: [
-    {
-      headline: 'What if you could\nsee your knowledge?',
-      sub:      'ALINEA · Try Beta Free',
-      body:     'A private universe built from everything\nyou read, write and connect.'
-    },
-    {
-      headline: 'Your books have always been\nspeaking to each other.',
-      sub:      'The invisible connections',
-      body:     'Your ideas quietly formed patterns invisible to the eye.\nALINEA lets you finally see them.'
-    },
-    {
-      headline: 'Every note.\nEvery underline.\nEvery lasting thought.',
-      sub:      'Nothing is lost.',
-      body:     'Every word you write deepens your galaxy.\nKeywords connect ideas automatically.'
-    },
-    {
-      headline: 'Your mind\nbelongs to you.',
-      sub:      'No accounts. No servers. No tracking.',
-      body:     'No selling your data.\nYour galaxy exists only on your device.'
-    },
-    {
-      headline: 'Made from\nreader to reader.',
-      sub:      'ALINEA',
-      body:     'What happens when someone sees\ntheir galaxy for the first time.'
-    },
-    {
-      headline: "You don't have to\nshare alone.",
-      sub:      'Your discoveries, made visible',
-      body:     'Every book you finish, every quote that moves you,\nevery galaxy you build — ready to share.\nOne tap. Yours forever.'
-    },
-    {
-      headline: 'Pay once.\nYours forever.',
-      sub:      'No subscriptions · No renting your knowledge',
-      body:     'One-time · Lifetime · All future updates.'
-    },
-    {
-      headline: 'Your galaxy\nis waiting.',
-      sub:      'Build your universe of ideas.',
-      body:     'One book at a time.'
-    },
+    'What if you could\nsee your knowledge?',
+    'Your books have always been\nspeaking to each other.',
+    'Every note.\nEvery underline.\nEvery lasting thought.',
+    'Your mind\nbelongs to you.',
+    'Made from\nreader to reader.',
+    "You don't have to\nshare alone.",
+    'Pay once.\nYours forever.',
+    'Your galaxy\nis waiting.',
   ],
   es: [
-    {
-      headline: '¿Y si pudieras\nver tu conocimiento?',
-      sub:      'ALINEA · Prueba la Beta Gratis',
-      body:     'Un universo privado construido con todo\nlo que lees, escribes y conectas.'
-    },
-    {
-      headline: 'Tus libros siempre han estado\nhablando entre sí.',
-      sub:      'Las conexiones invisibles',
-      body:     'Tus ideas formaron patrones invisibles al ojo.\nALINEA los hace visibles.'
-    },
-    {
-      headline: 'Cada nota.\nCada subrayado.\nCada pensamiento.',
-      sub:      'Nada se pierde.',
-      body:     'Cada palabra que escribes profundiza tu galaxia.\nLas keywords conectan ideas automáticamente.'
-    },
-    {
-      headline: 'Tu mente\nte pertenece.',
-      sub:      'Sin cuentas. Sin servidores. Sin rastreo.',
-      body:     'Sin vender tus datos.\nTu galaxia existe solo en tu dispositivo.'
-    },
-    {
-      headline: 'Creado de\nlector a lector.',
-      sub:      'ALINEA',
-      body:     'Lo que pasa cuando alguien ve\nsu galaxia por primera vez.'
-    },
-    {
-      headline: 'No tienes que\ncompartir solo.',
-      sub:      'Tus descubrimientos, hechos visibles',
-      body:     'Cada libro que terminas, cada cita que te mueve,\ncada galaxia que construyes — lista para compartir.\nUn tap. Tuya para siempre.'
-    },
-    {
-      headline: 'Paga una vez.\nEs tuyo para siempre.',
-      sub:      'Sin suscripciones · Sin rentar tu conocimiento',
-      body:     'Pago único · De por vida · Todas las actualizaciones.'
-    },
-    {
-      headline: 'Tu galaxia\nte espera.',
-      sub:      'Construye tu universo de ideas.',
-      body:     'Un libro a la vez.'
-    },
+    '\u00BFY si pudieras\nver tu conocimiento?',
+    'Tus libros siempre han estado\nhablando entre s\u00ED.',
+    'Cada nota.\nCada subrayado.\nCada pensamiento.',
+    'Tu mente\nte pertenece.',
+    'Creado de\nlector a lector.',
+    'No tienes que\ncompartir solo.',
+    'Paga una vez.\nEs tuyo para siempre.',
+    'Tu galaxia\nte espera.',
   ]
-};
-
-let _lastStoryIdx = -1;
+};et _lastStoryIdx = -1;
 
 function _pickStory() {
   const pool = _storyPool[curLang] || _storyPool.en;
@@ -2550,66 +2484,33 @@ async function landingGenerateStory(btn) {
   ctx.beginPath(); ctx.moveTo(W*.22, lineY); ctx.lineTo(W*.78, lineY); ctx.stroke();
   const headerBottom = lineY + 24;
 
-  // Pick story
-  const story   = _pickStory();
-  const zoneTop = headerBottom + 20;
-  const zoneBot = H * .815;
+  // Pick story — headline only
+  const storyText = _pickStory();
+  const zoneTop = headerBottom + 60;
+  const zoneBot = H * .84;
   const zoneH   = zoneBot - zoneTop;
-  const maxW    = W - 180;
+  const maxW    = W - 160;
 
-  // Scale headline font to fit
-  let fsH = 108;
+  // Scale font to fill the zone beautifully
+  let fsH = 130;
   ctx.font = `700 italic ${fsH}px "Playfair Display",serif`;
   ctx.letterSpacing = '-1px';
-  let headLines = _wrapText(ctx, story.headline, maxW);
-  for (let sz = fsH; sz >= 48; sz -= 4) {
+  let headLines = _wrapText(ctx, storyText, maxW);
+  for (let sz = fsH; sz >= 52; sz -= 4) {
     ctx.font = `700 italic ${sz}px "Playfair Display",serif`;
-    headLines = _wrapText(ctx, story.headline, maxW);
-    if (headLines.length * sz * 1.22 <= zoneH * .46) { fsH = sz; break; }
+    headLines = _wrapText(ctx, storyText, maxW);
+    if (headLines.length * sz * 1.28 <= zoneH * .78) { fsH = sz; break; }
   }
-  const lhH = fsH * 1.22;
+  const lhH = fsH * 1.28;
+  const totalH = headLines.length * lhH;
+  const startY = zoneTop + (zoneH - totalH) / 2;
 
-  const fsS = Math.max(34, Math.min(48, Math.round(fsH * .44)));
-  ctx.font = `300 ${fsS}px "DM Mono",monospace`;
-  ctx.letterSpacing = '3px';
-  const subLines = _wrapText(ctx, story.sub, maxW);
-  const lhS = fsS * 1.5;
-
-  const fsB = Math.max(30, Math.min(42, Math.round(fsH * .38)));
-  ctx.font = `300 italic ${fsB}px "Lato",sans-serif`;
-  ctx.letterSpacing = '0';
-  const bodyLines = _wrapText(ctx, story.body, maxW);
-  const lhB = fsB * 1.65;
-
-  const gapHS = 52, gapSB = 64;
-  const totalBlock = headLines.length*lhH + gapHS + subLines.length*lhS + gapSB + bodyLines.length*lhB;
-  const startY = zoneTop + Math.max(0, (zoneH - totalBlock) / 2);
-
-  // Headline
+  // Paint headline — centered, full-width, dramatic
   ctx.font = `700 italic ${fsH}px "Playfair Display",serif`;
   ctx.letterSpacing = '-1px';
   ctx.fillStyle = '#f0eeff';
   ctx.textAlign = 'center';
   headLines.forEach((ln, i) => ctx.fillText(ln, W/2, startY + i*lhH + fsH));
-
-  // Thin divider
-  const sepY1 = startY + headLines.length*lhH + 22;
-  ctx.strokeStyle = ac+'40'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(W*.32, sepY1); ctx.lineTo(W*.68, sepY1); ctx.stroke();
-
-  // Sub
-  const subStartY = startY + headLines.length*lhH + gapHS;
-  ctx.font = `300 ${fsS}px "DM Mono",monospace`;
-  ctx.letterSpacing = '3px';
-  ctx.fillStyle = ac2 + 'cc';
-  subLines.forEach((ln, i) => ctx.fillText(ln, W/2, subStartY + i*lhS));
-  ctx.letterSpacing = '0';
-
-  // Body
-  const bodyStartY = subStartY + subLines.length*lhS + gapSB;
-  ctx.font = `300 italic ${fsB}px "Lato",sans-serif`;
-  ctx.fillStyle = 'rgba(196,181,253,.52)';
-  bodyLines.forEach((ln, i) => ctx.fillText(ln, W/2, bodyStartY + i*lhB));
 
   // Footer
   const fH = 160, fY = H - fH;
