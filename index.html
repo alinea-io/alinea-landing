@@ -62,12 +62,12 @@ body::before{
   max-width:100vw;
 }
 
-/* mobile — kill fixed canvas, use simple static bg instead */
+/* mobile — keep stars canvas visible */
 @media(max-width:600px){
-  #starCanvas{display:none;}
+  #starCanvas{display:block;}
   body::after{
     content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-    background:radial-gradient(ellipse 120% 80% at 50% 30%,rgba(109,40,217,.08) 0%,transparent 70%);
+    background:radial-gradient(ellipse 120% 80% at 50% 30%,rgba(109,40,217,.12) 0%,transparent 70%);
   }
 }
 
@@ -744,7 +744,8 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   .promo-block{padding:2rem 1.2rem;}
   .how-head{overflow:hidden;padding:0 5% !important;margin-bottom:2rem !important;}
   .share-head{margin-bottom:2rem !important;}
-  .how-head .section-head{font-size:clamp(2.2rem,10vw,3.5rem) !important;word-break:break-word;overflow-wrap:break-word;}
+  .how-head .section-head{font-size:clamp(2.2rem,10vw,3.5rem) !important;overflow-wrap:break-word;}
+  .section-head{word-break:normal !important;hyphens:none !important;}
   #inlineCD > div > div:first-child { grid-template-columns: 1fr !important; }
   #inlineCD{padding:2rem 1.2rem !important;}
   #inlineCD > div{grid-template-columns:1fr !important;gap:2rem !important;}
@@ -2299,20 +2300,23 @@ addEventListener('scroll',()=>{
 ═══════════════════════════════════════ */
 function tFaq(el){
   const it=el.closest('.faq-item'),op=it.classList.contains('open');
-  // Close any open item elegantly — fade opacity first, then collapse
+  // Close all open items first
   document.querySelectorAll('.faq-item.open').forEach(i=>{
     const a=i.querySelector('.faq-a');
-    if(a){a.style.opacity='0';}
+    if(a) a.style.opacity='0';
     setTimeout(()=>i.classList.remove('open'),200);
   });
+  // If it wasn't open, open it after close animation
   if(!op){
+    const delay=document.querySelector('.faq-item.open')?220:0;
     setTimeout(()=>{
       it.classList.add('open');
+      const a=it.querySelector('.faq-a');
+      if(a) setTimeout(()=>{a.style.opacity='';},30);
       const more=document.getElementById('faq-more');
-      if(more&&more.contains(it)&&more.style.maxHeight&&more.style.maxHeight!=='0px'){
+      if(more&&more.contains(it)&&more.style.maxHeight&&more.style.maxHeight!=='0px')
         setTimeout(()=>{more.style.maxHeight=more.scrollHeight+'px';},10);
-      }
-    },document.querySelector('.faq-item.open')?220:0);
+    },delay);
   }
 }
 
