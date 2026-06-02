@@ -808,7 +808,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 
 /* FOOTER */
 footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center;position:relative;z-index:1;}
-.f-orb{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff 0%,#e0d4ff 14%,#a78bfa 38%,#7c3aed 64%,#3b0764 100%);box-shadow:0 0 18px rgba(139,92,246,.4),0 0 40px rgba(109,40,217,.15);transition:background .8s,box-shadow .8s;margin-bottom:.2rem;}
+.f-orb{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff 0%,var(--a2) 30%,var(--a) 64%,var(--a3) 100%);box-shadow:0 0 18px rgba(var(--a-rgb,139,92,246),.4),0 0 40px rgba(var(--a-rgb,109,40,217),.15);transition:background .8s,box-shadow .8s;margin-bottom:.2rem;}
 .f-logo{font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:.38em;text-transform:uppercase;color:var(--a2);}
 .f-tagline{font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,181,253,.22);text-decoration:none;transition:color .2s;}
 .f-tagline:hover{color:rgba(196,181,253,.5);}
@@ -827,7 +827,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 @keyframes breatheLabel{0%,100%{opacity:.45}50%{opacity:.75}}
 .float-cta{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:.68rem 1.3rem;border-radius:50px;background:rgba(8,6,18,.88);backdrop-filter:blur(12px);color:var(--a2);text-decoration:none;border:1px solid rgba(139,92,246,.28);box-shadow:0 0 20px rgba(139,92,246,.2),0 8px 28px rgba(0,0,0,.5);transition:all .3s;display:flex;align-items:center;gap:.5rem;white-space:nowrap;}
 .float-cta:hover{border-color:rgba(196,181,253,.5);box-shadow:0 0 32px rgba(139,92,246,.4),0 8px 28px rgba(0,0,0,.6);transform:translateY(-2px);}
-.float-orb{width:14px;height:14px;border-radius:50%;flex-shrink:0;background:radial-gradient(circle at 35% 30%,#fff,#c4b5fd 30%,#8b5cf6 70%);box-shadow:0 0 6px rgba(196,181,253,.7);}
+.float-orb{width:14px;height:14px;border-radius:50%;flex-shrink:0;background:radial-gradient(circle at 35% 30%,#fff,var(--a2) 30%,var(--a) 70%);box-shadow:0 0 6px rgba(var(--a-rgb,196,181,253),.7);transition:background .8s,box-shadow .8s;}
 
 /* MODALS */
 .modal-bg{position:fixed;inset:0;background:rgba(3,2,10,.96);z-index:600;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;backdrop-filter:blur(28px);}
@@ -1071,7 +1071,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <!-- STEP 2 -->
     <div class="carousel-slide ri d1">
       <div class="slide-mockup" style="padding:0;overflow:hidden;background:transparent;">
-        <img src="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-modal-mobile.jpg" alt="Write what moves you" style="width:100%;height:100%;object-fit:cover;object-position:center 76%;display:block;">
+        <img src="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-modal-mobile.jpg" alt="Write what moves you" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
       </div>
       <div class="slide-text">
         <div class="slide-num">02</div>
@@ -1095,7 +1095,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <!-- STEP 4 -->
     <div class="carousel-slide ri d3">
       <div class="slide-mockup" style="padding:0;overflow:hidden;background:transparent;">
-        <img src="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-bitacora-mobile.jpg" alt="Your flight log" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;">
+        <img src="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-bitacora-mobile.jpg" alt="Your flight log" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
       </div>
       <div class="slide-text">
         <div class="slide-num">04</div>
@@ -1705,7 +1705,7 @@ const T={
     shareF1title:'¡Tu galaxia es única!',
     shareF1desc:'Con ALINEA Pro puedes editar el color de cada libro y categoría. Es un mapa de tu mente que nadie más tiene — porque nadie más ha leído exactamente lo que tú.',
     shareF2title:'Stories de libros y citas',
-    shareF2desc:'¿Terminaste un libro? Compártelo. ¿Encontraste una cita que te movió? Con ALINEA que viaje. Descarga la imagen y publícala donde quieras — Instagram, TikTok, Reddit, X, donde estés.',
+    shareF2desc:'¿Terminaste un libro? Compártelo. ¿Encontraste una cita que te movió? Comparte o descarga la imagen y publícala donde quieras — Instagram, TikTok, Reddit, X, donde estés.',
     shareF3title:'Tu biblioteca, de un vistazo',
     shareF3desc:'Cada libro que has leído, en una imagen. Tu vida de lectura, finalmente visible con la sección galaxia de ALINEA — descárgala, guárdala, compártela donde quieras.',
     countdownDays:'días',countdownHours:'horas',countdownMin:'min',countdownSec:'seg',
@@ -1895,8 +1895,8 @@ function setLang(l,btn){
       if(el){
         const isES=curLang==='es';
         el.innerHTML=isES
-          ?'No, fue y es elaborado únicamente por Miguel Valdez, el fundador de ALINEA. Con el objetivo de poder hacer visible lo invisible — las conexiones que siempre existieron entre sus libros, notas, subrayados e ideas dispersas sobre el escritorio y los libreros. Lo que comenzó como un santuario personal ahora está disponible para cada lector que también quiera explorar y descubrir más sobre las conexiones entre sus libros. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
-          :'No, it was and is built solely by Miguel Valdez, the founder of ALINEA. With the goal of making the invisible visible — the connections that always existed between his books, notes, highlights, and ideas scattered across his desk and bookshelves. What began as a personal sanctuary is now available to every reader who also wants to explore and discover more about the connections between their books. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>';
+          ?'No, fue y es elaborado únicamente por Miguel Valdez. Con el objetivo de poder hacer visible lo invisible — las conexiones que siempre existieron entre sus libros, notas, subrayados dispersos sobre su escritorio y libreros. Lo que se formó poco a poco como un santuario personal ahora está disponible para cada lector que también quiera explorar y descubrir más sobre las conexiones entre sus libros. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
+          :'No, it was and is built solely by Miguel Valdez. With the goal of making the invisible visible — the connections that always existed between his books, notes, and highlights scattered across his desk and bookshelves. What slowly formed as a personal sanctuary is now available to every reader who also wants to explore and discover more about the connections between their books. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>';
       }
       return;
     }
@@ -2218,18 +2218,18 @@ function setLang(l,btn){
   function next(){cur=(cur+1)%n;update();}
 
   update();
-  let howTimer=setInterval(next,9000);
+  let howTimer=setInterval(next,18000);
 
   function resetHowTimer(){
     clearInterval(howTimer);
-    howTimer=setInterval(next,9000);
+    howTimer=setInterval(next,18000);
   }
 
   // pause on hover
   const howTrack=document.getElementById('carouselTrack');
   if(howTrack){
     howTrack.addEventListener('mouseenter',()=>clearInterval(howTimer));
-    howTrack.addEventListener('mouseleave',()=>{howTimer=setInterval(next,9000);});
+    howTrack.addEventListener('mouseleave',()=>{howTimer=setInterval(next,18000);});
     howTrack.addEventListener('touchstart',()=>clearInterval(howTimer),{passive:true});
 
     // ── Swipe support ──
