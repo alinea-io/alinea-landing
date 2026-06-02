@@ -223,8 +223,9 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .cat-pill.on{background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(76,29,149,.28));border-color:var(--a2);color:var(--text);box-shadow:0 0 26px rgba(139,92,246,.22),0 10px 28px rgba(0,0,0,.4);transform:translateY(-2px);}
 
 /* ══ 03 HOW IT WORKS — COVERFLOW CAROUSEL ══ */
-#how{padding:5vh 0;overflow:visible;}
-.how-head{text-align:center;padding:0 7%;margin-bottom:5rem;}
+#how{padding:8vh 0 4vh;overflow:hidden;max-width:100%;}
+
+
 .carousel-track{
   position:relative;
   width:100%;
@@ -745,9 +746,9 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   .promo-phase.now .promo-phase-price{font-size:2.8rem;}
   .promo-phases{gap:.4rem;}
   .promo-block{padding:2rem 1.2rem;}
-  .how-head{overflow:visible;padding:0 5% !important;margin-bottom:2rem !important;}
+
   .share-head{margin-bottom:2rem !important;}
-  .how-head .section-head{font-size:clamp(1.8rem,8.5vw,3.2rem) !important;overflow-wrap:break-word;white-space:normal;}
+
   .section-head{word-break:normal !important;hyphens:none !important;}
   #inlineCD > div > div:first-child { grid-template-columns: 1fr !important; }
   #inlineCD{padding:2rem 1.2rem !important;}
@@ -1049,9 +1050,9 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 
 <!-- 03 HOW IT WORKS -->
 <section id="how">
-  <div class="how-head ri">
-    <span class="eyebrow">How ALINEA works</span>
-    <h2 class="section-head">Four steps.<br>One <em>galaxy.</em></h2>
+  <div id="howHead" style="text-align:center;padding:0 6% 4rem;width:100%;box-sizing:border-box;">
+    <span id="howEyebrow" style="display:block;font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,181,253,.45);margin-bottom:1.2rem;">How ALINEA works</span>
+    <h2 id="howH" style="font-family:'Playfair Display',serif;font-size:clamp(2.4rem,8vw,5.5rem);font-weight:700;line-height:1.12;color:#f0eeff;margin:0;padding:0;word-break:normal;overflow-wrap:normal;white-space:normal;">Four steps.<br>One <em style="font-style:italic;color:var(--a2);">galaxy.</em></h2>
   </div>
   <div class="carousel-track" id="carouselTrack">
 
@@ -1738,8 +1739,12 @@ function setLang(l,btn){
   const catkeys=['catPersonal','catNegocios','catLit','catFan','catSci'];
   cpills.forEach((p,i)=>{if(d[catkeys[i]])p.textContent=d[catkeys[i]];});
   // how
-  const hEye=document.querySelector('#how .eyebrow');if(hEye)hEye.textContent=d.howEye;
-  const hH=document.querySelector('#how .section-head');if(hH)hH.innerHTML=d.howH.replace('One ','One <em>').replace('Una ','Una <em>').replace('galaxia.','galaxia.</em>').replace('galaxy.','galaxy.</em>');
+  const hEye=document.getElementById('howEyebrow');if(hEye)hEye.textContent=d.howEye;
+  const hH=document.getElementById('howH');
+  if(hH){
+    const parts=d.howH.split('. ');
+    hH.innerHTML=parts[0]+'.<br>'+parts[1].replace('galaxy.','<em style="font-style:italic;color:var(--a2);">galaxy.</em>').replace('galaxia.','<em style="font-style:italic;color:var(--a2);">galaxia.</em>');
+  }
   const slideTitles=document.querySelectorAll('.slide-title');
   const slideDescs=document.querySelectorAll('.slide-desc');
   if(slideTitles[0])slideTitles[0].textContent=d.slide1title;if(slideDescs[0])slideDescs[0].textContent=d.slide1desc;
