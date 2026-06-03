@@ -2638,5 +2638,42 @@ function _landingDownload(blob) {
 }
 </script>
 <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+<!-- GA4 Event Tracking -->
+<script>
+  // Track all Beta CTA clicks
+  document.querySelectorAll('a[href*="475bad81"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      gtag('event', 'click_beta_cta', {
+        'event_category': 'CTA',
+        'event_label': el.id || el.className || 'beta_button'
+      });
+    });
+  });
+
+  // Track all Pro CTA clicks
+  document.querySelectorAll('a[href*="555b38d3"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      gtag('event', 'click_pro_cta', {
+        'event_category': 'CTA',
+        'event_label': el.id || el.className || 'pro_button'
+      });
+    });
+  });
+
+  // Track conversion via LemonSqueezy postMessage
+  window.addEventListener('message', function(event) {
+    if (event.origin.includes('lemonsqueezy.com')) {
+      if (event.data && event.data.event === 'Checkout.Success') {
+        var productId = event.data.data && event.data.data.order && event.data.data.order.data && event.data.data.order.data.attributes && event.data.data.order.data.attributes.identifier;
+        var isBeta = productId && productId.includes('475bad81');
+        gtag('event', 'purchase', {
+          'event_category': 'Conversion',
+          'event_label': isBeta ? 'beta' : 'pro',
+          'value': isBeta ? 0 : 59
+        });
+      }
+    }
+  });
+</script>
 </body>
 </html>
