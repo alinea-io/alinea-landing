@@ -141,24 +141,43 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   transition:background .8s,box-shadow .8s;
 }
 @keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero-hl-wrap{position:relative;width:100%;margin-bottom:.8rem;}
+.hero-pair{
+  position:absolute;top:0;left:0;right:0;
+  display:flex;flex-direction:column;align-items:center;
+  opacity:0;transition:opacity 1.2s ease;
+  pointer-events:none;text-align:center;
+}
+.hero-pair.active-pair{opacity:1;pointer-events:auto;}
 .hero-hl{
   font-family:'Playfair Display',serif;font-weight:900;
-  font-size:clamp(2.8rem,7vw,6.5rem);line-height:1.04;letter-spacing:-.025em;
-  color:var(--text);margin-bottom:1.2rem;
+  font-size:clamp(2.6rem,5.5vw,5.2rem);line-height:1.06;letter-spacing:-.025em;
+  color:var(--text);margin:0;
 }
 .hero-hl em{font-style:italic;font-weight:400;color:var(--a2);}
-.hero-sub-wrap{min-height:2.5rem;margin-bottom:1.8rem;position:relative;width:100%;display:flex;justify-content:center;}
+.hero-pair .hero-sub{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);line-height:1.7;
+  max-width:560px;opacity:1;position:static;
+}
+@media(max-width:768px){.hero-hl-wrap{height:7rem;}} @media(max-width:480px){.hero-hl-wrap{height:10rem;}.hero-micro{margin-bottom:2rem;}}
+.hero-sub-wrap{display:none;}
+.hero-sub-inline{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1rem,1.6vw,1.25rem);color:var(--muted);line-height:1.7;
+  max-width:560px;margin:.8rem auto 0;text-align:center;
+}
 .hero-sub{
   font-family:'Playfair Display',serif;font-style:italic;font-weight:300;
-  font-size:clamp(1rem,2vw,1.35rem);color:var(--muted);line-height:1.7;
+  font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);line-height:1.7;
   position:absolute;text-align:center;width:100%;max-width:560px;
-  opacity:0;transition:opacity 1.2s ease;
+  opacity:0;transition:opacity 1s ease;
 }
 .hero-sub.active{opacity:1;}
 .hero-micro{
   font-family:'Lato',sans-serif;font-style:italic;font-weight:300;
   font-size:clamp(.88rem,1.5vw,1.05rem);color:rgba(196,181,253,.4);
-  margin-bottom:3.5rem;max-width:480px;margin-left:auto;margin-right:auto;
+  margin-top:2.5rem;margin-bottom:.8rem;max-width:480px;margin-left:auto;margin-right:auto;
   line-height:1.7;
 }
 .btn-primary{
@@ -177,7 +196,6 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,rgba(139,92,246,.45),transparent);margin:0 auto;animation:scrollPulse 2.2s ease-in-out infinite;}
 @keyframes scrollPulse{0%{opacity:0;transform:scaleY(0);transform-origin:top}55%{opacity:1;transform:scaleY(1)}100%{opacity:0;}}
 @keyframes hlIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.hero-hl{animation:hlIn 1.1s .1s cubic-bezier(.16,1,.3,1) both;}
 .hero-micro{animation:hlIn 1.1s .5s cubic-bezier(.16,1,.3,1) both;opacity:0;}
 .hero-ctas{animation:hlIn 1.1s .7s cubic-bezier(.16,1,.3,1) both;opacity:0;}
 
@@ -647,7 +665,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .promo-eyebrow{font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(139,92,246,.5);display:block;margin-bottom:2rem;}
 
 /* phases */
-.promo-phases{display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:nowrap;margin-bottom:2rem;}
+.promo-phases{display:flex;align-items:center;justify-content:center;gap:1.4rem;flex-wrap:nowrap;margin-bottom:2rem;}
 .promo-phase{display:flex;flex-direction:column;align-items:center;gap:.25rem;}
 .promo-phase-period{font-family:'DM Mono',monospace;font-size:.38rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,181,253,.3);}
 .promo-phase.now .promo-phase-period{color:rgba(196,181,253,.65);}
@@ -815,7 +833,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .finale-note{font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(139,92,246,.26);}
 
 /* FOOTER */
-footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center;position:relative;z-index:1;}
+footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;}
 .f-orb{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff 0%,var(--a2) 30%,var(--a) 64%,var(--a3) 100%);box-shadow:0 0 18px rgba(var(--a-rgb,139,92,246),.4),0 0 40px rgba(var(--a-rgb,109,40,217),.15);transition:background .8s,box-shadow .8s;margin-bottom:.2rem;}
 .f-logo{font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:.38em;text-transform:uppercase;color:var(--a2);}
 .f-tagline{font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,181,253,.22);text-decoration:none;transition:color .2s;}
@@ -998,17 +1016,14 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <!-- 01 HERO -->
 <section id="hero">
   <div class="hero-orb" id="mainOrb"></div>
-  <h1 class="hero-hl">What if you could<br><em>see your knowledge?</em></h1>
-  <div class="hero-sub-wrap">
-    <div class="hero-sub active" id="sub0">Your books were always connected.</div>
-    <div class="hero-sub" id="sub1">A living galaxy of ideas.</div>
-    <div class="hero-sub" id="sub2">Your knowledge was never static.</div>
-    <div class="hero-sub" id="sub3">The connections were always there.</div>
-    <div class="hero-sub" id="sub4">Some ideas wait years to find each other.</div>
+  <div class="hero-hl-wrap">
+    <h1 class="hero-hl" id="heroHeadline"></h1>
+    <p class="hero-sub-inline" id="heroSub"></p>
   </div>
-  <p class="hero-micro">A private universe built from everything you read, write and connect.</p>
-  <div class="hero-ctas">
-    <a href="https://alinea.lemonsqueezy.com/checkout/buy/475bad81-f3c3-4938-85b9-12a2ef806932?embed=1" class="btn-primary lemonsqueezy-button" id="heroCta">Try Beta Free</a>
+  <p class="hero-micro">Local-first. No account. No subscription. Yours forever.</p>
+  <div class="hero-ctas" style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/475bad81-f3c3-4938-85b9-12a2ef806932?embed=1" class="btn-primary lemonsqueezy-button" id="heroCta">Try Beta Free — No sign-up</a>
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/555b38d3-d516-4b04-a9f4-3c7a9b43c78c" class="lemonsqueezy-button" id="heroProCta" style="font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(196,181,253,.45);text-decoration:none;border-bottom:1px solid rgba(139,92,246,.2);padding-bottom:.15rem;transition:all .3s;">Or get Pro now — $59 USD (Early Bird ends Jun 15)</a>
   </div>
   <div class="scroll-hint"><div class="scroll-line"></div></div>
 </section>
@@ -1019,11 +1034,11 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <section id="connections" class="ri">
   <div class="conn-grid" style="grid-template-columns:1fr;max-width:680px;margin:0 auto;">
     <div class="conn-text">
-      <span class="eyebrow" id="connEyebrow">The invisible connections</span>
-      <h2 class="conn-head" id="connHead">Your books have always been <em>speaking to each other.</em></h2>
-      <div class="conn-line-1" id="connLine1">Every note.<br>Every underline.<br>Every lasting thought.</div>
+      <span class="eyebrow" id="connEyebrow">The problem every reader has</span>
+      <h2 class="conn-head" id="connHead">You read. You highlight.<br><em>Then it disappears.</em></h2>
+      <div class="conn-line-1" id="connLine1">The average reader finishes 12 books a year.<br>And remembers almost none of them.</div>
       <div class="conn-lines">
-        <p id="connLine2">Your ideas quietly formed patterns <strong>invisible&nbsp;to&nbsp;the&nbsp;eye.</strong><br><span id="connLine3"><span class="conn-alinea">ALINEA</span> lets you finally see them.</span></p>
+        <p id="connLine2">Not because you weren't paying attention — but because your ideas had <strong>nowhere to live.</strong><br><span id="connLine3"><span class="conn-alinea">ALINEA</span> gives them a home. And lets you finally see how they connect.</span></p>
       </div>
     </div>
   </div>
@@ -1127,15 +1142,15 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <section id="privacy">
   <div class="ri" style="text-align:center;max-width:760px;margin:0 auto;">
     <h2 class="priv-head" id="privHead">Your mind<br><em>belongs to you.</em></h2>
-    <p class="priv-sub">No accounts. No servers. No tracking. No selling your data.<br>Your galaxy exists only on your device.</p>
+    <p class="priv-sub">It's a lifetime file. Updates arrive on their own. No server, no account.<br>Your galaxy lives on your device — and only your device.</p>
     <div class="pills-grid">
-      <button class="pill-btn" style="--dur:5.5s;--delay:0s" id="pill0" data-label-en="🔍 No tracking" data-label-es="🔍 Sin rastreo" onclick="togglePill(this)">🔍 No tracking<div class="pill-popup">Zero analytics. Zero trackers. Not a single pixel knows you were here.</div></button>
-      <button class="pill-btn" style="--dur:6.2s;--delay:.8s" id="pill1" data-label-en="🚫 No data selling" data-label-es="🚫 Sin vender datos" onclick="togglePill(this)">🚫 No data selling<div class="pill-popup">Your reading is sacred. We don't know what you read, and we never will.</div></button>
-      <button class="pill-btn" style="--dur:5s;--delay:.4s" id="pill2" data-label-en="📱 Local-first" data-label-es="📱 Local-first" onclick="togglePill(this)">📱 Local-first<div class="pill-popup">ALINEA lives entirely on your device. No server, no cloud. Ever.</div></button>
+      <button class="pill-btn" style="--dur:5.5s;--delay:0s" id="pill0" data-label-en="🔍 No tracking" data-label-es="🔍 Sin rastreo" onclick="togglePill(this)">🔍 No tracking<div class="pill-popup">Zero analytics. Zero trackers. We genuinely don't know you were here.</div></button>
+      <button class="pill-btn" style="--dur:6.2s;--delay:.8s" id="pill1" data-label-en="🚫 No data selling" data-label-es="🚫 Sin vender datos" onclick="togglePill(this)">🚫 No data selling<div class="pill-popup">Your reading life is yours. We don't know what you read, and we never will.</div></button>
+      <button class="pill-btn" style="--dur:5s;--delay:.4s" id="pill2" data-label-en="📱 Local-first" data-label-es="📱 Local-first" onclick="togglePill(this)">📱 Local-first<div class="pill-popup">No server. No cloud. No subscription holding your data hostage. Ever.</div></button>
     </div>
     <div class="pills-grid-bottom">
-      <button class="pill-btn" style="--dur:6.8s;--delay:1.2s" id="pill3" data-label-en="📦 JSON export" data-label-es="📦 Exportación JSON" onclick="togglePill(this)">📦 JSON export<div class="pill-popup">Your entire galaxy as a portable JSON. Take it anywhere, forever.</div></button>
-      <button class="pill-btn" style="--dur:5.8s;--delay:.6s" id="pill4" data-label-en="∞ Yours forever" data-label-es="∞ Tuya para siempre" onclick="togglePill(this)">∞ Yours forever<div class="pill-popup">One payment. No renewals. No one can shut it down or lock you out.</div></button>
+      <button class="pill-btn" style="--dur:6.8s;--delay:1.2s" id="pill3" data-label-en="📦 JSON export" data-label-es="📦 Exportación JSON" onclick="togglePill(this)">📦 JSON export<div class="pill-popup">Export your entire galaxy anytime. Your knowledge travels with you, forever.</div></button>
+      <button class="pill-btn" style="--dur:5.8s;--delay:.6s" id="pill4" data-label-en="∞ Yours forever" data-label-es="∞ Tuya para siempre" onclick="togglePill(this)">∞ Yours forever<div class="pill-popup">One payment. No renewals. No one can take it away — not even if we disappear.</div></button>
     </div>
     <span class="priv-micro" id="privMicroTxt">We recommend creating regular backups of your galaxy.</span>
     <span style="display:block;margin-top:1.2rem;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(196,181,253,.55);">✦ <span id="privMicroProTxt">ALINEA Pro reminds you automatically to do your backup — daily, weekly or monthly.</span></span>
@@ -1147,14 +1162,14 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <!-- 05 SOCIAL PROOF -->
 <section id="voices">
   <div class="voices-head ri">
-    <h2 class="section-head" style="font-size:clamp(2.8rem,6vw,5rem);">Made from<br><em>reader to reader.</em></h2>
+    <h2 class="section-head" style="font-size:clamp(2.8rem,6vw,5rem);">Readers who<br><em>finally found a home for their ideas.</em></h2>
     <p class="voices-subhead">What happens when someone sees their galaxy for the first time.</p>
   </div>
   <div class="voices-grid">
     <div class="vc ri">
-      <div class="vc-top"><span class="vc-flag">🇨🇱</span><div><div class="vc-name">Jesu Tagle</div><div class="vc-role">Chile · Early Explorer</div></div></div>
+      <div class="vc-top"><span class="vc-flag">🇮🇳</span><div><div class="vc-name">Shreya Mishra</div><div class="vc-role" data-en="India · Early Explorer" data-es="India · Early Explorer">India · Early Explorer</div></div></div>
       <div class="vc-stars">★★★★★</div>
-      <p class="vc-q" id="vcq0">"OMG, I just explored it and it's absolutely epic. It feels very mystical. I've been changing the galaxy themes, playing with the canvas — I'm having so much fun. I love it!"</p>
+      <p class="vc-q" id="vcq3">"As a doctor, I read endless clinical research. The ALINEA Explorer is a game changer — I search a concept and instantly see how it connects across multiple studies. Brilliant."</p>
     </div>
     <div class="vc ri d1">
       <div class="vc-top"><span class="vc-flag">🇲🇽</span><div><div class="vc-name">Mariana Chávez</div><div class="vc-role" data-en="Mexico · Early Explorer" data-es="México · Early Explorer">Mexico · Early Explorer</div></div></div>
@@ -1162,29 +1177,29 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
       <p class="vc-q" id="vcq1">"As a reader, ALINEA is a product I would absolutely buy. It's not just about adding books — it's a complete database that maps the connections between them. From reader to reader, this is deeply appreciated."</p>
     </div>
     <div class="vc ri d2">
-      <div class="vc-top"><span class="vc-flag">🇲🇽</span><div><div class="vc-name">Alexia Ramírez</div><div class="vc-role" data-en="Mexico · Early Explorer" data-es="México · Early Explorer">Mexico · Early Explorer</div></div></div>
-      <div class="vc-stars">★★★★★</div>
-      <p class="vc-q" id="vcq2">"The onboarding is great — those initial hints give you exactly what you need. Being able to change the interface color is excellent. You give users the possibility to unlock their mind."</p>
-    </div>
-    <div class="vc ri">
-      <div class="vc-top"><span class="vc-flag">🇮🇳</span><div><div class="vc-name">Shreya Mishra</div><div class="vc-role" data-en="India · Early Explorer" data-es="India · Early Explorer">India · Early Explorer</div></div></div>
-      <div class="vc-stars">★★★★★</div>
-      <p class="vc-q" id="vcq3">"As a doctor, I read endless clinical research. The ALINEA Explorer is a game changer — I search a concept and instantly see how it connects across multiple studies. Brilliant."</p>
-    </div>
-    <div class="vc ri d1">
       <div class="vc-top"><span class="vc-flag">🇨🇭</span><div><div class="vc-name">Manon Ede</div><div class="vc-role" data-en="Switzerland · Early Explorer" data-es="Suiza · Early Explorer">Switzerland · Early Explorer</div></div></div>
       <div class="vc-stars">★★★★★</div>
-      <p class="vc-q" id="vcq4">"There's something uncommon about ALINEA — the galaxy metaphor isn't just aesthetic; it reflects exactly what reading feels like. You never know which book will orbit another until you see them together."</p>
+      <p class="vc-q" id="vcq4">"I've tried Notion, Readwise, even physical notebooks. Nothing stuck. ALINEA is the first tool where I actually go back to what I've read — because the galaxy makes it feel worth returning to."</p>
     </div>
-    <div class="vc ri d2">
+    <div class="vc ri">
       <div class="vc-top"><span class="vc-flag">🇲🇽</span><div><div class="vc-name">Emiliano Lucio</div><div class="vc-role" data-en="Mexico · Early Explorer" data-es="México · Early Explorer">Mexico · Early Explorer</div></div></div>
       <div class="vc-stars">★★★★★</div>
       <p class="vc-q" id="vcq5">"From the moment you enter it feels like you've been using it for years. The galaxy: I've never seen an app do that. With the privacy and having it always available — it's perfect."</p>
     </div>
+    <div class="vc ri d1">
+      <div class="vc-top"><span class="vc-flag">🇨🇱</span><div><div class="vc-name">Jesu Tagle</div><div class="vc-role">Chile · Early Explorer</div></div></div>
+      <div class="vc-stars">★★★★★</div>
+      <p class="vc-q" id="vcq0">"OMG, I just explored it and it's absolutely epic. It feels very mystical. I've been changing the galaxy themes, playing with the canvas — I'm having so much fun. I love it!"</p>
+    </div>
+    <div class="vc ri d2">
+      <div class="vc-top"><span class="vc-flag">🇲🇽</span><div><div class="vc-name">Alexia Ramírez</div><div class="vc-role" data-en="Mexico · Early Explorer" data-es="México · Early Explorer">Mexico · Early Explorer</div></div></div>
+      <div class="vc-stars">★★★★★</div>
+      <p class="vc-q" id="vcq2">"I added my last 15 books and within minutes I could see patterns I'd never noticed — the same themes surfacing across authors I'd never connected before. That moment alone was worth it."</p>
+    </div>
   </div>
   <div class="voices-cta ri" style="text-align:center;margin-top:4rem;">
     <a href="https://alinea.lemonsqueezy.com/checkout/buy/475bad81-f3c3-4938-85b9-12a2ef806932?embed=1" class="btn-primary lemonsqueezy-button">Download Beta — it's free</a>
-    <span class="hero-cta-note">No sign-up · 3 books · Yours forever</span>
+    <span class="hero-cta-note">No sign-up · 7 books · Yours forever</span>
   </div>
 </section>
 
@@ -1260,7 +1275,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <div class="pricing-inner">
     <div class="ri" style="text-align:center;">
       <span class="eyebrow">Pricing</span>
-      <h2 class="section-head">Pay once.<br><em>Yours forever.</em></h2>
+      <h2 class="section-head">One payment.<br><em>Keep everything you read. Forever.</em></h2>
     </div>
     <div class="price-grid">
       <div class="pc free ri">
@@ -1273,7 +1288,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           <li><span class="ck">✓</span><span>Up to 7 books</span></li>
           <li><span class="ck">✓</span><span>Full Cosmic Canvas</span></li>
           <li><span class="ck">✓</span><span>Notes & highlights (unlimited)</span></li>
-          <li><span class="ck">✓</span><span>3 color themes</span></li>
+          <li><span class="ck">✓</span><span>4 color themes</span></li>
           <li><span class="ck">✓</span><span>Export book & quote stories</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">Book connections & Explorer</span></li>
           <li><span class="ckd">—</span><span class="feat-locked">Advanced Bitácora</span></li>
@@ -1312,7 +1327,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
         <!-- LEFT: copy + price + code -->
         <div style="display:flex;flex-direction:column;gap:1.1rem;">
           <span class="promo-eyebrow" style="margin-bottom:0;font-size:.55rem;">✦ Early Bird 2026</span>
-          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.3rem,2.5vw,1.6rem);color:rgba(196,181,253,.7);line-height:1.3;" id="promoHeadlineEl">Lock it down before it rises.</div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.3rem,2.5vw,1.6rem);color:rgba(196,181,253,.7);line-height:1.3;" id="promoHeadlineEl">The price goes up on June 16. No exceptions.</div>
           <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.1rem;">
             <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--a2);">Jun 2–15 &nbsp;·&nbsp; <strong>$59</strong> <span style="color:rgba(196,181,253,.4);font-weight:400;">← Now</span></div>
             <div style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(196,181,253,.45);">Jun 16–30 &nbsp;·&nbsp; $69</div>
@@ -1330,7 +1345,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
         </div>
         <!-- RIGHT: clock + cta + fine -->
         <div style="display:flex;flex-direction:column;gap:1.4rem;align-items:center;">
-          <span class="promo-clock-label" style="margin-bottom:0;font-size:.6rem;">The $59 price ends in</span>
+          <span class="promo-clock-label" style="margin-bottom:0;font-size:.6rem;">Price confirmed — rises Jun 16</span>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;width:100%;">
             <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:1rem .3rem;text-align:center;box-shadow:0 0 18px rgba(139,92,246,.15),inset 0 1px 0 rgba(196,181,253,.08);">
               <div class="promo-num" id="icd-d" style="font-size:2.2rem;text-shadow:0 0 20px rgba(196,181,253,.5);">14</div><div class="promo-unit" style="font-size:.5rem;margin-top:.2rem;">days</div>
@@ -1361,10 +1376,10 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <h2 class="section-head">Everything<br><em>you want to know.</em></h2>
   </div>
   <div class="faq-inner">
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq0">How do I download ALINEA Beta?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa0">Beta is completely free. Go to the checkout page, enter your email — it's $0, no card required. You'll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you're ready to go.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq1">How do I get ALINEA Pro?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa1">Click "Get ALINEA Pro" and you'll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You'll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq2">Is ALINEA really a one-time purchase?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa2">Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update is included.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq3">Does ALINEA work on my device?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa3">Yes — iPhone, Android, desktop and tablet. We recommend installing it as a WebApp (PWA): on iPhone tap Share → "Add to Home Screen", on Android tap the menu → "Install app". It works just like a native app, no App Store needed. Since ALINEA is local-first, the only limit on books and notes is your device's available storage.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq0">How do I download ALINEA Beta?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa0">Beta is completely free. Go to the checkout page, enter your email — it's $0, no card required. You'll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you're ready to go.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq2">Is ALINEA really a one-time purchase?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa2">Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update arrives on its own — nothing to install, nothing to renew.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq1">How do I get ALINEA Pro?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa1">Click "Get ALINEA Pro" and you'll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You'll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq4">Where is my data stored?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa4">Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq5">Why are there no subscriptions?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa5">Knowledge shouldn't feel rented. Buy ALINEA once and keep your universe forever.</div></div>
     <!-- hidden FAQ items -->
@@ -1620,33 +1635,33 @@ function applyBookData(){
 const T={
   en:{
     navCta:'Get Pro',
-    heroCta:'Try Beta Free',
-    h1a:'What if you could',h1b:'see your knowledge?',
-    heroMicro:'A private universe built from everything you read, write and connect.',
-    heroNote:'Free forever · 7 books · No sign-up',
-    subs:['Your books were always connected.','A living galaxy of ideas.','Your knowledge was never static.','The connections were always there.','Some ideas wait years to find each other.'],
+    heroCta:'Try Beta Free — No sign-up',
+    h1a:'You read it.',h1b:'But where did the idea go?',
+    heroMicro:'Local-first. No account. No subscription. Yours forever.',
+    heroNote:'No sign-up · 7 books · Yours forever',
+    subs:['Highlights lost in a book or Kindle you only opened once.','Your reading life, mapped.','Connections you never knew existed — across every book, every highlight. Until now.','ALINEA turns everything you\'ve read into a living galaxy.','Your knowledge, finally visible.'],
     colorLabel:'Personalize your galaxy',
     catLabel:'Choose your favorite category',
     catPersonal:'💡 Self-Development',catNegocios:'💰 Business',catLit:'📖 Literature',catFan:'🔮 Fantasy',catSci:'🚀 Sci-Fi',
     howEye:'How ALINEA works',howH:'Four steps. One galaxy.',
-    connEye:'The invisible connections',
-    connHead:'Your books have always been <em>speaking to each other.</em>',
-    connLine1:'Every note.<br>Every underline.<br>Every lasting thought.',
-    connLine2:'Your ideas quietly formed patterns <strong>invisible&nbsp;to&nbsp;the&nbsp;eye.</strong>',
-    connLine3:'lets you finally see them.',
+    connEye:'The problem every reader has',
+    connHead:'You read. You highlight.<br><em>Then it disappears.</em>',
+    connLine1:'The average reader finishes 12 books a year.<br>And remembers almost none of them.',
+    connLine2:'Not because you weren\'t paying attention — but because your ideas had <strong>nowhere to live.</strong>',
+    connLine3:'gives them a home. And lets you finally see how they connect.',
     slide1title:'Add your books.',slide1desc:'Build your library with automatic covers, categories, ratings and reading states. Beta: up to 7 books. Pro: unlimited.',
     slide2title:'Write what moves you.',slide2desc:'Notes, highlights and quotes become part of your universe. Keywords connect ideas automatically. Available in Beta & Pro — unlimited.',
     slide3title:'Your galaxy forms itself.',slide3desc:"Your books connect automatically — themes, ideas and patterns emerge on their own. The Book Explorer lets you search and navigate every connection in depth. Available in Beta & Pro.",
     slide4title:'Your flight log.',slide4desc:'The Bitácora shows your reading stats, top keywords and galaxy density. The Advanced Bitácora — with full reports and deep analytics — is available in Pro.',
     privHead:'Your mind belongs to you.',
-    privSub:'No accounts. No servers. No tracking. No selling your data.\nYour galaxy exists only on your device.',
+    privSub:'It\'s a lifetime single HTML file. No server. No account. Just yours.\nYour galaxy lives on your device — and only your device.',
     privMicro:'We recommend creating regular backups of your galaxy.',
     privMicroPro:'ALINEA Pro reminds you automatically to do your backup — daily, weekly or monthly.',
-    voicesEye:'Made from reader to reader',
+    voicesEye:'Readers who found a home for their ideas',
     voicesH:'What happens when someone sees their galaxy for the first time.',
     voicesCta:"Download Beta — it's free",
     voicesNote:'No sign-up · 7 books · Yours forever',
-    priceEye:'Pricing',priceH:'Pay once. Yours forever.',
+    priceEye:'Pricing',priceH:'One payment. Keep everything you read. Forever.',
     faqH:'Everything you want to know.',
     finaleH:'Your galaxy is waiting.',
     finaleSub:'Build your universe of ideas.\nOne book at a time.',
@@ -1654,7 +1669,7 @@ const T={
     footerTag:'Created by a reader, for readers.',
     stickyTag:'✦ Early Bird · Jun 1–15',
     stickyBtn:'Get ALINEA Pro →',
-    promoHeadline:"Lock it down before it rises.",
+    promoHeadline:"The price goes up on June 16. No exceptions.",
     promoLabel:'Launch price ends in',
     promoCta:'Get ALINEA Pro →',
     promoFine:'One-time payment · Lifetime access · All future updates',
@@ -1670,33 +1685,33 @@ const T={
   },
   es:{
     navCta:'Obtener Pro',
-    heroCta:'Probar Beta Gratis',
-    h1a:'¿Y si pudieras',h1b:'ver tu conocimiento?',
-    heroMicro:'Un universo privado construido con todo lo que lees, escribes y conectas.',
-    heroNote:'Gratis para siempre · 7 libros · Sin registro',
-    subs:['Tus libros siempre estuvieron conectados.','Una galaxia viva de ideas.','Tu conocimiento nunca fue estático.','Las conexiones siempre estuvieron ahí.','Algunas ideas esperan años para encontrarse.'],
+    heroCta:'Probar Beta Gratis — Sin registro',
+    h1a:'Lo leíste.',h1b:'¿Pero a dónde fue la idea?',
+    heroMicro:'Local, sin cuenta, sin suscripción. Tuyo para siempre.',
+    heroNote:'Sin registro · 7 libros · Tuya para siempre',
+    subs:['Subrayados perdidos en un libro o Kindle que solo abriste una vez.','Tu vida lectora, mapeada.','Conexiones que nunca supiste que existían — entre cada libro, cada subrayado. Hasta ahora.','ALINEA convierte todo lo que has leído en una galaxia viva.','Tu conocimiento, finalmente visible.'],
     colorLabel:'Personaliza tu galaxia',
     catLabel:'Elige tu categoría favorita',
     catPersonal:'💡 Desarrollo Personal',catNegocios:'💰 Negocios',catLit:'📖 Literatura',catFan:'🔮 Fantasía',catSci:'🚀 Ciencia Ficción',
     howEye:'Cómo funciona ALINEA',howH:'Cuatro pasos. Una galaxia.',
-    connEye:'Las conexiones invisibles',
-    connHead:'Tus libros siempre han estado <em>hablando entre sí.</em>',
-    connLine1:'Cada nota. Cada subrayado. Cada pensamiento olvidado.',
-    connLine2:'A lo largo de años de lectura, tus ideas formaron patrones <strong>invisibles al ojo,</strong>',
-    connLine3:'los hace visibles.',
+    connEye:'El problema de todo lector',
+    connHead:'Lees. Subrayas.<br><em>Y luego desaparece.</em>',
+    connLine1:'El lector promedio termina 12 libros al año.<br>Y recuerda casi ninguno.',
+    connLine2:'No porque no estabas poniendo atención — sino porque tus ideas no tenían <strong>dónde vivir.</strong>',
+    connLine3:'les da un hogar. Y te deja ver cómo se conectan.',
     slide1title:'Agrega tus libros.',slide1desc:'Construye tu biblioteca con portadas automáticas, categorías, ratings y estados de lectura. Beta: hasta 7 libros. Pro: ilimitados.',
     slide2title:'Escribe lo que te mueve.',slide2desc:'Notas, subrayados y citas forman parte de tu universo. Las keywords conectan ideas automáticamente. Disponible en Beta & Pro — ilimitado.',
     slide3title:'Tu galaxia se forma sola.',slide3desc:'Tus libros se conectan automáticamente — temas, ideas y patrones emergen solos. El Explorador de libros te permite navegar cada conexión en profundidad. Disponible en Beta & Pro.',
     slide4title:'Tu bitácora de vuelo.',slide4desc:'La Bitácora muestra tus estadísticas, keywords principales y densidad de tu galaxia. La Bitácora Avanzada — con reportes completos y analítica profunda — es exclusiva de Pro.',
     privHead:'Tu mente te pertenece.',
-    privSub:'Sin cuentas. Sin servidores. Sin rastreo. Sin vender tus datos.\nTu galaxia existe solo en tu dispositivo.',
+    privSub:'Es un archivo de por vida. Las actualizaciones llegan solas. Sin servidor, sin cuenta.\nTu galaxia vive en tu dispositivo — y solo en tu dispositivo.',
     privMicro:'Te recomendamos crear respaldos regulares de tu galaxia.',
     privMicroPro:'ALINEA Pro te recuerda automáticamente hacer tu respaldo — diario, semanal o mensual.',
-    voicesEye:'Creado de lector a lector',
+    voicesEye:'Lectores que encontraron un hogar para sus ideas',
     voicesH:'Lo que pasa cuando alguien ve su galaxia por primera vez.',
     voicesCta:'Descarga Beta — es gratis',
     voicesNote:'Sin registro · 7 libros · Tuya para siempre',
-    priceEye:'Precios',priceH:'Paga una vez. Es tuyo para siempre.',
+    priceEye:'Precios',priceH:'Un pago. Guarda todo lo que lees. Para siempre.',
     faqH:'Todo lo que quieres saber.',
     finaleH:'Tu galaxia te espera.',
     finaleSub:'Construye tu universo de ideas.\nUn libro a la vez.',
@@ -1704,7 +1719,7 @@ const T={
     footerTag:'Creado por un lector, para lectores.',
     stickyTag:'✦ Early Bird · Jun 1–15',
     stickyBtn:'Adquirir ALINEA Pro →',
-    promoHeadline:'Asegúralo antes de que suba.',
+    promoHeadline:'El precio sube el 16 de junio. Sin excepciones.',
     promoLabel:'El precio de lanzamiento termina en',
     promoCta:'Adquirir ALINEA Pro →',
     promoFine:'Pago único · Acceso de por vida · Todas las actualizaciones',
@@ -1729,8 +1744,11 @@ function setLang(l,btn){
   const nc=document.getElementById('navCta');if(nc)nc.textContent=d.navCta;
   // hero
   const hc=document.getElementById('heroCta');if(hc)hc.textContent=d.heroCta;
-  const hl=document.querySelector('.hero-hl');
-  if(hl)hl.innerHTML=d.h1a+'<br><em>'+d.h1b+'</em>';
+  // rotating headlines — update all three
+  const hlTexts=curLang==='es'
+    ?[['Lo leíste.','¿Pero a dónde fue la idea?'],['Lo subrayaste.','¿Y luego qué?'],['Has leído decenas de libros.','¿Pero... recuerdas algo?']]
+    :[['You read it.','But where did the idea go?'],['You highlighted it.','Then what?'],['You\'ve read dozens of books.','But... do you remember any of it?']];
+  hlTexts.forEach((pair,i)=>{const el=document.getElementById('hl'+i);if(el)el.innerHTML=pair[0]+'<br><em>'+pair[1]+'</em>';});
   const hm=document.querySelector('.hero-micro');if(hm)hm.textContent=d.heroMicro;
   const hn=document.querySelector('.hero-cta-note');if(hn)hn.textContent=d.heroNote;
   d.subs.forEach((s,i)=>{const el=document.getElementById('sub'+i);if(el)el.textContent=s;});
@@ -1776,17 +1794,17 @@ function setLang(l,btn){
     es:[
       '\u201cOMG, lo acabo de explorar y est\u00e1 absolutamente \u00e9pico. Se siente muy m\u00edstico. He estado cambiando los temas de la galaxia, jugando con el canvas \u2014 me estoy divirtiendo much\u00edsimo. \u00a1Lo amo!\u201d',
       '\u201cComo lectora, ALINEA es un producto que sin duda alguna comprar\u00eda. No es solo poner tus libros \u2014 es una base de datos completa que mapea las conexiones entre ellos. De lector a lector, se agradece con el coraz\u00f3n.\u201d',
-      '\u201cEl tutorial de inicio est\u00e1 genial \u2014 esas pistas te dan justo lo que necesitas. Que permita cambiar el color de la interfaz es excelente. Le das al usuario la posibilidad de explotar su mente.\u201d',
+      '\u201cAgregué mis últimos 15 libros y en minutos vi patrones que nunca había notado — los mismos temas apareciendo en autores que jamás había conectado. Ese momento solo ya valió la pena.\u201d',
       '\u201cComo doctora, leo publicaciones m\u00e9dicas cada d\u00eda. El Explorador de ALINEA cambia las reglas del juego \u2014 busco un concepto y al instante veo c\u00f3mo se conecta con m\u00faltiples estudios. Brillante.\u201d',
-      '\u201cHay algo poco com\u00fan en ALINEA \u2014 la met\u00e1fora de la galaxia no es solo est\u00e9tica; refleja exactamente c\u00f3mo se siente leer. Nunca sabes qu\u00e9 libro orbitar\u00e1 alrededor de otro hasta que los ves juntos.\u201d',
+      '\u201cHe probado Notion, Readwise, hasta libretas físicas. Nada funcionó. ALINEA es la primera herramienta a la que realmente vuelvo — porque la galaxia hace que valga la pena regresar.\u201d',
       '\u201cDesde que entras sientes como si ya la llevaras usando a\u00f1os. La galaxia: nunca hab\u00eda visto una app que hiciera eso. Con la privacidad y que lo tengas disponible siempre \u2014 est\u00e1 de lujo.\u201d'
     ],
     en:[
       '\u201cOMG, I just explored it and it\u2019s absolutely epic. It feels very mystical. I\u2019ve been changing the galaxy themes, playing with the canvas \u2014 I\u2019m having so much fun. I love it!\u201d',
       '\u201cAs a reader, ALINEA is a product I would absolutely buy. It\u2019s not just about adding books \u2014 it\u2019s a complete database that maps the connections between them. From reader to reader, this is deeply appreciated.\u201d',
-      '\u201cThe onboarding is great \u2014 those initial hints give you exactly what you need. Being able to change the interface color is excellent. You give users the possibility to unlock their mind.\u201d',
+      '\u201cI added my last 15 books and within minutes I could see patterns I\u2019d never noticed \u2014 the same themes surfacing across authors I\u2019d never connected before. That moment alone was worth it.\u201d',
       '\u201cAs a doctor, I read endless clinical research. The ALINEA Explorer is a game changer \u2014 I search a concept and instantly see how it connects across multiple studies. Brilliant.\u201d',
-      '\u201cThere\u2019s something uncommon about ALINEA \u2014 the galaxy metaphor isn\u2019t just aesthetic; it reflects exactly what reading feels like. You never know which book will orbit another until you see them together.\u201d',
+      '\u201cI\u2019ve tried Notion, Readwise, even physical notebooks. Nothing stuck. ALINEA is the first tool where I actually go back to what I\u2019ve read \u2014 because the galaxy makes it feel worth returning to.\u201d',
       '\u201cFrom the moment you enter it feels like you\u2019ve been using it for years. The galaxy: I\u2019ve never seen an app do that. With the privacy and having it always available \u2014 it\u2019s perfect.\u201d'
     ]
   };
@@ -1798,16 +1816,16 @@ function setLang(l,btn){
   const vctaNote=document.querySelector('.voices-cta .hero-cta-note');if(vctaNote)vctaNote.textContent=d.voicesNote||d.heroNote;
   // pill translations
   const pillTextsMap={
-    en:['Zero analytics. Zero trackers. Not a single pixel knows you were here.',
-        "Your reading is sacred. We don't know what you read, and we never will.",
-        'ALINEA lives entirely on your device. No server, no cloud. Ever.',
-        'Your entire galaxy as a portable JSON. Take it anywhere, forever.',
-        'One payment. No renewals. No one can shut it down or lock you out.'],
-    es:['Sin analíticas. Sin rastreadores. Ni un pixel sabe que estuviste aquí.',
-        'Tu lectura es sagrada. No sabemos qué lees, y nunca lo sabremos.',
-        'ALINEA vive completamente en tu dispositivo. Sin servidor, sin nube. Nunca.',
-        'Tu galaxia entera como JSON portable. Llévala a donde quieras, siempre.',
-        'Un pago. Sin renovaciones. Nadie puede apagarlo ni bloquearte el acceso.']
+    en:['Zero analytics. Zero trackers. We genuinely don\'t know you were here.',
+        "Your reading life is yours. We don't know what you read, and we never will.",
+        'No server. No cloud. No subscription holding your data hostage. Ever.',
+        'Export your entire galaxy anytime. Your knowledge travels with you, forever.',
+        'One payment. No renewals. No one can take it away — not even if we disappear.'],
+    es:['Sin analíticas. Sin rastreadores. Genuinamente no sabemos que estuviste aquí.',
+        'Tu vida lectora es tuya. No sabemos qué lees, y nunca lo sabremos.',
+        'Sin servidor. Sin nube. Sin suscripción reteniendo tus datos. Nunca.',
+        'Exporta tu galaxia cuando quieras. Tu conocimiento viaja contigo, siempre.',
+        'Un pago. Sin renovaciones. Nadie puede quitártelo — ni aunque desaparezcamos.']
   };
   const pillTxts=pillTextsMap[curLang]||pillTextsMap.en;
   document.querySelectorAll('.pill-btn').forEach((btn,i)=>{
@@ -1831,7 +1849,7 @@ function setLang(l,btn){
   document.querySelectorAll('.pc-feats span[data-en]').forEach(el=>{el.textContent=el.getAttribute('data-'+curLang)||el.getAttribute('data-en');});
   // pricing
   const pEye=document.querySelector('#pricing .eyebrow');if(pEye)pEye.textContent=d.priceEye;
-  const pHead=document.querySelector('#pricing .section-head');if(pHead)pHead.innerHTML=curLang==='es'?'Paga una vez.<br><em>Es tuyo para siempre.</em>':'Pay once.<br><em>Yours forever.</em>';
+  const pHead=document.querySelector('#pricing .section-head');if(pHead)pHead.innerHTML=curLang==='es'?'Un pago.<br><em>Guarda todo lo que lees. Para siempre.</em>':'One payment.<br><em>Keep everything you read. Forever.</em>';
   // pricing buttons
   const bfp=document.getElementById('btnFreeP');if(bfp)bfp.textContent=curLang==='es'?'Probar Beta Gratis →':'Try Beta Free →';
   const bpp=document.getElementById('btnProP');if(bpp)bpp.textContent=curLang==='es'?'Adquirir ALINEA Pro →':'Get ALINEA Pro →';
@@ -1884,7 +1902,7 @@ function setLang(l,btn){
   const fqAen=[
     'Beta is completely free. Go to the checkout page, enter your email — it\'s $0, no card required. You\'ll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you\'re ready to go.',
     'Click "Get ALINEA Pro" and you\'ll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You\'ll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.',
-    'Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update is included.',
+    'Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update arrives on its own — nothing to install, nothing to renew.',
     "ALINEA works on modern browsers and can be installed like an app on iPhone, Android and desktop. It's a single HTML file — no App Store needed. Since ALINEA is local-first, the only limit on books and notes is your device's available storage.",
     'Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.',
     "Knowledge shouldn't feel rented. Buy ALINEA once and keep your universe forever.",
@@ -2188,13 +2206,16 @@ function setLang(l,btn){
   dots.forEach((d,i)=>d.addEventListener('click',()=>{cur=i;update();resetTimer();}));
 })();
 (function(){
-  let cur=0;const subs=document.querySelectorAll('.hero-sub');
-  if(!subs.length)return;
-  setInterval(()=>{
-    subs[cur].classList.remove('active');
-    cur=(cur+1)%subs.length;
-    subs[cur].classList.add('active');
-  },9000);
+  const pairs=[
+    {h:'You read it.<br><em>But where did the idea go?</em>', s:'Highlights lost in a book or Kindle you only opened once.'},
+    {h:'You highlighted it.<br><em>Then what?</em>', s:'Your reading life, mapped.'},
+    {h:'You\'ve read dozens of books.<br><em>But... do you remember any of it?</em>', s:'Connections you never knew existed — across every book, every highlight. Until now.'}
+  ];
+  const pick=pairs[Math.floor(Math.random()*pairs.length)];
+  const hl=document.getElementById('heroHeadline');
+  const sub=document.getElementById('heroSub');
+  if(hl)hl.innerHTML=pick.h;
+  if(sub)sub.textContent=pick.s;
 })();
 
 /* ═══════════════════════════════════════
@@ -2438,10 +2459,10 @@ const _storyPool = {
     { h: 'What if you could\nsee your knowledge?' },
     { h: 'Your books have always been\nspeaking to each other.' },
     { h: 'Your ideas quietly formed patterns\ninvisible to the eye.', s: 'ALINEA lets you finally see them.' },
-    { h: 'Your mind\nbelongs to you.', s: 'No accounts. No servers. No tracking.\nNo selling your data.\nYour galaxy exists only on your device.' },
+    { h: 'Your mind\nbelongs to you.', s: 'Nobody can shut it down.\nNobody can lock you out.\nNot even us.' },
     { h: 'Made from\nreader to reader.' },
     { h: "You don't have to\nshare alone\nyour galaxy.", s: 'ready to share on your favorite social media' },
-    { h: 'Pay once.\nYours forever.' },
+    { h: 'One payment.\nKeep everything you read. Forever.' },
     { h: 'Your galaxy\nis waiting.' },
   ],
   es: [
@@ -2451,7 +2472,7 @@ const _storyPool = {
     { h: 'Tu mente\nte pertenece.', s: 'Sin cuentas. Sin servidores. Sin rastreo.\nSin vender tus datos.\nTu galaxia existe solo en tu dispositivo.' },
     { h: 'Creado de\nlector a lector.' },
     { h: 'No tienes que\ncompartir sola\ntu galaxia.', s: 'lista para compartir en tus redes sociales favoritas' },
-    { h: 'Paga una vez.\nEs tuyo para siempre.' },
+    { h: 'Un pago.\nGuarda todo lo que lees. Para siempre.' },
     { h: 'Tu galaxia\nte espera.' },
   ]
 };
