@@ -151,7 +151,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 .hero-pair.active-pair{opacity:1;pointer-events:auto;}
 .hero-hl{
   font-family:'Playfair Display',serif;font-weight:900;
-  font-size:clamp(2.6rem,4.5vw,4.2rem);line-height:1.06;letter-spacing:-.025em;
+  font-size:clamp(2.6rem,8vw,5.5rem);line-height:1.06;letter-spacing:-.025em;
   color:var(--text);margin:0;
 }
 .hero-hl em{font-style:italic;font-weight:400;color:var(--a2);}
@@ -727,7 +727,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   #voices{padding:10vh 5% !important;}
   #share{padding:10vh 5% !important;}
   #pricing{padding:10vh 5% !important;}
-  #faq{padding:10vh 5% !important;}
+  #faq{padding:10vh 8% !important;}
   #finale{padding:14vh 5% !important;}
 
   /* global padding for all sections on mobile */
@@ -1041,7 +1041,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <div class="conn-grid" style="grid-template-columns:1fr;max-width:680px;margin:0 auto;">
     <div class="conn-text">
       <span class="eyebrow" id="connEyebrow">The problem every reader has</span>
-      <h2 class="conn-head" id="connHead">You read. You highlight.<br><em>Then it disappears.</em></h2>
+      <h2 class="conn-head" id="connHead">You read. You highlight.<br><em>Then it “disappears.”</em></h2>
       <div class="conn-line-1" id="connLine1">The average reader finishes twelve books a year.<br>And remembers almost none of them.</div>
       <div class="conn-lines">
         <p id="connLine2">It's not your fault — your ideas simply had nowhere to live.<br><span id="connLine3"><span class="conn-alinea">ALINEA</span> gives them a space where all your knowledge finally connects.</span></p>
@@ -1148,7 +1148,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <section id="privacy">
   <div class="ri" style="text-align:center;max-width:760px;margin:0 auto;">
     <h2 class="priv-head" id="privHead">Your mind<br><em>belongs to you.</em></h2>
-    <p class="priv-sub">It's a lifetime file. Updates arrive on their own. No server, no account.<br>Your galaxy lives on your device — and only your device.</p>
+    <p class="priv-sub">It's a lifetime file. Updates arrive on their own.<br>No server, no account. Your galaxy lives on your device and only your device.</p>
     <div class="pills-grid">
       <button class="pill-btn" style="--dur:5.5s;--delay:0s" id="pill0" data-label-en="🔍 No tracking" data-label-es="🔍 Sin rastreo" onclick="togglePill(this)">🔍 No tracking<div class="pill-popup">Zero analytics. Zero trackers. We genuinely don't know you were here.</div></button>
       <button class="pill-btn" style="--dur:6.2s;--delay:.8s" id="pill1" data-label-en="🚫 No data selling" data-label-es="🚫 Sin vender datos" onclick="togglePill(this)">🚫 No data selling<div class="pill-popup">Your reading life is yours. We don't know what you read, and we never will.</div></button>
@@ -1281,7 +1281,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <div class="pricing-inner">
     <div class="ri" style="text-align:center;">
       <span class="eyebrow">Pricing</span>
-      <h2 class="section-head">One payment.<br><em>Keep everything you read. Forever.</em></h2>
+      <h2 class="section-head">One payment.<br><em>Yours forever.</em></h2>
     </div>
     <div class="price-grid">
       <div class="pc free ri">
@@ -1382,8 +1382,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <h2 class="section-head">Everything<br><em>you want to know.</em></h2>
   </div>
   <div class="faq-inner">
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq3">Does ALINEA work on my device?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa3">Yes — iPhone, Android, desktop and tablet. We recommend installing it as a WebApp (PWA): on iPhone tap Share → "Add to Home Screen", on Android tap the menu → "Install app". It works just like a native app, no App Store needed. Since ALINEA is local-first, the only limit on books and notes is your device's available storage.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq0">How do I download ALINEA Beta?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa0">Beta is completely free. Go to the checkout page, enter your email — it's $0, no card required. You'll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you're ready to go.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq3">Does ALINEA work on my device?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa3">ALINEA works on any browser and can be installed like an app on iPhone, Android and desktop. It's a single file — no App Store needed. Since ALINEA is local-first, the only limit on books and notes is your device's available storage.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq0">How do I download ALINEA Beta?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa0">Beta is completely free. Click the button, enter your email — it's $0, no card required. You'll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you're good to go.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq2">Is ALINEA really a one-time purchase?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa2">Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update arrives on its own — nothing to install, nothing to renew.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq1">How do I get ALINEA Pro?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa1">Click "Get ALINEA Pro" and you'll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You'll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq4">Where is my data stored?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa4">Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.</div></div>
@@ -1393,8 +1393,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
       <div style="padding-top:.5rem;">
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq6">Can I import highlights from Kindle or Goodreads?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa6">Not yet — but it's coming. Kindle and Goodreads import is on the roadmap for ALINEA Pro. For now, you can add your highlights manually or by dictation directly inside the app.</div></div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq7">Why doesn't ALINEA require an account?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa7">Because your reading life belongs to you — not to a platform. Your purchase generates a unique key that unlocks your local database.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq8">Can I back up my library?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa8">Yes. You can export your entire galaxy as JSON anytime. We recommend creating regular backups of your library.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq9">What happens to my data if I stop using ALINEA?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa9">Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, everything stays exactly where you left it. Your galaxy is yours, forever.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq8">Can I back up my library?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa8">Yes. You can export your entire galaxy as a (.JSON) file anytime. We recommend creating regular backups of your library.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq9">What happens to my data if I stop using ALINEA?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa9">Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, or we do, everything stays exactly where you left it. Your galaxy is yours, forever.</div></div>
     </div>
     </div>
     <div class="faq-item"><div class="faq-q" onclick="tFaq(this)"><span class="fq-t" id="fq10">Is ALINEA a company?</span><div class="fq-ico">+</div></div><div class="faq-a" id="fa10"></div></div>
@@ -1652,7 +1652,7 @@ const T={
     catPersonal:'💡 Self-Development',catNegocios:'💰 Business',catLit:'📖 Literature',catFan:'🔮 Fantasy',catSci:'🚀 Sci-Fi',
     howEye:'How ALINEA works',howH:'Four steps. One galaxy.',
     connEye:'The problem every reader has',
-    connHead:'You read. You highlight.<br><em>Then it disappears.</em>',
+    connHead:'You read. You highlight.<br><em>Then it “disappears.”</em>',
     connLine1:'The average reader finishes twelve books a year.<br>And remembers almost none of them.',
     connLine2:'It\'s not your fault — your ideas simply had nowhere to live.<br><span class="conn-alinea">ALINEA</span> gives them a space where all your knowledge finally connects.',
     connLine3:'',
@@ -1661,14 +1661,14 @@ const T={
     slide3title:'Your galaxy forms itself.',slide3desc:"Your books connect automatically — themes, ideas and patterns emerge on their own. The Book Explorer lets you search and navigate every connection in depth. Available in Beta & Pro.",
     slide4title:'Your flight log.',slide4desc:'The Bitácora shows your reading stats, top keywords and galaxy density. The Advanced Bitácora — with full reports and deep analytics — is available in Pro.',
     privHead:'Your mind belongs to you.',
-    privSub:'It\'s a lifetime single HTML file. No server. No account. Just yours.\nYour galaxy lives on your device — and only your device.',
+    privSub:'It\'s a lifetime file. Updates arrive on their own.<br>No server, no account. Your galaxy lives on your device and only your device.',
     privMicro:'We recommend creating regular backups of your galaxy.',
     privMicroPro:'ALINEA Pro reminds you automatically to do your backup — daily, weekly or monthly.',
     voicesEye:'Readers who found a home for their ideas',
     voicesH:'What happens when someone sees their galaxy for the first time.',
     voicesCta:"Download Beta — it's free",
     voicesNote:'No sign-up · 7 books · Yours forever',
-    priceEye:'Pricing',priceH:'One payment. Keep everything you read. Forever.',
+    priceEye:'Pricing',priceH:'One payment. Yours forever.',
     faqH:'Everything you want to know.',
     finaleH:'Your galaxy is waiting.',
     finaleSub:'Build your universe of ideas.\nOne book at a time.',
@@ -1692,7 +1692,7 @@ const T={
   },
   es:{
     navCta:'Obtener Pro',
-    heroCta:'Probar Beta Gratis — Solo tu correo',
+    heroCta:'Probar Beta Gratis',
     heroProCta:'Obtener Pro ahora — $59 USD (Early Bird termina Jun 15)',
     h1a:'Lo leíste.',h1b:'¿Pero a dónde fue la idea?',
     heroMicro:'Tu información, solo tuya. Sin cuenta, sin suscripción.<br>Tu conocimiento en ALINEA de por vida.',
@@ -1703,7 +1703,7 @@ const T={
     catPersonal:'💡 Desarrollo Personal',catNegocios:'💰 Negocios',catLit:'📖 Literatura',catFan:'🔮 Fantasía',catSci:'🚀 Ciencia Ficción',
     howEye:'Cómo funciona ALINEA',howH:'Cuatro pasos. Una galaxia.',
     connEye:'El problema de todo lector',
-    connHead:'Lees. Subrayas.<br><em>Y luego desaparece.</em>',
+    connHead:'Lees. Subrayas.<br><em>Y luego “desaparece”.</em>',
     connLine1:'El lector promedio termina doce libros al año.<br>Y recuerda casi ninguno.',
     connLine2:'No es culpa tuya — tus ideas simplemente no tenían dónde vivir.<br><span class="conn-alinea">ALINEA</span> les da un espacio que deja ver cómo todo tu conocimiento se conecta.',
     connLine3:'',
@@ -1712,14 +1712,14 @@ const T={
     slide3title:'Tu galaxia se forma sola.',slide3desc:'Tus libros se conectan automáticamente — temas, ideas y patrones emergen solos. El Explorador de libros te permite navegar cada conexión en profundidad. Disponible en Beta & Pro.',
     slide4title:'Tu bitácora de vuelo.',slide4desc:'La Bitácora muestra tus estadísticas, keywords principales y densidad de tu galaxia. La Bitácora Avanzada — con reportes completos y analítica profunda — es exclusiva de Pro.',
     privHead:'Tu mente te pertenece.',
-    privSub:'Es un archivo de por vida. Las actualizaciones llegan solas. Sin servidor, sin cuenta.\nTu galaxia vive en tu dispositivo — y solo en tu dispositivo.',
+    privSub:'Es un archivo de por vida. Las actualizaciones llegan solas.<br>Sin servidor, sin cuenta. Tu galaxia vive en tu dispositivo y solo en tu dispositivo.',
     privMicro:'Te recomendamos crear respaldos regulares de tu galaxia.',
     privMicroPro:'ALINEA Pro te recuerda automáticamente hacer tu respaldo — diario, semanal o mensual.',
     voicesEye:'Lectores que encontraron un hogar para sus ideas',
     voicesH:'Lo que pasa cuando alguien ve su galaxia por primera vez.',
     voicesCta:'Descarga Beta — es gratis',
     voicesNote:'Sin registro · 7 libros · Tuya para siempre',
-    priceEye:'Precios',priceH:'Un pago. Guarda todo lo que lees. Para siempre.',
+    priceEye:'Precios',priceH:'Un pago. Tuyo para siempre.',
     faqH:'Todo lo que quieres saber.',
     finaleH:'Tu galaxia te espera.',
     finaleSub:'Construye tu universo de ideas.\nUn libro a la vez.',
@@ -1802,7 +1802,7 @@ function setLang(l,btn){
   if(slideTitles[3])slideTitles[3].textContent=d.slide4title;if(slideDescs[3])slideDescs[3].textContent=d.slide4desc;
   // privacy
   const ph=document.getElementById('privHead');if(ph)ph.innerHTML=curLang==='es'?'Tu mente<br><em>te pertenece.</em>':'Your mind<br><em>belongs to you.</em>';
-  const ps=document.querySelector('.priv-sub');if(ps)ps.innerHTML=d.privSub.replace('\n','<br>');
+  const ps=document.querySelector('.priv-sub');if(ps)ps.innerHTML=d.privSub;
   const pm=document.querySelector('.priv-micro');if(pm)pm.textContent=d.privMicro;
   const pmp=document.getElementById('privMicroProTxt');if(pmp)pmp.textContent=d.privMicroPro;
   const bfb=document.getElementById('backupFeatBeta');if(bfb)bfb.textContent=curLang==='es'?'Recordatorios de respaldo (sincronización calendario)':'Backup reminders (calendar sync)';
@@ -1872,7 +1872,7 @@ function setLang(l,btn){
   document.querySelectorAll('.pc-feats span[data-en]').forEach(el=>{el.textContent=el.getAttribute('data-'+curLang)||el.getAttribute('data-en');});
   // pricing
   const pEye=document.querySelector('#pricing .eyebrow');if(pEye)pEye.textContent=d.priceEye;
-  const pHead=document.querySelector('#pricing .section-head');if(pHead)pHead.innerHTML=curLang==='es'?'Un pago.<br><em>Guarda todo lo que lees. Para siempre.</em>':'One payment.<br><em>Keep everything you read. Forever.</em>';
+  const pHead=document.querySelector('#pricing .section-head');if(pHead)pHead.innerHTML=curLang==='es'?'Un pago.<br><em>Tuyo para siempre.</em>':'One payment.<br><em>Yours forever.</em>';
   // pricing buttons
   const bfp=document.getElementById('btnFreeP');if(bfp)bfp.textContent=curLang==='es'?'Probar Beta Gratis →':'Try Beta Free →';
   const bpp=document.getElementById('btnProP');if(bpp)bpp.textContent=curLang==='es'?'Adquirir ALINEA Pro →':'Get ALINEA Pro →';
@@ -1897,17 +1897,17 @@ function setLang(l,btn){
     '¿ALINEA es una empresa?'
   ];
   const fqA=[
-    'La Beta es completamente gratis. Ve al checkout, ingresa tu correo — cuesta $0, sin tarjeta. Recibirás un correo de confirmación con el link para abrir ALINEA directo en tu navegador. Instálala como app desde ahí y listo.',
+    'La Beta es completamente gratis. Da click en el botón, ingresa tu correo — cuesta $0, sin tarjeta. Recibirás un correo de confirmación con el link para abrir ALINEA directo en tu navegador. Instálala como app desde ahí y listo.',
     'Haz click en "Obtener ALINEA Pro" y llegarás al checkout. Paga una vez vía Lemon Squeezy — seguro e instantáneo. Recibirás una clave de licencia por correo. Abre ALINEA, ve a Configuración, ingresa tu clave y tu galaxia completa se desbloquea al instante.',
     'Sí. Lo compras una vez y lo tienes para siempre. Sin suscripciones, sin renovaciones. Cada actualización futura está incluida.',
-    'ALINEA funciona en navegadores modernos y puede instalarse como app en iPhone, Android y escritorio. Es un solo archivo HTML — sin App Store. Al ser local-first, el único límite de libros y notas es el almacenamiento disponible en tu dispositivo.',
+    'ALINEA funciona en cualquier navegador y puede instalarse como app en iPhone, Android y escritorio. Es un solo archivo — sin App Store. Al ser local-first, el único límite de libros y notas es el almacenamiento disponible en tu dispositivo.',
     'Tu biblioteca vive completamente en tu dispositivo. ALINEA no tiene servidores. Nadie puede acceder ni rastrear tus datos — ni nosotros.',
     'El conocimiento no debería sentirse rentado. Compra ALINEA una vez y conserva tu universo para siempre.',
     'Todavía no — pero está en camino. La importación desde Kindle y Goodreads está en el roadmap de ALINEA Pro. Por ahora puedes agregar tus highlights manualmente o por dictado directamente en la app.',
     'Porque tu vida de lectura te pertenece a ti — no a una plataforma. Tu compra genera una clave única que desbloquea tu base de datos local.',
     'Sí. Puedes exportar tu galaxia completa como JSON en cualquier momento. Te recomendamos crear respaldos regulares de tu biblioteca.',
     'Nada cambia. Tus datos viven en tu dispositivo — no en nuestros servidores. Si dejas de usar ALINEA, todo sigue exactamente donde lo dejaste. Tu galaxia es tuya, para siempre.',
-    'No — solo una persona. Miguel Valdez es el fundador de ALINEA. Nació de una necesidad personal: una forma más silenciosa y hermosa de entender las conexiones invisibles entre sus libros, notas, subrayados e ideas dispersas sobre el escritorio y los libreros. Creó ALINEA de lector a lector. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
+    'No es una empresa — es un proyecto personal. Todo empezó como una idea (¡Hola por cierto! jajaja Soy Miguel Valdez) para encontrar la forma de tener mis libros en un solo lugar e intentar conectarlos, para ver cómo todo lo que había subrayado se relacionaba entre sí. Así nació ALINEA, que ahora es capaz de crear una galaxia de conexiones totalmente personalizada. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
   ];
   const fqQen=[
     'How do I download ALINEA Beta?',
@@ -1926,14 +1926,14 @@ function setLang(l,btn){
     'Beta is completely free. Go to the checkout page, enter your email — it\'s $0, no card required. You\'ll get a confirmation email with the link to open ALINEA directly in your browser. Install it as an app from there and you\'re ready to go.',
     'Click "Get ALINEA Pro" and you\'ll go to the checkout. Pay once via Lemon Squeezy — secure and instant. You\'ll receive a license key by email. Open ALINEA, go to Settings, enter your key and your full galaxy unlocks immediately.',
     'Yes. Buy it once and keep it forever. No subscriptions, no renewals. Every future update arrives on its own — nothing to install, nothing to renew.',
-    "ALINEA works on modern browsers and can be installed like an app on iPhone, Android and desktop. It's a single HTML file — no App Store needed. Since ALINEA is local-first, the only limit on books and notes is your device's available storage.",
+    "ALINEA works on any browser and can be installed like an app on iPhone, Android and desktop. It's a single file — no App Store needed. Since ALINEA is local-first, the only limit on books and notes is your device's available storage.",
     'Your library lives entirely on your device. ALINEA has no servers. No one can access or track your data — not even us.',
     "Knowledge shouldn't feel rented. Buy ALINEA once and keep your universe forever.",
     'Not yet — but it\'s coming. Kindle and Goodreads import is on the roadmap for ALINEA Pro. For now, you can add your highlights manually or by dictation directly inside the app.',
     'Because your reading life belongs to you — not to a platform. Your purchase generates a unique key that unlocks your local database.',
-    'Yes. You can export your entire galaxy as JSON anytime. We recommend creating regular backups of your library.',
-    'Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, everything stays exactly where you left it. Your galaxy is yours, forever.',
-    'No — just one person. Miguel Valdez is the founder of ALINEA. It started as a personal need: a quieter and more beautiful way to understand the invisible connections between his books, notes, highlights, and ideas sitting across the desk and bookshelves. He created ALINEA from reader to reader. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
+    'Yes. You can export your entire galaxy as a (.JSON) file anytime. We recommend creating regular backups of your library.',
+    'Nothing changes. Your data lives on your device — not on our servers. If you stop using ALINEA, or we do, everything stays exactly where you left it. Your galaxy is yours, forever.',
+    'Not a company — a personal project. It all started as an idea (Hi by the way! haha I\'m Miguel Valdez) to find a way to keep my books in one place and connect them, to see how everything I had highlighted related to each other. That\'s how ALINEA was born — now capable of creating a fully personalized galaxy of connections. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
   ];
   const qArr=curLang==='es'?fqQ:fqQen;const aArr=curLang==='es'?fqA:fqAen;
   qArr.forEach((q,i)=>{const el=document.getElementById('fq'+i);if(el)el.textContent=q;});
@@ -1944,8 +1944,8 @@ function setLang(l,btn){
       if(el){
         const isES=curLang==='es';
         el.innerHTML=isES
-          ?'No, fue y es elaborado únicamente por Miguel Valdez. Con el objetivo de poder hacer visible lo invisible — las conexiones que siempre existieron entre sus libros, notas, subrayados dispersos sobre su escritorio y libreros. Lo que se formó poco a poco como un santuario personal ahora está disponible para cada lector que también quiera explorar y descubrir más sobre las conexiones entre sus libros. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
-          :'No, it was and is built solely by Miguel Valdez. With the goal of making the invisible visible — the connections that always existed between his books, notes, and highlights scattered across his desk and bookshelves. What slowly formed as a personal sanctuary is now available to every reader who also wants to explore and discover more about the connections between their books. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>';
+          ?'No es una empresa — es un proyecto personal. Todo empezó como una idea (¡Hola por cierto! jajaja Soy Miguel Valdez) para encontrar la forma de tener mis libros en un solo lugar e intentar conectarlos, para ver cómo todo lo que había subrayado se relacionaba entre sí. Así nació ALINEA, que ahora es capaz de crear una galaxia de conexiones totalmente personalizada. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>'
+          :'Not a company — a personal project. It all started as an idea (Hi by the way! haha I\'m Miguel Valdez) to find a way to keep my books in one place and connect them, to see how everything I had highlighted related to each other. That\'s how ALINEA was born — now capable of creating a fully personalized galaxy of connections. <a href="https://instagram.com/miguel_valdez1" target="_blank" style="color:var(--a2);text-decoration:none;">@miguel_valdez1</a>';
       }
       return;
     }
@@ -2481,7 +2481,7 @@ const _storyPool = {
     { h: 'Your mind\nbelongs to you.', s: 'Nobody can shut it down.\nNobody can lock you out.\nNot even us.' },
     { h: 'Made from\nreader to reader.' },
     { h: "You don't have to\nshare alone\nyour galaxy.", s: 'ready to share on your favorite social media' },
-    { h: 'One payment.\nKeep everything you read. Forever.' },
+    { h: 'One payment.\nYours forever.' },
     { h: 'Your galaxy\nis waiting.' },
   ],
   es: [
