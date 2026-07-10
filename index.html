@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://alinea.work">
 <meta property="og:title" content="ALINEA — Tu galaxia personal de conocimiento">
 <meta property="og:description" content="Guarda tus libros, notas y subrayados — y míralos conectarse en una galaxia interactiva. Sin cuenta, sin suscripción, 100% tuyo.">
-<link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-orb.png">
+<link rel="icon" id="favOrb" type="image/png" href="">
 <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-orb.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/asset-og.png">
 <!-- Twitter Card -->
@@ -1256,6 +1256,33 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   .pd-dot{width:7px;height:7px;border-radius:50%;background:rgba(139,92,246,.25);border:none;padding:0;cursor:pointer;transition:all .3s;}
   .pd-dot.on{background:var(--a2);width:20px;border-radius:4px;}
 }
+
+/* ═══ SHARE DEMO — tap + share sheet estilo iOS ═══ */
+.ssheet{position:absolute;bottom:0;left:50%;transform:translate(-50%,108%);width:292px;max-width:92%;background:rgba(242,242,247,.97);border-radius:18px 18px 0 0;padding:.5rem .8rem .8rem;z-index:6;pointer-events:none;transition:transform .55s cubic-bezier(.32,.72,.35,1);box-shadow:0 -8px 40px rgba(0,0,0,.45);}
+.ssheet.up{transform:translate(-50%,0);}
+.ss-grab{width:36px;height:4px;border-radius:2px;background:#c7c7cc;margin:0 auto .5rem;}
+.ss-file{display:flex;align-items:center;gap:.5rem;padding-bottom:.5rem;border-bottom:1px solid #d1d1d6;}
+.ss-fico{font-size:1.15rem;}
+.ss-file span b{display:block;font-family:'Lato',sans-serif;font-size:.72rem;color:#111;font-weight:700;}
+.ss-file span i{display:block;font-style:normal;font-family:'Lato',sans-serif;font-size:.58rem;color:#6e6e73;}
+.ss-x{margin-left:auto;width:20px;height:20px;border-radius:50%;background:#e3e3e8;color:#7c7c82;font-size:.55rem;display:flex;align-items:center;justify-content:center;}
+.ss-apps{display:flex;justify-content:space-between;padding:.6rem .2rem;border-bottom:1px solid #d1d1d6;}
+.ss-app{display:flex;flex-direction:column;align-items:center;gap:.25rem;font-family:'Lato',sans-serif;font-size:.5rem;color:#111;}
+.ss-app i{font-style:normal;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;}
+.ss-acts{display:flex;gap:1.6rem;justify-content:center;padding-top:.55rem;}
+.ss-act{display:flex;flex-direction:column;align-items:center;gap:.2rem;}
+.ss-act i{font-style:normal;width:30px;height:30px;border-radius:50%;background:#e3e3e8;color:#333;display:flex;align-items:center;justify-content:center;font-size:.8rem;}
+.ss-act em{font-style:normal;font-family:'Lato',sans-serif;font-size:.5rem;color:#111;}
+.ss-press{transform:scale(.92)!important;box-shadow:0 0 34px rgba(139,92,246,.85)!important;}
+.ss-ring{position:absolute;left:50%;top:50%;width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,255,255,.9);transform:translate(-50%,-50%) scale(.4);opacity:0;pointer-events:none;}
+.ss-ring.go{animation:ssRing 1s ease forwards;}
+@keyframes ssRing{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}30%{opacity:.9}100%{opacity:0;transform:translate(-50%,-50%) scale(1.7)}}
+
+/* nota bajo la demo del teléfono */
+.pd-note{text-align:center;margin-top:2.4rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:rgba(196,181,253,.45);line-height:2.2;padding:0 6%;}
+.pd-note i{font-style:normal;color:rgba(139,92,246,.35);padding:0 .3rem;}
+.pd-note a{color:var(--a2);text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(139,92,246,.35);padding-bottom:1px;transition:all .3s;}
+.pd-note a:hover{color:#fff;border-color:var(--a2);text-shadow:0 0 12px rgba(139,92,246,.6);}
 </style>
 </head>
 <body>
@@ -1351,8 +1378,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
             <div class="pda-bt" id="pdBt2">Steve Jobs</div><div class="pda-ba">Walter Isaacson</div>
           </div>
           <div class="pda-book" style="--bd:1.15s">
-            <div class="pda-cover"><img class="pda-cvimg" src="https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg" alt="" loading="lazy" onerror="this.remove()"><i class="pda-spine"></i><b class="pda-nb">9</b><span class="pda-ci">📖</span><span class="pda-ct" id="pdBc3">La Psicología del Dinero</span></div>
-            <div class="pda-bt" id="pdBt3">La Psicología del Dinero</div><div class="pda-ba">Morgan Housel</div>
+            <div class="pda-cover"><img class="pda-cvimg" src="https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg" alt="" loading="lazy" onerror="this.remove()"><i class="pda-spine"></i><b class="pda-nb">9</b><span class="pda-ci">📖</span><span class="pda-ct" id="pdBc3">Sapiens</span></div>
+            <div class="pda-bt" id="pdBt3">Sapiens</div><div class="pda-ba">Yuval Noah Harari</div>
           </div>
         </div>
         <div class="pd-fabwrap" id="pdFabWrap">
@@ -1519,12 +1546,18 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <div class="pd-steps">
       <div class="pd-step on"><div class="pd-num">01</div><div style="flex:1"><div class="pd-st" id="pdSt0">Agrega tus libros</div><div class="pd-sd" id="pdSd0">Tu biblioteca con portadas, ratings y notas.</div><div class="pd-bar"><i></i></div></div></div>
       <div class="pd-step"><div class="pd-num">02</div><div style="flex:1"><div class="pd-st" id="pdSt1">Escribe lo que te marca</div><div class="pd-sd" id="pdSd1">Subrayados, citas y keywords en cada libro.</div><div class="pd-bar"><i></i></div></div></div>
-      <div class="pd-step"><div class="pd-num">03</div><div style="flex:1"><div class="pd-st" id="pdSt2">Tu galaxia se forma sola</div><div class="pd-sd" id="pdSd2">Libros y categorías orbitando, conectados por ideas.</div><div class="pd-bar"><i></i></div></div></div>
-      <div class="pd-step"><div class="pd-num">04</div><div style="flex:1"><div class="pd-st" id="pdSt3">Explora tus ideas</div><div class="pd-sd" id="pdSd3">Busca un concepto y ve dónde aparece en todo lo que leíste.</div><div class="pd-bar"><i></i></div></div></div>
-      <div class="pd-step"><div class="pd-num">05</div><div style="flex:1"><div class="pd-st" id="pdSt4">Tu bitácora de vuelo</div><div class="pd-sd" id="pdSd4">Estadísticas, top keywords y reportes de tu galaxia.</div><div class="pd-bar"><i></i></div></div></div>
+      <div class="pd-step"><div class="pd-num">03</div><div style="flex:1"><div class="pd-st" id="pdSt2">Tu galaxia se forma sola</div><div class="pd-sd" id="pdSd2">Observa cómo tus libros llevaban años hablando entre sí — conexiones que nunca habías visto.</div><div class="pd-bar"><i></i></div></div></div>
+      <div class="pd-step"><div class="pd-num">04</div><div style="flex:1"><div class="pd-st" id="pdSt3">Explora tus ideas</div><div class="pd-sd" id="pdSd3">Recuerda y encuentra cualquier concepto, frase o palabra clave en todo lo que has leído.</div><div class="pd-bar"><i></i></div></div></div>
+      <div class="pd-step"><div class="pd-num">05</div><div style="flex:1"><div class="pd-st" id="pdSt4">Tu bitácora de vuelo</div><div class="pd-sd" id="pdSd4">El resumen de toda tu vida lectora: tu sistema más denso, tu top 5 y reportes.</div><div class="pd-bar"><i></i></div></div></div>
       <div class="pd-step"><div class="pd-num">06</div><div style="flex:1"><div class="pd-st" id="pdSt5">Hazla tuya</div><div class="pd-sd" id="pdSd5">7 temas de color y respaldo de tu universo en un archivo.</div><div class="pd-bar"><i></i></div></div></div>
     </div>
   </div>
+  <p class="pd-note">
+    <span id="pdDn0">✦ Esta es una demostración interactiva — la app real es aún mejor.</span><br>
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/475bad81-f3c3-4938-85b9-12a2ef806932?embed=1" class="lemonsqueezy-button" id="pdNoteBeta">Prueba la Beta gratis</a>
+    <i>·</i>
+    <a href="https://alinea.lemonsqueezy.com/checkout/buy/555b38d3-d516-4b04-a9f4-3c7a9b43c78c" class="lemonsqueezy-button" id="pdNotePro">Consigue Pro</a>
+  </p>
 </section>
 
 <div class="dv"></div>
@@ -1642,13 +1675,32 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           <div class="share-card" data-index="2">
             <img src="https://raw.githubusercontent.com/alinea-io/alinea-landing/main/alinea-quote.PNG" alt="Quote story" loading="lazy">
           </div>
+          <!-- share sheet estilo iOS (demo animada) -->
+          <div class="ssheet" id="ssSheet" aria-hidden="true">
+            <div class="ss-grab"></div>
+            <div class="ss-file">
+              <span class="ss-fico">🖼️</span>
+              <span><b>alinea-story</b><i id="ssMeta">Imagen PNG · 1.2 MB</i></span>
+              <span class="ss-x">✕</span>
+            </div>
+            <div class="ss-apps">
+              <span class="ss-app"><i style="background:linear-gradient(180deg,#4da5ff,#0a84ff)">≋</i>AirDrop</span>
+              <span class="ss-app"><i style="background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)">⊙</i>Instagram</span>
+              <span class="ss-app"><i style="background:#25d366">✆</i>WhatsApp</span>
+              <span class="ss-app"><i style="background:#fff;color:#ea4335;border:1px solid #ddd">M</i>Gmail</span>
+            </div>
+            <div class="ss-acts">
+              <span class="ss-act"><i>⧉</i><em id="ssCopy">Copiar</em></span>
+              <span class="ss-act"><i>↓</i><em id="ssSave">Guardar imagen</em></span>
+            </div>
+          </div>
         </div>
         <div class="share-dots">
           <span class="share-dot on"></span>
           <span class="share-dot"></span>
           <span class="share-dot"></span>
         </div>
-        <div style="text-align:center;margin-top:1.8rem;">
+        <div style="text-align:center;margin-top:1.8rem;position:relative;">
           <button id="landingShareStoryBtn" onclick="landingGenerateStory(this)" style="
             font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;
             padding:.85rem 2.2rem;border-radius:50px;
@@ -1659,6 +1711,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
           ">
             <span>✦</span><span id="landingShareStoryLabel">Share Story</span>
           </button>
+          <span class="ss-ring" id="ssRing"></span>
           
         </div>
       </div>
@@ -1871,6 +1924,26 @@ const TH={
   red:{a:'#ef4444',a2:'#fca5a5',a3:'#b91c1c',a4:'#450a0a',rgb:[239,68,68],orb:'radial-gradient(circle at 35% 30%,#ffffff 0%,#fee2e2 14%,#fca5a5 38%,#ef4444 64%,#b91c1c 100%)',gs:'0 0 28px rgba(239,68,68,.4),0 0 70px rgba(185,28,28,.15)'},
 };
 
+function drawFavicon(th){
+  const link=document.getElementById('favOrb');
+  if(!link||!th)return;
+  const s=64,cv=document.createElement('canvas');cv.width=s;cv.height=s;
+  const x=cv.getContext('2d');
+  // halo suave
+  const halo=x.createRadialGradient(s/2,s/2,s*.3,s/2,s/2,s*.5);
+  halo.addColorStop(0,th.a+'55');halo.addColorStop(1,th.a+'00');
+  x.fillStyle=halo;x.fillRect(0,0,s,s);
+  // orbe con brillo arriba-izquierda (igual que .hero-orb)
+  const g=x.createRadialGradient(s*.38,s*.32,s*.04,s*.5,s*.5,s*.46);
+  g.addColorStop(0,'#ffffff');
+  g.addColorStop(.25,th.a2);
+  g.addColorStop(.6,th.a);
+  g.addColorStop(1,th.a4);
+  x.fillStyle=g;
+  x.beginPath();x.arc(s/2,s/2,s*.42,0,Math.PI*2);x.fill();
+  try{link.href=cv.toDataURL('image/png');}catch(e){}
+}
+
 function setTheme(name,dot){
   const th=TH[name];if(!th)return;
   curTheme=name;
@@ -1891,6 +1964,7 @@ function setTheme(name,dot){
     coverEl.style.boxShadow=`0 8px 28px rgba(${th.rgb[0]},${th.rgb[1]},${th.rgb[2]},.35),4px 0 0 rgba(0,0,0,.2)`;
   }
   if(window._setRGB)window._setRGB(...th.rgb);
+  drawFavicon(th);
   // update status bar / browser chrome color
   const mtc=document.getElementById('metaThemeColor');
   if(mtc)mtc.setAttribute('content',`rgb(${Math.round(th.rgb[0]*.18)},${Math.round(th.rgb[1]*.10)},${Math.round(th.rgb[2]*.22)})`);
@@ -2096,9 +2170,9 @@ function setLang(l,btn){
   const pdES=curLang==='es';
   const pdT=pdES
     ?{eyebrow:'Míralo en acción',head:'Así se ve<br><em>tu conocimiento.</em>',
-      steps:[['Agrega tus libros','Tu biblioteca con portadas, ratings y notas.'],['Escribe lo que te marca','Subrayados, citas y keywords en cada libro.'],['Tu galaxia se forma sola','Libros y categorías orbitando, conectados por ideas.'],['Explora tus ideas','Busca un concepto y ve dónde aparece en todo lo que leíste.'],['Tu bitácora de vuelo','Tu sistema más denso, tu top 5 de keywords y reportes.'],['Hazla tuya','Colores, nombre de tu biblioteca y respaldo en un archivo.']],
+      steps:[['Agrega tus libros','Tu biblioteca con portadas, ratings y notas.'],['Escribe lo que te marca','Subrayados, citas y keywords en cada libro.'],['Tu galaxia se forma sola','Observa cómo tus libros llevaban años hablando entre sí — conexiones que nunca habías visto.'],['Explora tus ideas','Recuerda y encuentra cualquier concepto, frase o palabra clave en todo lo que has leído.'],['Tu bitácora de vuelo','El resumen de toda tu vida lectora: tu sistema más denso, tu top 5 y reportes.'],['Hazla tuya','Colores, nombre de tu biblioteca y respaldo en un archivo.']],
       count:'libros',search:'Buscar libros, autores, keywords…',f0:'Todos ▾',f1:'↓ Más reciente ▾',
-      books:['La Vegetariana','The Creative Act','Steve Jobs','La Psicología del Dinero'],
+      books:['La Vegetariana','The Creative Act','Steve Jobs','Sapiens'],
       sec:'Notas & Subrayados',cat:'Personal',pg:'Pág.',cmt:'Comentario (opcional)',dict:'Dictar',cam:'Cámara',
       bmT:'The Creative Act',
       tags:['#creatividad','#arte','#presencia'],kw:'→ Conecta con Steve Jobs y La Psicología del Dinero',
@@ -2115,9 +2189,9 @@ function setLang(l,btn){
       setA:'Color de acento',setD:'Datos · Respaldo',
       bkp:'Guardar Respaldo',dlName:'mi-galaxia.json',setN:'∞ Tu galaxia vive solo en tu dispositivo.',close:'Cerrar',save:'Guardar'}
     :{eyebrow:'See it in action',head:'This is what<br><em>your knowledge looks like.</em>',
-      steps:[['Add your books','Your library with covers, ratings and notes.'],['Write what moves you','Highlights, quotes and keywords in every book.'],['Your galaxy forms itself','Books and categories orbiting, connected by ideas.'],['Explore your ideas','Search a concept and see where it appears across everything you read.'],['Your flight log','Your densest system, your top 5 keywords and reports.'],['Make it yours','Colors, your library name and a one-file backup.']],
+      steps:[['Add your books','Your library with covers, ratings and notes.'],['Write what moves you','Highlights, quotes and keywords in every book.'],['Your galaxy forms itself','Watch your books talk to each other — connections you had never seen.'],['Explore your ideas','Remember and find any concept, quote or keyword across everything you have read.'],['Your flight log','A summary of your entire reading life: your densest system, your top 5 and reports.'],['Make it yours','Colors, your library name and a one-file backup.']],
       count:'books',search:'Search books, authors, keywords…',f0:'All ▾',f1:'↓ Most recent ▾',
-      books:['The Vegetarian','The Creative Act','Steve Jobs','The Psychology of Money'],
+      books:['The Vegetarian','The Creative Act','Steve Jobs','Sapiens'],
       sec:'Notes & Highlights',cat:'Personal',pg:'Page',cmt:'Comment (optional)',dict:'Dictate',cam:'Camera',
       bmT:'The Creative Act',
       tags:['#creativity','#art','#presence'],kw:'→ Connects with Steve Jobs & The Psychology of Money',
@@ -2154,6 +2228,9 @@ function setLang(l,btn){
   pdSet('pdPg',pdT.pg);pdSet('pdCmt',pdT.cmt);pdSet('pdBtnDict',pdT.dict);pdSet('pdBtnCam',pdT.cam);
   pdT.dock.forEach((tg,i)=>pdSet('pdTl'+i,tg));
   pdSet('pdLibName',pdT.lib);pdSet('pdGhint',pdT.hint);
+  pdSet('pdDn0',pdES?'✦ Esta es una demostración interactiva — la app real es aún mejor.':'✦ This is just an interactive taste — the real app is even better.');
+  pdSet('pdNoteBeta',pdES?'Prueba la Beta gratis':'Try the Beta free');
+  pdSet('pdNotePro',pdES?'Consigue Pro':'Get Pro');
   pdT.fabs.forEach((t2,i)=>pdSet('pdFo'+i,t2));
   pdSet('pdWlT',pdT.wlT);pdSet('pdWlS',pdT.wlS);pdSet('pdWlE',pdT.wlE);pdSet('pdWlQ',pdT.wlQ);
   pdT.wlF.forEach((t2,i)=>pdSet('pdWlF'+i,t2));
@@ -2409,6 +2486,9 @@ function setLang(l,btn){
   if(shDescs[1])shDescs[1].textContent=d.shareF2desc;
   if(shTitles[2])shTitles[2].textContent=d.shareF3title;
   if(shDescs[2])shDescs[2].textContent=d.shareF3desc;
+  const ssM=document.getElementById('ssMeta');if(ssM)ssM.textContent=curLang==='es'?'Imagen PNG · 1.2 MB':'PNG Image · 1.2 MB';
+  const ssS=document.getElementById('ssSave');if(ssS)ssS.textContent=curLang==='es'?'Guardar imagen':'Save image';
+  const ssC=document.getElementById('ssCopy');if(ssC)ssC.textContent=curLang==='es'?'Copiar':'Copy';
   // countdown unit labels
   document.querySelectorAll('.promo-unit').forEach((el,i)=>{
     const units=[d.countdownDays,d.countdownHours,d.countdownMin,d.countdownSec];
@@ -3202,6 +3282,38 @@ window.addEventListener('beforeunload', () => {
 })();
 
 /* ═══════════════════════════════════════
+   SHARE DEMO — tap en Compartir Story → share sheet iOS
+═══════════════════════════════════════ */
+(function(){
+  const sheet=document.getElementById('ssSheet');
+  const btn=document.getElementById('landingShareStoryBtn');
+  const ring=document.getElementById('ssRing');
+  const sec=document.getElementById('share');
+  if(!sheet||!btn||!sec)return;
+  let run=false,loop=null,ts=[];
+  function reset(){
+    ts.forEach(clearTimeout);ts=[];
+    sheet.classList.remove('up');
+    btn.classList.remove('ss-press');
+    if(ring)ring.classList.remove('go');
+  }
+  function cycle(){
+    if(!run)return;
+    if(ring){ring.classList.remove('go');void ring.offsetWidth;ring.classList.add('go');}
+    ts.push(setTimeout(()=>btn.classList.add('ss-press'),550));
+    ts.push(setTimeout(()=>{btn.classList.remove('ss-press');sheet.classList.add('up');},900));
+    ts.push(setTimeout(()=>sheet.classList.remove('up'),6300));
+  }
+  const io=new IntersectionObserver(en=>{
+    en.forEach(e=>{
+      if(e.isIntersecting&&!run){run=true;setTimeout(cycle,800);loop=setInterval(cycle,9000);}
+      else if(!e.isIntersecting&&run){run=false;clearInterval(loop);reset();}
+    });
+  },{threshold:.3});
+  io.observe(sec);
+})();
+
+/* ═══════════════════════════════════════
    FABLE — parallax, tilt 3D & micro-interacciones
 ═══════════════════════════════════════ */
 (function(){
@@ -3249,6 +3361,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   initDiscountCode();
   applyBookData();
   wrapAlinea();
+  drawFavicon(TH[curTheme]||TH.purple);
 });
 
 function wrapAlinea(){
