@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#0d0a1f" id="metaThemeColor">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>ALINEA — Convierte tus libros y notas en una galaxia de conocimiento</title>
-<meta name="description" content="ALINEA es un tracker de lectura donde tus libros, notas y subrayados se conectan en una galaxia interactiva. Local-first, privado y tuyo para siempre.">
+<title>ALINEA — Tu biblioteca, en una galaxia</title>
+<meta name="description" content="ALINEA es un espacio de lectura donde tus libros, notas y subrayados se conectan en una galaxia interactiva. Local-first, privado y tuyo para siempre.">
 <meta name="keywords" content="tracker de lectura, galaxia de conocimiento, notas de libros, subrayados, app de lectura privada, reading tracker, knowledge galaxy">
 <meta name="author" content="ALINEA">
 <!-- Open Graph -->
@@ -64,7 +64,7 @@ body::before{
 #starCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
 /* prevent any section from creating scroll */
-#how, #share, #connections, #privacy, #voices, #faq, #pricing, #personalize, #finale{
+#how, #share, #connections, #privacy, #voices, #faq, #pricing, #personalize, #finale, #affiliates{
   overflow:hidden;
   max-width:100vw;
 }
@@ -138,7 +138,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   box-shadow:0 0 50px rgba(139,92,246,.6),0 0 120px rgba(109,40,217,.3),0 0 200px rgba(109,40,217,.12);
   margin:0 auto 2.5rem;
   animation:orbFloat 7s ease-in-out infinite;
-  transition:background .8s,box-shadow .8s;
+  transition:background .8s,box-shadow .8s,transform .5s cubic-bezier(.16,1,.3,1);
 }
 @keyframes orbFloat{0%,100%{transform:translate(var(--px,0px),var(--py,0px))}50%{transform:translate(var(--px,0px),calc(var(--py,0px) - 14px))}}
 .hero-hl-wrap{position:relative;width:100%;margin-bottom:.8rem;}
@@ -442,6 +442,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 /* ══ 06 PRICING ══ */
 #pricing{padding:10vh 6%;}
 .pricing-inner{max-width:900px;margin:0 auto;}
+#affiliates{padding:8vh 6%;}
 
 /* grid — equal height both cards */
 .price-grid{
@@ -601,6 +602,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 /* ── BUTTONS ── */
 .btn-free-p{
   display:block;width:100%;text-align:center;
+  position:relative;z-index:1;
   font-family:'DM Mono',monospace;font-size:.48rem;
   letter-spacing:.14em;text-transform:uppercase;
   background:transparent;
@@ -611,9 +613,10 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   transition:all .3s;
 }
 .btn-free-p:hover{
-  border-color:rgba(196,181,253,.35);
-  color:rgba(196,181,253,.8);
-  background:rgba(139,92,246,.06);
+  border-color:rgba(196,181,253,.5);
+  color:rgba(196,181,253,.9);
+  background:rgba(139,92,246,.1);
+  box-shadow:0 0 26px rgba(139,92,246,.25);
 }
 .btn-pro-p{
   display:block;width:100%;text-align:center;
@@ -627,7 +630,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   transition:all .35s;
 }
 .btn-pro-p:hover{
-  box-shadow:0 0 55px rgba(139,92,246,.65),0 8px 28px rgba(0,0,0,.5);
+  box-shadow:0 0 70px rgba(139,92,246,.8),0 0 30px rgba(196,181,253,.5),0 8px 28px rgba(0,0,0,.5);
   transform:translateY(-2px);
 }
 
@@ -635,6 +638,12 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   font-family:'DM Mono',monospace;font-size:.4rem;
   letter-spacing:.07em;color:rgba(139,92,246,.22);
   text-align:center;margin-top:.8rem;
+}
+
+.pc-value-line{
+  font-family:'DM Mono',monospace;font-size:.58rem;
+  letter-spacing:.06em;color:var(--a2);opacity:.85;
+  text-align:center;margin-top:.5rem;line-height:1.5;
 }
 
 /* ── PRICE CLOSE ── */
@@ -728,6 +737,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
   #share{padding:10vh 5% !important;}
   #pricing{padding:10vh 5% !important;}
   #faq{padding:10vh 8% !important;}
+  #affiliates{padding:8vh 6% !important;}
   #finale{padding:14vh 5% !important;}
 
   /* global padding for all sections on mobile */
@@ -816,7 +826,7 @@ a,button{transition:all .28s cubic-bezier(.16,1,.3,1);}
 #finale::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:glowBreathe 8s ease-in-out infinite;pointer-events:none;}
 @keyframes glowBreathe{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
 .finale-inner{max-width:680px;width:100%;position:relative;z-index:2;}
-.finale-orb{width:72px;height:72px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff 0%,#e0d4ff 14%,#a78bfa 38%,#7c3aed 64%,#3b0764 100%);box-shadow:0 0 50px rgba(139,92,246,.65),0 0 120px rgba(109,40,217,.35),0 0 200px rgba(109,40,217,.15);margin:0 auto 2rem;animation:orbFloat 7s ease-in-out infinite;transition:background .8s,box-shadow .8s;}
+.finale-orb{width:72px;height:72px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff 0%,#e0d4ff 14%,#a78bfa 38%,#7c3aed 64%,#3b0764 100%);box-shadow:0 0 50px rgba(139,92,246,.65),0 0 120px rgba(109,40,217,.35),0 0 200px rgba(109,40,217,.15);margin:0 auto 2rem;animation:orbFloat 7s ease-in-out infinite;transition:background .8s,box-shadow .8s,transform .5s cubic-bezier(.16,1,.3,1);}
 .finale-logo{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--a2);display:block;margin-bottom:1.5rem;}
 .finale-head{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.8rem,6vw,4.6rem);line-height:1.08;letter-spacing:-.02em;color:var(--text);margin-bottom:1rem;}
 .finale-head em{font-style:italic;font-weight:400;color:var(--a2);}
@@ -841,7 +851,18 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 .f-logo{font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:.38em;text-transform:uppercase;color:var(--a2);}
 .f-tagline{font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,181,253,.22);text-decoration:none;transition:color .2s;}
 .f-tagline:hover{color:rgba(196,181,253,.5);}
-.f-hashtag{font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.18em;color:rgba(139,92,246,.28);}
+.f-hashtag{
+  font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;color:rgba(139,92,246,.4);
+  position:relative;display:inline-block;overflow:hidden;
+  transition:color .35s;
+}
+.f-hashtag::after{
+  content:'';position:absolute;top:0;left:-90%;width:55%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(196,181,253,.55),transparent);
+  transform:skewX(-20deg);pointer-events:none;transition:none;
+}
+a:hover>.f-hashtag{color:rgba(196,181,253,.85);}
+a:hover>.f-hashtag::after{left:140%;transition:left .75s ease;}
 .f-ig{font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.1em;color:rgba(196,181,253,.22);text-decoration:none;transition:color .2s;}
 .f-ig:hover{color:var(--a2);}
 .f-legal{display:flex;gap:1.2rem;}
@@ -984,10 +1005,11 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 }
 .share-tag{
   font-family:'DM Mono',monospace;
-  font-size:.46rem;letter-spacing:.2em;
+  font-size:.7rem;letter-spacing:.16em;
   text-transform:uppercase;
-  color:rgba(139,92,246,.4);
-  margin-top:.5rem;
+  color:rgba(139,92,246,.55);
+  margin-top:.8rem;
+  display:inline-block;
 }
 @media(max-width:900px){
   .share-grid{grid-template-columns:1fr;gap:3rem;}
@@ -1035,13 +1057,13 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 .ri.show .conn-line-1::before{transform:scaleY(1);}
 
 /* botones — barrido de brillo al hover */
-.nav-cta,.btn-pro-p,.promo-cta,.btn-primary{position:relative;overflow:hidden;}
-.nav-cta::after,.btn-pro-p::after,.promo-cta::after,.btn-primary::after{
+.nav-cta,.btn-pro-p,.btn-free-p,.promo-cta,.btn-primary{position:relative;overflow:hidden;}
+.nav-cta::after,.btn-pro-p::after,.btn-free-p::after,.promo-cta::after,.btn-primary::after{
   content:'';position:absolute;top:0;left:-90%;width:55%;height:100%;
   background:linear-gradient(105deg,transparent,rgba(255,255,255,.32),transparent);
   transform:skewX(-20deg);pointer-events:none;transition:none;
 }
-.nav-cta:hover::after,.btn-pro-p:hover::after,.promo-cta:hover::after,.btn-primary:hover::after{
+.nav-cta:hover::after,.btn-pro-p:hover::after,.btn-free-p:hover::after,.promo-cta:hover::after,.btn-primary:hover::after{
   left:140%;transition:left .75s ease;
 }
 
@@ -1307,7 +1329,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <!-- 01 HERO -->
 <section id="hero">
   <div class="hero-orb" id="mainOrb"></div>
-  <span class="hero-badge" id="heroBadge">✦ Tracker de lectura · Galaxia de conocimiento</span>
+  <span class="hero-badge" id="heroBadge">✦ Haciendo visible lo invisible</span>
   <div class="hero-hl-wrap">
     <h1 class="hero-hl" id="heroHeadline"></h1>
     <p class="hero-sub-inline" id="heroSub"></p>
@@ -1366,8 +1388,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
         </div>
         <div class="pda-grid">
           <div class="pda-book" style="--bd:.25s">
-            <div class="pda-cover"><img class="pda-cvimg" src="https://covers.openlibrary.org/b/isbn/9781101906118-L.jpg" alt="" loading="lazy" onerror="this.remove()"><i class="pda-spine"></i><b class="pda-nb">12</b><span class="pda-ci">📖</span><span class="pda-ct" id="pdBc0">La Vegetariana</span></div>
-            <div class="pda-bt" id="pdBt0">La Vegetariana</div><div class="pda-ba">Han Kang</div>
+            <div class="pda-cover"><img class="pda-cvimg" src="https://books.google.com/books/content?id=qmj7AwAAQBAJ&printsec=frontcover&img=1&zoom=1" alt="" loading="lazy" onerror="this.remove()"><i class="pda-spine"></i><b class="pda-nb">9</b><span class="pda-ci">📖</span><span class="pda-ct" id="pdBc0">Sapiens</span></div>
+            <div class="pda-bt" id="pdBt0">Sapiens</div><div class="pda-ba">Yuval Noah Harari</div>
           </div>
           <div class="pda-book" style="--bd:.55s">
             <div class="pda-cover"><img class="pda-cvimg" src="https://covers.openlibrary.org/b/isbn/9780593652886-L.jpg" alt="" loading="lazy" onerror="this.remove()"><i class="pda-spine"></i><b class="pda-nb">8</b><span class="pda-ci">📖</span><span class="pda-ct" id="pdBc1">The Creative Act</span></div>
@@ -1378,8 +1400,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
             <div class="pda-bt" id="pdBt2">Steve Jobs</div><div class="pda-ba">Walter Isaacson</div>
           </div>
           <div class="pda-book" style="--bd:1.15s">
-            <div class="pda-cover"><img class="pda-cvimg" src="https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg" alt="" loading="lazy" onerror="this.remove()"><i class="pda-spine"></i><b class="pda-nb">9</b><span class="pda-ci">📖</span><span class="pda-ct" id="pdBc3">Sapiens</span></div>
-            <div class="pda-bt" id="pdBt3">Sapiens</div><div class="pda-ba">Yuval Noah Harari</div>
+            <div class="pda-cover"><img class="pda-cvimg" src="https://books.google.com/books/content?id=MYim_gaQC2gC&printsec=frontcover&img=1&zoom=1" alt="" loading="lazy" onerror="this.remove()"><i class="pda-spine"></i><b class="pda-nb">12</b><span class="pda-ci">📖</span><span class="pda-ct" id="pdBc3">All About Love</span></div>
+            <div class="pda-bt" id="pdBt3">All About Love</div><div class="pda-ba">bell hooks</div>
           </div>
         </div>
         <div class="pd-fabwrap" id="pdFabWrap">
@@ -1591,7 +1613,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
 <section id="privacy">
   <div class="ri" style="text-align:center;max-width:760px;margin:0 auto;">
     <h2 class="priv-head" id="privHead">Your mind<br><em>belongs to you.</em></h2>
-    <p class="priv-sub">Unlike other apps, there is no account to create and no subscription to pay. Your library lives only on your device: no cloud, no tracking, nobody watching what you read. Yours forever.</p>
+    <p class="priv-sub">Unlike other apps, there is no account to create and no subscription to pay. Your library lives only on your device: no cloud, no tracking, nobody having access to your information.</p>
     <div class="pills-grid">
       <button class="pill-btn" style="--dur:5.5s;--delay:0s" id="pill0" data-label-en="🔍 No tracking" data-label-es="🔍 Sin rastreo" onclick="togglePill(this)">🔍 No tracking<div class="pill-popup">Zero analytics. Zero trackers. We genuinely don't know you were here.</div></button>
       <button class="pill-btn" style="--dur:6.2s;--delay:.8s" id="pill1" data-label-en="🚫 No data selling" data-label-es="🚫 Sin vender datos" onclick="togglePill(this)">🚫 No data selling<div class="pill-popup">Your reading life is yours. We don't know what you read, and we never will.</div></button>
@@ -1661,7 +1683,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <div class="share-head ri">
       <span class="eyebrow">Your discoveries, made visible</span>
       <h2 class="section-head" id="shareHead">Your reading becomes<br><em>stories worth sharing.</em></h2>
-      <p class="section-sub" style="max-width:560px;margin:1.5rem auto 0;">Every book you finish, every quote that moves you, every galaxy you build — ready to share. One tap. Yours forever.</p>
+      <p class="section-sub" style="max-width:560px;margin:1.5rem auto 0;">Every book you finish, every quote that moves you,<br>every galaxy you build — ready to share.</p>
     </div>
     <div class="share-grid">
       <div class="share-carousel-wrap ri d1">
@@ -1745,6 +1767,7 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
     <div class="ri" style="text-align:center;">
       <span class="eyebrow">Pricing</span>
       <h2 class="section-head">One payment.<br><em>Yours forever.</em></h2>
+      <div class="pc-value-line" id="priceValueLine" style="margin-top:1.3rem;">(Less than one year of any book-app subscription)</div>
     </div>
     <div class="price-grid">
       <div class="pc free ri">
@@ -1858,6 +1881,8 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   </div>
 </section>
 
+<div class="dv"></div>
+
 <!-- FOOTER -->
 <footer>
   <div class="f-orb" id="footerOrb"></div>
@@ -1865,14 +1890,10 @@ footer{padding:3rem 6% 2.5rem;border-top:1px solid rgba(139,92,246,.07);display:
   <a class="f-ig" href="https://www.instagram.com/alinea.work" target="_blank" rel="noopener">@alinea.work ↗</a>
   <a href="https://twitter.com/intent/tweet?text=I%20found%20ALINEA%20%E2%80%94%20and%20finally%20have%20a%20place%20where%20all%20my%20books%2C%20highlights%20and%20ideas%20live%20connected.%20My%20own%20knowledge%20galaxy.%20%F0%9F%AA%90%20alinea.work%20%23MakingVisibleTheInvisible" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer;" onclick="this.href='https://twitter.com/intent/tweet?text='+(document.documentElement.lang==='es'?'Encontr%C3%A9%20ALINEA%20%E2%80%94%20y%20por%20fin%20tengo%20un%20lugar%20donde%20viven%20todos%20mis%20libros%2C%20subrayados%20e%20ideas%20conectadas.%20Mi%20propia%20galaxia%20de%20conocimiento.%20%F0%9F%AA%90%20alinea.work%20%23MakingVisibleTheInvisible':'I%20found%20ALINEA%20%E2%80%94%20and%20finally%20have%20a%20place%20where%20all%20my%20books%2C%20highlights%20and%20ideas%20live%20connected.%20My%20own%20knowledge%20galaxy.%20%F0%9F%AA%90%20alinea.work%20%23MakingVisibleTheInvisible')"><div class="f-hashtag">#MakingVisibleTheInvisible</div></a>
   <a class="f-tagline" href="https://www.instagram.com/alinea.work" target="_blank" rel="noopener" id="creatorLink">Created by a reader, for readers.</a>
+  <a class="f-tagline" href="https://aliads.alinea.work" target="_blank" rel="noopener" id="affCta">Join the affiliate program →</a>
   <div class="f-legal">
     <button onclick="openM('mT')">Terms of Service</button>
     <button onclick="openM('mP')">Privacy Policy</button>
-  </div>
-  <div style="margin-top:1rem;text-align:center;opacity:.18;transition:opacity .4s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='.18'">
-    <div style="font-family:'DM Mono',monospace;font-size:.38rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;" id="affLabel">Creator Affiliate Program</div>
-    <a href="https://aliads.alinea.work" target="_blank" rel="noopener" style="font-family:'DM Mono',monospace;font-size:.42rem;letter-spacing:.1em;color:var(--a2);text-decoration:none;border-bottom:1px solid rgba(139,92,246,.25);padding-bottom:.1rem;">aliads.alinea.work ↗</a>
-    <div style="font-size:.38rem;color:var(--dim);margin-top:.35rem;font-family:'DM Mono',monospace;letter-spacing:.06em;" id="affSub">Earn $15 per sale · No cap · Paid automatically</div>
   </div>
   <div class="f-copy">Crafted with obsession. © 2026 ALINEA</div>
 </footer>
@@ -2053,7 +2074,7 @@ const T={
     slide3title:'Your galaxy forms itself.',slide3desc:"Your books connect automatically — themes, ideas and patterns emerge on their own. The Book Explorer lets you search and navigate every connection in depth. Available in Beta & Pro.",
     slide4title:'Your flight log.',slide4desc:'The Bitácora shows your reading stats, top keywords and galaxy density. The Advanced Bitácora — with full reports and deep analytics — is available in Pro.',
     privHead:'Your mind belongs to you.',
-    privSub:'Unlike other apps, there is no account to create and no subscription to pay. Your library lives only on your device: no cloud, no tracking, nobody watching what you read. Yours forever.',
+    privSub:'Unlike other apps, there is no account to create and no subscription to pay. Your library lives only on your device: no cloud, no tracking, nobody having access to your information.',
     privMicro:'We recommend creating regular backups of your galaxy.',
     privMicroPro:'ALINEA Pro reminds you automatically to do your backup — daily, weekly or monthly.',
     voicesEye:'Readers who found a home for their ideas',
@@ -2068,6 +2089,11 @@ const T={
     footerTag:'Created by a reader, for readers.',
     affLabel:'Creator Affiliate Program',
     affSub:'Earn $15 per sale · No cap · Paid automatically',
+    priceValueLine:'(Less than one year of any book-app subscription)',
+    affEyebrow:'For creators',
+    affHead:'Share ALINEA.<br><em>Get paid for every sale.</em>',
+    affSubline:'Are you a content creator?',
+    affCta:'Join the affiliate program →',
     stickyTag:'✦ Early Bird · Jun 1–15',
     stickyBtn:'Get ALINEA Pro →',
     promoHeadline:"The price goes up on June 16. No exceptions.",
@@ -2075,7 +2101,7 @@ const T={
     promoCta:'Get ALINEA Pro →',
     promoFine:'One-time payment · Lifetime access · All future updates',
     shareEye:'Your discoveries, made visible',
-    shareSub:'Every book you finish, every quote that moves you, every galaxy you build — ready to share. One tap. Yours forever.',
+    shareSub:'Every book you finish, every quote that moves you,<br>every galaxy you build — ready to share.',
     shareF1title:'Your galaxy is unique!',
     shareF1desc:'With ALINEA Pro you can edit the color of each book and category. A map of your mind that no one else has — because no one else has read exactly what you have.',
     shareF2title:'Book & quote stories',
@@ -2106,7 +2132,7 @@ const T={
     slide3title:'Tu galaxia se forma sola.',slide3desc:'Tus libros se conectan automáticamente — temas, ideas y patrones emergen solos. El Explorador de libros te permite navegar cada conexión en profundidad. Disponible en Beta & Pro.',
     slide4title:'Tu bitácora de vuelo.',slide4desc:'La Bitácora muestra tus estadísticas, keywords principales y densidad de tu galaxia. La Bitácora Avanzada — con reportes completos y analítica profunda — es exclusiva de Pro.',
     privHead:'Tu mente te pertenece.',
-    privSub:'A diferencia de otras apps, aquí no hay cuenta que crear ni suscripción que pagar. Tu biblioteca vive solo en tu dispositivo: sin nube, sin rastreo, sin que nadie vea lo que lees. Tuya para siempre.',
+    privSub:'A diferencia de otras apps, aquí no hay cuenta que crear ni suscripción que pagar. Tu biblioteca vive solo en tu dispositivo: sin nube, sin rastreo, sin que nadie tenga acceso a tu información.',
     privMicro:'Te recomendamos crear respaldos regulares de tu galaxia.',
     privMicroPro:'ALINEA Pro te recuerda automáticamente hacer tu respaldo — diario, semanal o mensual.',
     voicesEye:'Lectores que encontraron un hogar para sus ideas',
@@ -2121,6 +2147,11 @@ const T={
     footerTag:'Creado por un lector, para lectores.',
     affLabel:'Programa de Creadores Afiliados',
     affSub:'Gana $15 por venta · Sin límite · Pago automático',
+    priceValueLine:'(Menos que un año de suscripción a cualquier app de libros)',
+    affEyebrow:'Para creadores',
+    affHead:'Comparte ALINEA.<br><em>Gana dinero con cada venta.</em>',
+    affSubline:'¿Eres creador de contenido?',
+    affCta:'Únete al programa de afiliados →',
     stickyTag:'✦ Early Bird · Jun 1–15',
     stickyBtn:'Adquirir ALINEA Pro →',
     promoHeadline:'El precio sube el 16 de junio. Sin excepciones.',
@@ -2128,7 +2159,7 @@ const T={
     promoCta:'Adquirir ALINEA Pro →',
     promoFine:'Pago único · Acceso de por vida · Todas las actualizaciones',
     shareEye:'Tus descubrimientos, hechos visibles',
-    shareSub:'Cada libro que terminas, cada cita que te mueve, cada galaxia que construyes — lista para compartir. Un tap. Tuya para siempre.',
+    shareSub:'Cada libro que terminas, cada cita que te mueve,<br>cada galaxia que construyes — listo para compartir.',
     shareF1title:'¡Tu galaxia es única!',
     shareF1desc:'Con ALINEA Pro puedes editar el color de cada libro y categoría. Es un mapa de tu mente que nadie más tiene — porque nadie más ha leído exactamente lo que tú.',
     shareF2title:'Stories de libros y citas',
@@ -2151,12 +2182,12 @@ function setLang(l,btn){
   const hpc=document.getElementById('heroProCta');if(hpc)hpc.textContent=d.heroProCta;
   // hero — pick random headline in correct language
   const hlPairsEN=[
-    {h:'Everything you read,<br><em>turned into a galaxy.</em>', s:'ALINEA is a reading tracker where your books, notes and highlights connect into an interactive galaxy of knowledge.'},
+    {h:'Everything you read,<br><em>turned into a galaxy.</em>', s:'ALINEA is a reading space where your books, notes and highlights connect into an interactive galaxy of knowledge.'},
     {h:'You read it. You highlighted it.<br><em>Now actually keep it.</em>', s:'Log your books, capture your favorite ideas — ALINEA connects them into a living galaxy you can explore.'},
     {h:'Your books have been<br><em>talking to each other.</em>', s:'ALINEA maps your books, notes and highlights as stars in one interactive galaxy — so you finally see how your ideas connect.'}
   ];
   const hlPairsES=[
-    {h:'Todo lo que lees,<br><em>convertido en una galaxia.</em>', s:'ALINEA es un tracker de lectura donde tus libros, notas y subrayados se conectan en una galaxia interactiva de conocimiento.'},
+    {h:'Todo lo que lees,<br><em>convertido en una galaxia.</em>', s:'ALINEA es un espacio de lectura donde tus libros, notas y subrayados se conectan en una galaxia interactiva de conocimiento.'},
     {h:'Lo leíste. Lo subrayaste.<br><em>Ahora consérvalo de verdad.</em>', s:'Registra tus libros, guarda tus ideas favoritas — ALINEA las conecta en una galaxia viva que puedes explorar.'},
     {h:'Tus libros llevan años<br><em>hablando entre sí.</em>', s:'ALINEA mapea tus libros, notas y subrayados como estrellas de una galaxia interactiva — para que por fin veas cómo se conectan tus ideas.'}
   ];
@@ -2174,14 +2205,14 @@ function setLang(l,btn){
     subEl.style.animation='hlIn 1s .65s cubic-bezier(.16,1,.3,1) both';
   }
   const hb=document.getElementById('heroBadge');
-  if(hb)hb.textContent=curLang==='es'?'✦ Tracker de lectura · Galaxia de conocimiento':'✦ Reading tracker · Knowledge galaxy';
+  if(hb)hb.textContent=curLang==='es'?'✦ Haciendo visible lo invisible':'✦ Making visible the invisible';
   // phone demo — traducciones (UI real de la app, 6 fases)
   const pdES=curLang==='es';
   const pdT=pdES
     ?{eyebrow:'Míralo en acción',head:'Así se ve<br><em>tu conocimiento.</em>',
       steps:[['Agrega tus libros','Tu biblioteca con portadas, ratings y notas.'],['Escribe lo que te marca','Subrayados, citas y keywords en cada libro.'],['Tu galaxia se forma sola','Observa cómo tus libros llevaban años hablando entre sí — conexiones que nunca habías visto.'],['Explora tus ideas','Recuerda y encuentra cualquier concepto, frase o palabra clave en todo lo que has leído.'],['Tu bitácora de vuelo','El resumen de toda tu vida lectora: tu sistema más denso, tu top 5 y reportes.'],['Hazla tuya','Colores, nombre de tu biblioteca y respaldo en un archivo.']],
       count:'libros',search:'Buscar libros, autores, keywords…',f0:'Todos ▾',f1:'↓ Más reciente ▾',
-      books:['La Vegetariana','The Creative Act','Steve Jobs','Sapiens'],
+      books:['Sapiens','The Creative Act','Steve Jobs','All About Love'],
       sec:'Notas & Subrayados',cat:'Personal',pg:'Pág.',cmt:'Comentario (opcional)',dict:'Dictar',cam:'Cámara',
       bmT:'The Creative Act',
       tags:['#creatividad','#arte','#presencia'],kw:'→ Conecta con Steve Jobs y La Psicología del Dinero',
@@ -2200,7 +2231,7 @@ function setLang(l,btn){
     :{eyebrow:'See it in action',head:'This is what<br><em>your knowledge looks like.</em>',
       steps:[['Add your books','Your library with covers, ratings and notes.'],['Write what moves you','Highlights, quotes and keywords in every book.'],['Your galaxy forms itself','Watch your books talk to each other — connections you had never seen.'],['Explore your ideas','Remember and find any concept, quote or keyword across everything you have read.'],['Your flight log','A summary of your entire reading life: your densest system, your top 5 and reports.'],['Make it yours','Colors, your library name and a one-file backup.']],
       count:'books',search:'Search books, authors, keywords…',f0:'All ▾',f1:'↓ Most recent ▾',
-      books:['The Vegetarian','The Creative Act','Steve Jobs','Sapiens'],
+      books:['Sapiens','The Creative Act','Steve Jobs','All About Love'],
       sec:'Notes & Highlights',cat:'Personal',pg:'Page',cmt:'Comment (optional)',dict:'Dictate',cam:'Camera',
       bmT:'The Creative Act',
       tags:['#creativity','#art','#presence'],kw:'→ Connects with Steve Jobs & The Psychology of Money',
@@ -2219,10 +2250,10 @@ function setLang(l,btn){
   window._pdI18n=pdES
     ?{quote:'"La creatividad no es una habilidad rara. Es un aspecto fundamental del ser humano."',btnBase:'＋ Nota',btnActive:'✦ Guardar',
       main:'Mi Biblioteca',cats:['Personal','Literatura','Negocios','Filosofía','Ciencia'],kws:['disciplina','presente'],expKw:'disciplina',dlExp:'2.4 MB · Exportando…',dlDone:'2.4 MB · Descargado',wlAdded:'🚀 1 libro en camino a tu galaxia…',
-      planets:[['La Vegetariana','Creative Act'],['Cien Años','Steve Jobs'],['Psic. del Dinero','Zero to One']]}
+      planets:[['All About Love','Creative Act'],['Cien Años','Steve Jobs'],['Psic. del Dinero','Zero to One']]}
     :{quote:'"Creativity is not a rare ability. It is a fundamental aspect of being human."',btnBase:'+ Note',btnActive:'✦ Save',
       main:'My Library',cats:['Personal','Literature','Business','Philosophy','Science'],kws:['discipline','present'],expKw:'discipline',dlExp:'2.4 MB · Exporting…',dlDone:'2.4 MB · Downloaded',wlAdded:'🚀 1 book traveling to your galaxy…',
-      planets:[['The Vegetarian','Creative Act'],['100 Years','Steve Jobs'],['Money Psych.','Zero to One']]};
+      planets:[['All About Love','Creative Act'],['100 Years','Steve Jobs'],['Money Psych.','Zero to One']]};
   const pdSet=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
   const pdE=document.getElementById('pdEyebrow');if(pdE)pdE.textContent=pdT.eyebrow;
   const pdHd=document.getElementById('pdHead');if(pdHd)pdHd.innerHTML=pdT.head;
@@ -2457,6 +2488,13 @@ function setLang(l,btn){
   const fTag=document.querySelector('.f-tagline');if(fTag)fTag.textContent=d.footerTag;
   const affL=document.getElementById('affLabel');if(affL)affL.textContent=d.affLabel||'Creator Affiliate Program';
   const affS=document.getElementById('affSub');if(affS)affS.textContent=d.affSub||'Earn $15 per sale · No cap · Paid automatically';
+  // price value reframe line
+  const pvl=document.getElementById('priceValueLine');if(pvl)pvl.textContent=d.priceValueLine;
+  // affiliates section
+  const affEy=document.getElementById('affEyebrow');if(affEy)affEy.textContent=d.affEyebrow;
+  const affH=document.getElementById('affHead');if(affH)affH.innerHTML=d.affHead;
+  const affSl=document.getElementById('affSubline');if(affSl)affSl.textContent=d.affSubline;
+  const affC=document.getElementById('affCta');if(affC)affC.textContent=d.affCta;
   // sticky
   const st=document.querySelector('.scd-tag');if(st)st.textContent=d.stickyTag;
   const sb=document.querySelector('.scd-btn');if(sb)sb.textContent=d.stickyBtn;
@@ -2488,7 +2526,7 @@ function setLang(l,btn){
   }
   // share section
   const shEye=document.querySelector('#share .eyebrow');if(shEye)shEye.textContent=d.shareEye;
-  const shSub=document.querySelector('#share .section-sub');if(shSub)shSub.textContent=d.shareSub;
+  const shSub=document.querySelector('#share .section-sub');if(shSub)shSub.innerHTML=d.shareSub;
   const shTitles=document.querySelectorAll('.share-feature-title');
   const shDescs=document.querySelectorAll('.share-feature-desc');
   if(shTitles[0])shTitles[0].textContent=d.shareF1title;
@@ -2518,7 +2556,7 @@ function setLang(l,btn){
   resize();addEventListener('resize',resize);
   // fewer stars on mobile for performance
   const N=isMobile?90:Math.min(Math.floor(W*H/9000),120);
-  for(let i=0;i<N;i++)stars.push({x:Math.random()*1e4,y:Math.random()*1e4,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.08,r:Math.random()*1.6+.3,base:Math.random()*.3+.12,tp:Math.random()*Math.PI*2,ts:Math.random()*.018+.004});
+  for(let i=0;i<N;i++)stars.push({x:Math.random()*1e4,y:Math.random()*1e4,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.08,r:Math.random()*1.6+.3,base:Math.random()*.38+.2,tp:Math.random()*Math.PI*2,ts:Math.random()*.018+.004});
   function draw(ts){
     // throttle to 30fps on mobile
     if(isMobile&&ts-lastTime<33){rafId=requestAnimationFrame(draw);return;}
@@ -2925,7 +2963,7 @@ window.addEventListener('beforeunload', () => {
     quote:'"La creatividad no es una habilidad rara. Es un aspecto fundamental del ser humano."',
     btnBase:'＋ Nota',btnActive:'✦ Guardar',
     main:'Mi Biblioteca',cats:['Personal','Literatura','Negocios','Filosofía','Ciencia'],kws:['disciplina','presente'],expKw:'disciplina',dlExp:'2.4 MB · Exportando…',dlDone:'2.4 MB · Descargado',wlAdded:'🚀 1 libro en camino a tu galaxia…',
-    planets:[['La Vegetariana','Creative Act'],['Cien Años','Steve Jobs'],['Psic. del Dinero','Zero to One']]
+    planets:[['All About Love','Creative Act'],['Cien Años','Steve Jobs'],['Psic. del Dinero','Zero to One']]
   };}
 
   // ── fase 2: escritura + botón que se activa como en la app real ──
@@ -3330,15 +3368,19 @@ window.addEventListener('beforeunload', () => {
 (function(){
   const fine=window.matchMedia('(pointer:fine)').matches&&window.innerWidth>768;
   if(!fine)return;
-  // el orbe del hero sigue suavemente al cursor
+  // el orbe del hero y el de "tu galaxia te espera" siguen suavemente al cursor
   const orb=document.getElementById('mainOrb'),hero=document.getElementById('hero');
+  const ctaOrb=document.getElementById('ctaOrb');
   if(hero&&orb){
-    hero.addEventListener('mousemove',e=>{
+    let heroInView=true;
+    const heroObs=new IntersectionObserver(en=>{heroInView=en[0].isIntersecting;if(!heroInView){orb.style.setProperty('--px','0px');orb.style.setProperty('--py','0px');}},{threshold:0});
+    heroObs.observe(hero);
+    window.addEventListener('mousemove',e=>{
       const dx=(e.clientX/innerWidth-.5),dy=(e.clientY/innerHeight-.5);
-      orb.style.setProperty('--px',(dx*30).toFixed(1)+'px');
-      orb.style.setProperty('--py',(dy*20).toFixed(1)+'px');
+      const pxV=(dx*30).toFixed(1)+'px',pyV=(dy*20).toFixed(1)+'px';
+      if(heroInView){orb.style.setProperty('--px',pxV);orb.style.setProperty('--py',pyV);}
+      if(ctaOrb){ctaOrb.style.setProperty('--px',pxV);ctaOrb.style.setProperty('--py',pyV);}
     });
-    hero.addEventListener('mouseleave',()=>{orb.style.setProperty('--px','0px');orb.style.setProperty('--py','0px');});
   }
   // tilt 3D en testimonios y pricing
   document.querySelectorAll('.vc,.pc').forEach(card=>{
